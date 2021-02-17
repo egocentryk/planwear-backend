@@ -8,34 +8,36 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
+import { CompanyService } from './company.service';
 
 @Controller('company')
 export class CompanyController {
+  constructor(private readonly companyService: CompanyService) {}
+
   @Get()
   findAll(@Query() paginationQuery) {
-    const { limit, offset } = paginationQuery;
+    // const { limit, offset } = paginationQuery;
 
-    return `This action returns all companies. Limit: ${limit}, offset: ${offset}`;
+    return this.companyService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns #${id} of a company`;
+    return this.companyService.findOne(id);
   }
 
   @Post()
   create(@Body() body) {
-    return body;
-    // this action creates a company
+    return this.companyService.create(body);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body) {
-    return `This action updates #${id} company`;
+    return this.companyService.update(id, body);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `This action removes #${id} company`;
+    return this.companyService.remove(id);
   }
 }
