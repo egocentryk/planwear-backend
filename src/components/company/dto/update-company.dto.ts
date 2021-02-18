@@ -1,5 +1,4 @@
-export class UpdateCompanyDto {
-  readonly title?: string;
-  readonly content?: string;
-  readonly ownerId?: number;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateCompanyDto } from './create-company.dto';
+
+export class UpdateCompanyDto extends PartialType(CreateCompanyDto) {}
