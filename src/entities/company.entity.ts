@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import slugify from '../helpers/slugify';
 
 @Entity('companies')
 export class Company {
@@ -8,12 +9,17 @@ export class Company {
   @Column()
   title: string;
 
-  @Column({ nullable: true })
-  slug: string;
+  @Column()
+  slug!: string;
 
   @Column({ nullable: true })
   content: string;
 
   @Column()
   ownerId: number;
+
+  @BeforeInsert()
+  convertSlug(): void {
+    this.slug = slugify(this.title);
+  }
 }

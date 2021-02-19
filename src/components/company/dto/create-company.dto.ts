@@ -7,9 +7,6 @@ export class CreateCompanyDto {
   @IsString()
   readonly content: string;
 
-  @IsString()
-  readonly slug: string;
-
   @IsInt()
   readonly ownerId: number;
 }
