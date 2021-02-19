@@ -1,49 +1,53 @@
 import { NotFoundException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Company } from '../../entities/company.entity';
+import { CreateCompanyDto } from './dto/create-company.dto';
+import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Injectable()
 export class CompanyService {
-  private company: Company[] = [
-    {
-      id: 1,
-      title: 'Laboratorium Piękna',
-      slug: 'laboratorium-piekna',
-      content: 'Opis zakresu działalności firmy',
-      ownerId: ['Olga', 'Daria'],
-    },
-  ];
+  constructor(
+    @InjectRepository(Company)
+    private readonly companyRepository: Repository<Company>,
+  ) {}
 
   findAll() {
-    return this.company;
+    return this.companyRepository.find();
   }
 
-  findOne(id: string) {
-    const result = this.company.find((item) => item.id === +id);
+  async findOne(id: string) {
+    const company = await this.companyRepository.findOne(id);
 
-    if (!result) {
+    if (!company) {
       throw new NotFoundException(`Company #${id} not found`);
     }
 
-    return result;
+    return company;
   }
 
-  create(createCompanyDto: any) {
-    this.company.push(createCompanyDto);
+  create(createCompanyDto: CreateCompanyDto) {
+    const company = this.companyRepository.create(createCompanyDto);
+
+    return this.companyRepository.save(company);
   }
 
-  update(id: string, updateCompanyDto: any) {
-    const existingCompany = this.findOne(id);
+  async update(id: string, updateCompanyDto: UpdateCompanyDto) {
+    const company = await this.companyRepository.preload({
+      id: +id,
+      ...updateCompanyDto,
+    });
 
-    if (existingCompany) {
-      // update the existing entity
+    if (!company) {
+      throw new NotFoundException(`Company #${id} not found`);
     }
+
+    return this.companyRepository.save(company);
   }
 
-  remove(id: string) {
-    const companyIndex = this.company.findIndex((item) => item.id === +id);
+  async remove(id: string) {
+    const company = await this.findOne(id);
 
-    if (companyIndex >= 0) {
-      this.company.splice(companyIndex, 1);
-    }
+    return this.companyRepository.remove(company);
   }
 }
