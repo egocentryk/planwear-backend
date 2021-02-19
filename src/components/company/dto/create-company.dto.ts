@@ -1,4 +1,4 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 
 export class CreateCompanyDto {
   @IsString()
@@ -9,4 +9,8 @@ export class CreateCompanyDto {
 
   @IsInt()
   readonly ownerId: number;
+
+  @IsInt({ each: true })
+  @IsOptional()
+  readonly employees: number[];
 }
