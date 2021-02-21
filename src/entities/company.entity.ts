@@ -3,18 +3,15 @@ import {
   Column,
   Entity,
   JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
+  ManyToMany
 } from 'typeorm';
 import slugify from '../helpers/slugify';
 
+import { Abstract } from '../entities/abstract.entity';
 import { User } from '../entities/user.entity';
 
 @Entity('companies')
-export class Company {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Company extends Abstract {
   @Column()
   title: string;
 

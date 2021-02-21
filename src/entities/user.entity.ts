@@ -2,17 +2,15 @@ import {
   BeforeInsert,
   Column,
   Entity,
-  ManyToMany,
-  PrimaryGeneratedColumn,
+  ManyToMany
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
+
+import { Abstract } from '../entities/abstract.entity';
 import { Company } from '../entities/company.entity';
 
 @Entity('users')
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends Abstract {
   @Column({
     unique: true,
   })
