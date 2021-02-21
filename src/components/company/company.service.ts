@@ -13,11 +13,15 @@ export class CompanyService {
   ) {}
 
   findAll() {
-    return this.companyRepository.find();
+    return this.companyRepository.find({
+      relations: ['employees'],
+    });
   }
 
   async findOne(id: string) {
-    const company = await this.companyRepository.findOne(id);
+    const company = await this.companyRepository.findOne(id, {
+      relations: ['employees'],
+    });
 
     if (!company) {
       throw new NotFoundException(`Company #${id} not found`);
