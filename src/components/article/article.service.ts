@@ -13,11 +13,15 @@ export class ArticleService {
   ) {}
 
   findAll() {
-    return this.articleRepository.find();
+    return this.articleRepository.find({
+      relations: ['tags', 'user']
+    });
   }
 
   async findOne(id: string) {
-    const article = await this.articleRepository.findOne(id);
+    const article = await this.articleRepository.findOne(id, {
+      relations: ['tags', 'user']
+    });
 
     if (!article) {
       throw new NotFoundException(`Article #${id} not foundd`);
