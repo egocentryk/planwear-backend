@@ -4,7 +4,8 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
@@ -13,6 +14,7 @@ import { IsNotEmpty } from 'class-validator';
 import slugify from '../helpers/slugify';
 
 import { Abstract } from '../entities/abstract.entity';
+import { Comment } from '../entities/comment.entity';
 import { User } from '../entities/user.entity';
 import { Tag } from '../entities/tag.entity';
 
@@ -35,6 +37,9 @@ export class Article extends Abstract {
 
   @ManyToOne(() => User)
   author: User;
+
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments: Comment[];
 
   @ManyToMany(() => Tag)
   @JoinTable()
