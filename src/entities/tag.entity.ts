@@ -1,7 +1,8 @@
 import {
   BeforeInsert,
   Column,
-  Entity
+  Entity,
+  ManyToMany
 } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
@@ -10,6 +11,7 @@ import { IsNotEmpty } from 'class-validator';
 import slugify from '../helpers/slugify';
 
 import { Abstract } from '../entities/abstract.entity';
+import { Article } from '../entities/article.entity';
 
 @Entity('tags')
 export class Tag extends Abstract {
@@ -19,6 +21,12 @@ export class Tag extends Abstract {
 
   @Column()
   slug: string;
+
+  @ManyToMany(
+    (type) => Article,
+    article => article.tags,
+  )
+  articles: Article[];
 
   @BeforeInsert()
   convertSlug(): void {
