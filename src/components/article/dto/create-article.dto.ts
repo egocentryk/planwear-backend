@@ -8,7 +8,7 @@ export class CreateArticleDto {
   readonly content: string;
 
   @IsInt()
-  readonly authorId: number;
+  readonly author: number;
 
   @IsString({ each: true })
   @IsOptional()

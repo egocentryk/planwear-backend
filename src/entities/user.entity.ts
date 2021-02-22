@@ -2,11 +2,13 @@ import {
   BeforeInsert,
   Column,
   Entity,
+  OneToMany,
   ManyToMany
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
 
 import { Abstract } from '../entities/abstract.entity';
+import { Article } from '../entities/article.entity';
 import { Company } from '../entities/company.entity';
 
 @Entity('users')
@@ -39,6 +41,9 @@ export class User extends Abstract {
 
   @ManyToMany((type) => Company, (company) => company.employees)
   companies: Company[];
+
+  @OneToMany(() => Article, (article) => article.user)
+  articles: Article[];
 
   @BeforeInsert()
   toLowerCase(): void {

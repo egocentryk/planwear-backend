@@ -35,8 +35,8 @@ export class Article extends Abstract {
   })
   content: string;
 
-  @ManyToOne(() => User)
-  author: User;
+  @ManyToOne(() => User, (user) => user.articles)
+  user: User;
 
   @OneToMany(() => Comment, (comment) => comment.article)
   comments: Comment[];
