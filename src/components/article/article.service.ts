@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Tag } from 'src/entities/tag.entity';
 import { Repository } from 'typeorm';
 import { Article } from '../../entities/article.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -10,6 +11,8 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
+    @InjectRepository(Tag)
+    private readonly tagRepository: Repository<Tag>,
   ) {}
 
   findAll() {
@@ -30,16 +33,30 @@ export class ArticleService {
     return article;
   }
 
-  create(createArticleDto: CreateArticleDto) {
-    const article = this.articleRepository.create(createArticleDto);
+  async create(createArticleDto: CreateArticleDto) {
+    const tags = await Promise.all(
+      createArticleDto.tags.map(title => this.preloadTagByName(title)),
+    );
 
-    return this.articleRepository.save(article);
+    const article = this.articleRepository.create({
+      ...createArticleDto,
+      tags,
+    });
+
+    return this.articleRepository.save(article)
   }
 
   async update(id: string, updateArticleDto: UpdateArticleDto) {
+    const tags = 
+      updateArticleDto.tags && 
+      (await Promise.all(
+        updateArticleDto.tags.map(title => this.preloadTagByName(title)),
+      ));
+
     const article = await this.articleRepository.preload({
       id: +id,
       ...updateArticleDto,
+      tags,
     });
 
     if (!article) {
@@ -53,5 +70,15 @@ export class ArticleService {
     const article = await this.findOne(id);
 
     return this.articleRepository.remove(article);
+  }
+
+  private async preloadTagByName(title: string): Promise<Tag> {
+    const existingTag = await this.tagRepository.findOne({ title });
+
+    if (existingTag) {
+      return existingTag;
+    }
+
+    return this.tagRepository.create({ title });
   }
 }

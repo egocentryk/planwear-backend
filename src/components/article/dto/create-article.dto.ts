@@ -12,5 +12,5 @@ export class CreateArticleDto {
 
   @IsString({ each: true })
   @IsOptional()
-  readonly tag: string[];
+  readonly tags: string[];
 }

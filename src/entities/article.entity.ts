@@ -41,9 +41,15 @@ export class Article extends Abstract {
   @OneToMany(() => Comment, (comment) => comment.article)
   comments: Comment[];
 
-  @ManyToMany((type) => Tag, (tag) => tag.articles)
+  @ManyToMany(
+    (type) => Tag,
+    (tag) => tag.articles,
+    {
+      cascade: true,
+    }
+  )
   @JoinTable()
-  tags: string[];
+  tags: Tag[];
 
   @BeforeInsert()
   convertSlug(): void {
