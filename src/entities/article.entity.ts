@@ -15,8 +15,9 @@ import slugify from '../helpers/slugify';
 
 import { Abstract } from '../entities/abstract.entity';
 import { Comment } from '../entities/comment.entity';
-import { User } from '../entities/user.entity';
+import { Photo } from './photo.entity';
 import { Tag } from '../entities/tag.entity';
+import { User } from '../entities/user.entity';
 
 @Entity('articles')
 export class Article extends Abstract {
@@ -43,6 +44,9 @@ export class Article extends Abstract {
 
   @OneToMany(() => Comment, (comment) => comment.article)
   comments: Comment[];
+
+  @OneToMany(() => Photo, (photo) => photo.article)
+  photos: Photo[]
 
   @ManyToMany(
     (type) => Tag,

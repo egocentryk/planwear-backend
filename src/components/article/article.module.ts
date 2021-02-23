@@ -5,11 +5,12 @@ import { ArticleService } from './article.service';
 import { Article } from '../../entities/article.entity';
 import { Comment } from '../../entities/comment.entity';
 import { Event } from '../../entities/event.entity';
+import { Photo } from '../../entities/photo.entity';
 import { Tag } from '../../entities/tag.entity';
 import { User } from '../../entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Article, Comment, Event, Tag, User])],
+  imports: [TypeOrmModule.forFeature([Article, Comment, Event, Photo, Tag, User])],
   controllers: [ArticleController],
   providers: [ArticleService],
 })
