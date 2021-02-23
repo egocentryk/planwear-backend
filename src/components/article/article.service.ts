@@ -19,12 +19,15 @@ export class ArticleService {
   ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
-    const { limit, offset } = paginationQuery;
+    const { limit, offset, order = 'DESC' } = paginationQuery;
 
     return this.articleRepository.find({
       relations: ['tags', 'user'],
       skip: offset,
       take: limit,
+      order: {
+        id: order,
+      }
     });
   }
 
