@@ -35,6 +35,9 @@ export class Article extends Abstract {
   })
   content: string;
 
+  @Column({ default: 0 })
+  recommendations: number;
+
   @ManyToOne(() => User, (user) => user.articles)
   user: User;
 

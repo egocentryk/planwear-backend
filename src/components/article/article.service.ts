@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Tag } from 'src/entities/tag.entity';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { Article } from '../../entities/article.entity';
+import { Event } from '../../entities/event.entity';
+import { Tag } from 'src/entities/tag.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
@@ -14,6 +15,7 @@ export class ArticleService {
     private readonly articleRepository: Repository<Article>,
     @InjectRepository(Tag)
     private readonly tagRepository: Repository<Tag>,
+    private readonly connection: Connection,
   ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
@@ -75,6 +77,31 @@ export class ArticleService {
     const article = await this.findOne(id);
 
     return this.articleRepository.remove(article);
+  }
+
+  async recommendArticle(article: Article) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      article.recommendations++;
+
+      const recommendEvent = new Event();
+      recommendEvent.name = 'recommend_article';
+      recommendEvent.type = 'article';
+      recommendEvent.payload = { articleId: article.id };
+
+      await queryRunner.manager.save(article);
+      await queryRunner.manager.save(recommendEvent);
+
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   private async preloadTagByName(title: string): Promise<Tag> {

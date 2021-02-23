@@ -4,11 +4,12 @@ import { ArticleController } from './article.controller';
 import { ArticleService } from './article.service';
 import { Article } from '../../entities/article.entity';
 import { Comment } from '../../entities/comment.entity';
+import { Event } from '../../entities/event.entity';
 import { Tag } from '../../entities/tag.entity';
 import { User } from '../../entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Article, Comment, Tag, User])],
+  imports: [TypeOrmModule.forFeature([Article, Comment, Event, Tag, User])],
   controllers: [ArticleController],
   providers: [ArticleService],
 })
