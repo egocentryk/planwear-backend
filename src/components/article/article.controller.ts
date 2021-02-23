@@ -12,14 +12,15 @@ import {
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('articles')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
-    return this.articleService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.articleService.findAll(paginationQuery);
   }
 
   @Get(':id')

@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Article } from '../../entities/article.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class ArticleService {
@@ -15,9 +16,13 @@ export class ArticleService {
     private readonly tagRepository: Repository<Tag>,
   ) {}
 
-  findAll() {
+  findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+
     return this.articleRepository.find({
-      relations: ['tags', 'user']
+      relations: ['tags', 'user'],
+      skip: offset,
+      take: limit,
     });
   }
 
