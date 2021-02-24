@@ -6,11 +6,18 @@ import { AppService } from './app.service';
 import { CompanyModule } from './components/company/company.module';
 import { ArticleModule } from './components/article/article.module';
 
+import * as Joi from '@hapi/joi';
+
 @Module({
   imports: [
     ArticleModule,
     CompanyModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      validationSchema: Joi.object({
+        DATABASE_HOST: Joi.required(),
+        DATABASE_PORT: Joi.number().default(5432),
+      }),
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DATABASE_HOST,
