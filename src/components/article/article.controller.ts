@@ -14,6 +14,9 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('articles')
 @Controller('articles')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
