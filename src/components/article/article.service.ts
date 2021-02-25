@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { Article } from '../../entities/article.entity';
 import { Event } from '../../entities/event.entity';
-import { Tag } from '../..//entities/tag.entity';
+import { Tag } from '../../entities/tag.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
