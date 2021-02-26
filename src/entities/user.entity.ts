@@ -24,6 +24,21 @@ import { Abstract } from '../entities/abstract.entity';
 import { Article } from '../entities/article.entity';
 import { Company } from '../entities/company.entity';
 
+export enum UserRole {
+  ADMIN = 'admin',
+  MODERATOR = 'moderator',
+  OWNER = 'owner',
+  EMPLOYEE = 'employee',
+  CLIENT = 'client',
+  USER = 'user'
+}
+
+export enum UserStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  PENDING = 'pending'
+}
+
 @Entity('users')
 export class User extends Abstract {
   @Column({
@@ -61,6 +76,25 @@ export class User extends Abstract {
 
   @OneToMany(() => Article, (article) => article.user)
   articles: Article[];
+
+  @Column({
+    default: UserRole.USER,
+    enum: UserRole,
+    type: 'enum'
+  })
+  role: UserRole;
+
+  @Column({
+    default: false,
+  })
+  isBlocked: boolean;
+
+  @Column({
+    default: UserStatus.INACTIVE,
+    enum: UserStatus,
+    type: 'enum'
+  })
+  status: UserStatus;
 
   @BeforeInsert()
   toLowerCase(): void {
