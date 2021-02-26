@@ -14,7 +14,7 @@ const ssl = {
 }
 
 const sslOptions = {
-  development: '{}',
+  development: {},
   production: {
     ssl: {
       rejectUnauthorized: false
@@ -52,4 +52,5 @@ const sslOptions = {
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule {}
