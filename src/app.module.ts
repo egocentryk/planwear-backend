@@ -17,7 +17,7 @@ const sslOptions = {
   development: '{}',
   production: `{
     ssl: {
-      rejectUnathorized: false
+      rejectUnauthorized: false
     }
   }`
 }
