@@ -12,6 +12,7 @@ import * as Joi from '@hapi/joi';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
+        url: process.env.DATABASE_URL,
         type: 'postgres',
         host: process.env.DATABASE_HOST,
         port: +process.env.DATABASE_PORT,
