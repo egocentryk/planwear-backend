@@ -13,6 +13,15 @@ const ssl = {
   production: true
 }
 
+const sslOptions = {
+  development: '{}',
+  production: `{
+    ssl: {
+      rejectUnathorized: false
+    }
+  }`
+}
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -26,7 +35,8 @@ const ssl = {
         database: process.env.DATABASE_NAME,
         autoLoadEntities: true,
         synchronize: true,
-        ssl: ssl[process.env.NODE_ENV]
+        ssl: ssl[process.env.NODE_ENV],
+        extra: sslOptions[process.env.NODE_ENV]
       }),
     }),
     ArticleModule,
