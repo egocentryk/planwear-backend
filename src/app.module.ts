@@ -8,6 +8,11 @@ import { ArticleModule } from './components/article/article.module';
 
 import * as Joi from '@hapi/joi';
 
+const ssl = {
+  development: false,
+  production: true
+}
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -21,6 +26,7 @@ import * as Joi from '@hapi/joi';
         database: process.env.DATABASE_NAME,
         autoLoadEntities: true,
         synchronize: true,
+        ssl: ssl[process.env.NODE_ENV]
       }),
     }),
     ArticleModule,
