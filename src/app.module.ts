@@ -15,11 +15,11 @@ const ssl = {
 
 const sslOptions = {
   development: '{}',
-  production: `{
+  production: {
     ssl: {
       rejectUnauthorized: false
     }
-  }`
+  },
 }
 
 @Module({
@@ -36,7 +36,7 @@ const sslOptions = {
         autoLoadEntities: true,
         synchronize: true,
         ssl: ssl[process.env.NODE_ENV],
-        extra: sslOptions[process.env.NODE_ENV]
+        extra: sslOptions[process.env.NODE_ENV],
       }),
     }),
     ArticleModule,
