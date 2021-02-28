@@ -4,7 +4,8 @@ import {
   Entity,
   JoinTable,
   OneToMany,
-  ManyToMany
+  ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 import slugify from '../helpers/slugify';
 
@@ -23,8 +24,8 @@ export class Company extends Abstract {
   @Column({ nullable: true })
   content: string;
 
-  @Column()
-  ownerId: number;
+  @ManyToOne(() => User, (owner) => owner.companies)
+  owner: User;
 
   @JoinTable()
   @ManyToMany((type) => User, (user) => user.companies)
