@@ -3,12 +3,14 @@ import {
   Column,
   Entity,
   JoinTable,
+  OneToMany,
   ManyToMany
 } from 'typeorm';
 import slugify from '../helpers/slugify';
 
 import { Abstract } from '../entities/abstract.entity';
 import { User } from '../entities/user.entity';
+import { ServiceCategory } from './service-category.entity';
 
 @Entity('companies')
 export class Company extends Abstract {
@@ -27,6 +29,9 @@ export class Company extends Abstract {
   @JoinTable()
   @ManyToMany((type) => User, (user) => user.companies)
   employees: number[];
+
+  @OneToMany(() => ServiceCategory, (servicecategory) => servicecategory.company)
+  servicecategories: ServiceCategory[];
 
   @BeforeInsert()
   convertSlug(): void {
