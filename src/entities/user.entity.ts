@@ -103,7 +103,7 @@ export class User extends Abstract {
 
   @BeforeInsert()
   hash(): void {
-    this.password = bcrypt.hashSync(this.password, 0);
+    this.password = bcrypt.hashSync(this.password, 12);
   }
 
   compare(unencryptedPassword: string): boolean {
