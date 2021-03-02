@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { CompanyModule } from './components/company/company.module';
 import { ArticleModule } from './components/article/article.module';
 
+import appConfig from './config/app.config';
+
 import * as Joi from '@hapi/joi';
 
 const ssl = {
@@ -42,6 +44,7 @@ const sslOptions = {
     ArticleModule,
     CompanyModule,
     ConfigModule.forRoot({
+      load: [appConfig],
       validationSchema: Joi.object({
         DATABASE_HOST: Joi.required(),
         DATABASE_PORT: Joi.number().default(5432),

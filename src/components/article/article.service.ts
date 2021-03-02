@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { Article } from '../../entities/article.entity';
@@ -8,6 +9,8 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
+import articleConfig from './config/article.config';
+
 @Injectable()
 export class ArticleService {
   constructor(
@@ -16,7 +19,11 @@ export class ArticleService {
     @InjectRepository(Tag)
     private readonly tagRepository: Repository<Tag>,
     private readonly connection: Connection,
-  ) {}
+    @Inject(articleConfig.KEY)
+    private readonly articlesConfiguration: ConfigType<typeof articleConfig>
+  ) {
+    console.log(articlesConfiguration.foo);
+  }
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset, order = 'DESC' } = paginationQuery;
