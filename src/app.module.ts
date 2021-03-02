@@ -48,6 +48,8 @@ const sslOptions = {
       validationSchema: Joi.object({
         DATABASE_HOST: Joi.required(),
         DATABASE_PORT: Joi.number().default(5432),
+        NODE_ENV: Joi.string()
+          .valid('development', 'production', 'staging', 'test'),
       }),
     }),
     
