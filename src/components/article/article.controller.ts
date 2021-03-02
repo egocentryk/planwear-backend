@@ -7,6 +7,7 @@ import {
   Patch,
   Delete,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 
 import { ArticleService } from './article.service';
@@ -37,7 +38,7 @@ export class ArticleController {
   }
 
   @Patch()
-  update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
+  update(@Param('id') id: string, @Body(ValidationPipe) updateArticleDto: UpdateArticleDto) {
     return this.articleService.update(id, updateArticleDto);
   }
 
