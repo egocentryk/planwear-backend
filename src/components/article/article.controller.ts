@@ -25,7 +25,8 @@ export class ArticleController {
 
   @Public()
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
+  async findAll(@Query() paginationQuery: PaginationQueryDto) {
+    await new Promise(resolve => setTimeout(resolve, 5000));
     return this.articleService.findAll(paginationQuery);
   }
 
