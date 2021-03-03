@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import {
+  ConfigModule,
+  ConfigService
+} from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -28,19 +31,21 @@ const sslOptions = {
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        url: process.env.DATABASE_URL,
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        url: configService.get('DATABASE_URL'),
         type: 'postgres',
-        host: process.env.DATABASE_HOST,
-        port: +process.env.DATABASE_PORT,
-        username: process.env.DATABASE_USER,
-        password: process.env.DATABASE_PASS,
-        database: process.env.DATABASE_NAME,
+        host: configService.get('DATABASE_HOST'),
+        port: +configService.get('DATABASE_PORT'),
+        username: configService.get('DATABASE_USER'),
+        password: configService.get('DATABASE_PASS'),
+        database: configService.get('DATABASE_NAME'),
         autoLoadEntities: true,
         synchronize: true,
-        ssl: ssl[process.env.NODE_ENV],
-        extra: sslOptions[process.env.NODE_ENV],
+        ssl: ssl[configService.get('NODE_ENV')],
+        extra: sslOptions[configService.get('NODE_ENV')],
       }),
+      inject: [ConfigService],
     }),
     ArticleModule,
     CompanyModule,
