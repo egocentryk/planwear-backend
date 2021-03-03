@@ -59,7 +59,6 @@ const sslOptions = {
       }),
     }),
     CommonModule,
-    
   ],
   controllers: [AppController],
   providers: [AppService],

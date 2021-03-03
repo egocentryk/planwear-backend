@@ -8,7 +8,7 @@ import {
 } from '@nestjs/swagger';
 
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
-import { ApiKeyGuard } from './common/guards/api-key.guard';
+import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -36,6 +36,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalInterceptors(new WrapResponseInterceptor());
 
   await app.listen(process.env.PORT || 3000);
 }
