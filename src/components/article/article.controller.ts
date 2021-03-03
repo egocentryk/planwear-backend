@@ -16,12 +16,14 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @ApiTags('articles')
 @Controller('articles')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
+  @Public()
   @Get()
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.articleService.findAll(paginationQuery);
