@@ -31,7 +31,6 @@ const sslOptions = {
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         url: configService.get('DATABASE_URL'),
         type: 'postgres',
@@ -49,7 +48,9 @@ const sslOptions = {
     }),
     ArticleModule,
     CompanyModule,
+    CommonModule,
     ConfigModule.forRoot({
+      isGlobal: true,
       load: [appConfig],
       validationSchema: Joi.object({
         DATABASE_HOST: Joi.required(),
@@ -58,7 +59,6 @@ const sslOptions = {
           .valid('development', 'production', 'staging', 'test'),
       }),
     }),
-    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
