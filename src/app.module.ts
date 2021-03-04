@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
 import {
   ConfigModule,
   ConfigService
@@ -58,6 +59,9 @@ const sslOptions = {
         NODE_ENV: Joi.string()
           .valid('development', 'production', 'staging', 'test'),
       }),
+    }),
+    MulterModule.register({
+      dest: './src/files',
     }),
   ],
   controllers: [AppController],
