@@ -15,7 +15,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../../common/decorators/public.decorator';
+import { ParseIntPipe } from '../../common/pipes/parse-int.pipe';
 
 @ApiTags('users')
 @Controller('users')
@@ -26,5 +27,10 @@ export class UserController {
   @Get()
   async findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.userService.findAll(paginationQuery);
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: string) {
+    return this.userService.findOne(id);
   }
 }
