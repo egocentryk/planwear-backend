@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { CompanyModule } from './components/company/company.module';
 import { ArticleModule } from './components/article/article.module';
 import { CommonModule } from './common/common.module';
+import { UserModule } from './components/user/user/user.module';
 
 import appConfig from './config/app.config';
 
@@ -63,6 +64,7 @@ const sslOptions = {
     MulterModule.register({
       dest: './src/files',
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
