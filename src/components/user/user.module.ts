@@ -20,7 +20,6 @@ import { JwtStrategy } from '../auth/jwt.strategy';
           expiresIn: `${configService.get('JWT_EXPIRATION_TIME')}s`,
         },
       }),
-      imports: [ConfigModule],
       inject: [ConfigService],
     }),
     PassportModule.register({
