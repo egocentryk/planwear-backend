@@ -7,6 +7,8 @@ import {
   Patch,
   Delete,
   Query,
+  UploadedFile,
+  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
 
@@ -18,6 +20,13 @@ import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from '../../common/decorators/public.decorator';
 import { ParseIntPipe } from '../../common/pipes/parse-int.pipe';
+
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import {
+  editFileName,
+  imageFilter
+} from '../../utils/file-upload.utils';
 
 @ApiTags('articles')
 @Controller('articles')
