@@ -7,6 +7,7 @@ import {
   Patch,
   Delete,
   Query,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -17,6 +18,8 @@ import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from '../../common/decorators/public.decorator';
 import { ParseIntPipe } from '../../common/pipes/parse-int.pipe';
+import { LoginUserDto } from './dto/login-user.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('users')
 @Controller('users')
@@ -29,6 +32,7 @@ export class UserController {
     return this.userService.findAll(paginationQuery);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.userService.findOne(id);
@@ -37,6 +41,11 @@ export class UserController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
+  }
+
+  @Post('/login')
+  login(@Body() loginUserDto: LoginUserDto) {
+    return this.userService.login(loginUserDto);
   }
 
   @Patch(':id')

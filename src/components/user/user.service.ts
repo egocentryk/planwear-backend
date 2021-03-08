@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
@@ -54,6 +55,33 @@ export class UserService {
         ...user.toJSON(),
         token
       }
+    }
+  }
+
+  async login({
+    email,
+    password
+  }): Promise<LoginUserDto> {
+    const user = await this.userRepository.findOne({
+      where: {
+        email,
+      }
+    });
+
+    const isValid = user.compare(password);
+
+    if (!isValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const payload = {
+      username: user.username,
+    };
+    const token = this.jwtService.sign(payload);
+
+    return {
+      ...user,
+      token
     }
   }
 
