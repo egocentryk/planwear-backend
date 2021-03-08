@@ -13,7 +13,7 @@ export class UploadArticlePhotoDTO {
 
   @IsNotEmpty()
   @IsNumber()
-  article: number;
+  article: string | any;
 
   @IsNotEmpty()
   @IsString()

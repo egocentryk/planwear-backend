@@ -27,6 +27,7 @@ import {
   editFileName,
   imageFilter
 } from '../../utils/file-upload.utils';
+import { UploadArticlePhotoDTO } from './dto/upload-article-photo.dto';
 
 @ApiTags('articles')
 @Controller('articles')
@@ -47,6 +48,27 @@ export class ArticleController {
   @Post()
   create(@Body() createArticleDto: CreateArticleDto) {
     return this.articleService.create(createArticleDto);
+  }
+
+  @Post('/upload/:id')
+  @UseInterceptors(FileInterceptor('image', {
+    fileFilter: imageFilter,
+    storage: diskStorage({
+      destination: './src/files',
+      filename: editFileName
+    }),
+  }))
+  async uploadFile(
+    @Body() uploadArticlePhotoDto: UploadArticlePhotoDTO,
+    @Param('id') id: string,
+    @UploadedFile() file
+  ) {
+    const photo = uploadArticlePhotoDto;
+
+    photo.article = id;
+    photo.filename = file.filename;
+
+    return this.articleService.uploadArticlePhoto(photo);
   }
 
   @Patch()

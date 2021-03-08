@@ -4,9 +4,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { Article } from '../../entities/article.entity';
 import { Event } from '../../entities/event.entity';
+import { Photo } from '../../entities/photo.entity';
 import { Tag } from '../../entities/tag.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { UploadArticlePhotoDTO } from './dto/upload-article-photo.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 import articleConfig from './config/article.config';
@@ -16,6 +18,8 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
+    @InjectRepository(Photo)
+    private readonly photoRepository: Repository<Photo>,
     @InjectRepository(Tag)
     private readonly tagRepository: Repository<Tag>,
     private readonly connection: Connection,
@@ -122,5 +126,11 @@ export class ArticleService {
     }
 
     return this.tagRepository.create({ title });
+  }
+
+  uploadArticlePhoto(uploadArticlePhotoDto: UploadArticlePhotoDTO) {
+    const photo = this.photoRepository.create(uploadArticlePhotoDto);
+
+    return this.photoRepository.save(photo);
   }
 }
