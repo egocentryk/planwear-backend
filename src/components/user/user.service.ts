@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
@@ -12,6 +13,7 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly connection: Connection,
+    private readonly jwtService: JwtService
   ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
@@ -39,7 +41,20 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     const user = this.userRepository.create(createUserDto);
 
-    return this.userRepository.save(user);
+    await this.userRepository.save(user);
+
+    const payload = {
+      username: user.username,
+    };
+
+    const token = this.jwtService.sign(payload);
+
+    return {
+      user: {
+        ...user.toJSON(),
+        token
+      }
+    }
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
