@@ -1,21 +1,18 @@
 import {
   BeforeInsert,
   Column,
-  Entity,
-  ManyToOne
+  Entity
 } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 
+import { Abstract } from './abstract.entity';
+
 import slugify from '../helpers/slugify';
 
-import { Abstract } from './abstract.entity';
-import { User } from './user.entity';
-import { ProductCategory } from './product-category.entity';
-
-@Entity('products')
-export class Product extends Abstract {
+@Entity('product_categories')
+export class ProductCategory extends Abstract {
   @Column()
   @IsNotEmpty()
   title: string;
@@ -25,17 +22,6 @@ export class Product extends Abstract {
   })
   @IsNotEmpty()
   slug: string;
-
-  @Column({
-    nullable: true,
-  })
-  content: string;
-
-  @ManyToOne(() => ProductCategory)
-  category: ProductCategory;
-
-  @ManyToOne(() => User)
-  author: User;
 
   @BeforeInsert()
   convertSlug(): void {
