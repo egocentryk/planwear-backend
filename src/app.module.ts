@@ -42,7 +42,7 @@ const sslOptions = {
         password: configService.get('DATABASE_PASS'),
         database: configService.get('DATABASE_NAME'),
         autoLoadEntities: true,
-        synchronize: true,
+        synchronize: true, /* development mode ONLY!!! */
         ssl: ssl[configService.get('NODE_ENV')],
         extra: sslOptions[configService.get('NODE_ENV')],
       }),
