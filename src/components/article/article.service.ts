@@ -10,6 +10,7 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { UploadArticlePhotoDTO } from './dto/upload-article-photo.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { InjectTwilio, TwilioClient } from 'nestjs-twilio';
 
 import articleConfig from './config/article.config';
 
@@ -24,9 +25,23 @@ export class ArticleService {
     private readonly tagRepository: Repository<Tag>,
     private readonly connection: Connection,
     @Inject(articleConfig.KEY)
-    private readonly articlesConfiguration: ConfigType<typeof articleConfig>
+    private readonly articlesConfiguration: ConfigType<typeof articleConfig>,
+    @InjectTwilio()
+    private readonly twilioClient: TwilioClient,
   ) {
     console.log(articlesConfiguration.foo);
+  }
+
+  async sendSMS() {
+    try {
+      return await this.twilioClient.messages.create({
+        body: 'SMS Body',
+        from: process.env.TWILIO_PHONE_NUMBER,
+        to: process.env.TARGET_PHONE_NUMBER,
+      });
+    } catch (e) {
+      return e;
+    }
   }
 
   findAll(paginationQuery: PaginationQueryDto) {
@@ -68,8 +83,8 @@ export class ArticleService {
   }
 
   async update(id: string, updateArticleDto: UpdateArticleDto) {
-    const tags = 
-      updateArticleDto.tags && 
+    const tags =
+      updateArticleDto.tags &&
       (await Promise.all(
         updateArticleDto.tags.map(title => this.preloadTagByName(title)),
       ));
