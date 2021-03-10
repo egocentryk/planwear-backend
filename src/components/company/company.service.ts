@@ -38,7 +38,7 @@ export class CompanyService {
 
   async update(id: string, updateCompanyDto: UpdateCompanyDto) {
     const company = await this.companyRepository.preload({
-      id: +id,
+      id: id,
       ...updateCompanyDto,
     });
 

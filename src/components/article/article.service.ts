@@ -90,7 +90,7 @@ export class ArticleService {
       ));
 
     const article = await this.articleRepository.preload({
-      id: +id,
+      id: id,
       ...updateArticleDto,
       tags,
     });
