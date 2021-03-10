@@ -39,6 +39,7 @@
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "nestjs-twilio": "^1.0.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -47,6 +48,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
     "swagger-ui-express": "^4.1.6",
+    "twilio": "^3.57.0",
     "typeorm": "^0.2.31"
   },
   "devDependencies": {

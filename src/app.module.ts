@@ -5,6 +5,7 @@ import {
   ConfigService
 } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TwilioModule } from 'nestjs-twilio';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CompanyModule } from './components/company/company.module';
@@ -32,6 +33,13 @@ const sslOptions = {
 
 @Module({
   imports: [
+    TwilioModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        accountSid: configService.get('TWILIO_ACCOUNT_SID'),
+        authToken: configService.get('TWILIO_AUTH_TOKEN'),
+      }),
+      inject: [ConfigService],
+    }),
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         url: configService.get('DATABASE_URL'),
