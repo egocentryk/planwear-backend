@@ -4,7 +4,11 @@
 
 ## Description
 
-Rest API application for PlanWEAR, build in [Nest](https://github.com/nestjs/nest) framework.
+Rest API application for PlanWEAR (Manage appointments & organize schedules), build in [Nest](https://github.com/nestjs/nest) framework.
+
+## Current status
+
+**Work in progress** - pre-alpha stage!!!
 
 ## Installation
 
