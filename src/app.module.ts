@@ -44,11 +44,11 @@ const sslOptions = {
       useFactory: (configService: ConfigService) => ({
         url: configService.get('DATABASE_URL'),
         type: 'postgres',
-        host: configService.get('DATABASE_HOST'),
-        port: +configService.get('DATABASE_PORT'),
-        username: configService.get('DATABASE_USER'),
-        password: configService.get('DATABASE_PASS'),
-        database: configService.get('DATABASE_NAME'),
+        host: configService.get('TYPEORM_HOST'),
+        port: +configService.get('TYPEORM_PORT'),
+        username: configService.get('TYPEORM_USERNAME'),
+        password: configService.get('TYPEORM_PASSWORD'),
+        database: configService.get('TYPEORM_DATABASEE'),
         autoLoadEntities: true,
         synchronize: true, /* development mode ONLY!!! */
         ssl: ssl[configService.get('NODE_ENV')],
@@ -63,8 +63,8 @@ const sslOptions = {
       isGlobal: true,
       load: [appConfig],
       validationSchema: Joi.object({
-        DATABASE_HOST: Joi.required(),
-        DATABASE_PORT: Joi.number().default(5432),
+        TYPEORM_HOST: Joi.required(),
+        TYPEORM_PORT: Joi.number().default(5432),
         NODE_ENV: Joi.string()
           .valid('development', 'production', 'staging', 'test'),
       }),
