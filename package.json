@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "migration:generate": "ts-node node_modules/typeorm/cli.js migration:generate -n",
+    "migration:generate": "ts-node node_modules/typeorm/cli.js migration:generate",
     "migration:run": "ts-node node_modules/typeorm/cli.js migration:run",
     "migration:revert": "ts-node node_modules/typeorm/cli.js migration:revert",
     "prestart:prod": "rimraf dist && npm run build",
