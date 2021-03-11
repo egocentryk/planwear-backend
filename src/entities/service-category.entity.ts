@@ -18,7 +18,7 @@ import { Company } from './company.entity';
 
 import slugify from '../helpers/slugify';
 
-@Entity('service_category')
+@Entity('service_categories')
 export class ServiceCategory extends Abstract {
   @Column()
   @IsNotEmpty()
