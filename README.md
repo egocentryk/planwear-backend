@@ -12,7 +12,7 @@ Rest API application for PlanWEAR (Manage appointments & organize schedules), bu
 
 ## External services
 
-PlanWAER application will be used [Twilio](https://www.twilio.com/) external communication API as SMS provider. The following environmental variables are required:
+PlanWEAR application will be used [Twilio](https://www.twilio.com/) external communication API as SMS provider. The following environmental variables are required:
 
 - TWILIO_ACCOUNT_SID
 - TWILIO_AUTH_TOKEN
@@ -30,6 +30,25 @@ If you don't want register Twilio account right now, you may want to remove/comm
 ```
 
 Important: Twilio credentials, while not neccessary needed at the moment, **will be required** in near future.
+
+## Entities
+
+[x] Abstract (extends other entities with id [uuid], createdAt & updatedAt fields)
+[x] Appointment
+[x] Article
+[x] Comment
+[x] Company
+[x] Photo
+[x] ProductCategory
+[x] Product
+[x] Schedule
+[x] ServiceCategory
+[ ] ServicesBooked
+[ ] ServicesProvided
+[x] Service
+[x] Tag
+[x] Token
+[x] User
 
 ## Installation
 
