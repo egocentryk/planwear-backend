@@ -6,6 +6,12 @@
 
 Rest API application for PlanWEAR (Manage appointments & organize schedules), build in [Nest](https://github.com/nestjs/nest) framework.
 
+## Database Structure
+
+**Work in progress** - nothing final yet, nightly tweaks are made!!! Diagram may not represent current entity models.
+
+![PostgreSQL Database Structure](https://restyled.pl/dev/db_diagram.png)
+
 ## Current status
 
 **Work in progress** - pre-alpha stage!!!
