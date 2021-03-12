@@ -97,12 +97,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint-staged && yarn tsc:compile-check"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "*.ts": [
-      "yarn eslint"
+      "eslint"
     ]
   }
 }
