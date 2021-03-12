@@ -50,6 +50,10 @@ Important: Twilio credentials, while not neccessary needed at the moment, **will
 [x] Token  
 [x] User  
 
+## Migrations
+
+Not set-up yet, work in progress. TypeORM synchronize option set on true - development mode ONLY, not suited for production!!!
+
 ## Installation
 
 ```bash
