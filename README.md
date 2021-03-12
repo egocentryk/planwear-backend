@@ -8,7 +8,7 @@ Rest API application for PlanWEAR (Manage appointments & organize schedules), bu
 
 ## Database Structure
 
-**Work in progress** - nothing final yet, nightly tweaks are made!!! Diagram may not represent current entity models.
+**Work in progress** - nothing final yet, nightly tweaks are made!!! Diagram may not represent current entities model.
 
 ![PostgreSQL Database Structure](https://restyled.pl/dev/db_diagram.png)
 
@@ -49,8 +49,8 @@ Important: Twilio credentials, while not neccessary needed at the moment, **will
 [x] Product  
 [x] Schedule  
 [x] ServiceCategory  
-[ ] ServicesBooked  
-[ ] ServicesProvided  
+[x] ServicesBooked  
+[x] ServicesProvided  
 [x] Service  
 [x] Tag  
 [x] Token  
