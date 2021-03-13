@@ -1,10 +1,16 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException
+} from '@nestjs/common';
+
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
@@ -102,5 +108,18 @@ export class UserService {
     const user = await this.findOne(id);
 
     return this.userRepository.remove(user);
+  }
+
+  async changeRole(id: string, updateRoleUserDto: UpdateRoleUserDto) {
+    const user = await this.userRepository.preload({
+      id: id,
+      ...updateRoleUserDto,
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User #${id} not found`);
+    }
+
+    return this.userRepository.save(user);
   }
 }
