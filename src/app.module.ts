@@ -12,6 +12,8 @@ import { CompanyModule } from './components/company/company.module';
 import { ArticleModule } from './components/article/article.module';
 import { CommonModule } from './common/common.module';
 import { UserModule } from './components/user/user.module';
+import { AppointmentController } from './components/appointment/appointment.controller';
+import { AppointmentModule } from './components/appointment/appointment.module';
 
 import appConfig from './config/app.config';
 
@@ -73,8 +75,9 @@ const sslOptions = {
       dest: './src/files',
     }),
     UserModule,
+    AppointmentModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AppointmentController],
   providers: [AppService],
 })
 
