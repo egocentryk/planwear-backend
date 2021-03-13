@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreateArticleDto {
   @IsString()
@@ -7,8 +7,8 @@ export class CreateArticleDto {
   @IsString()
   readonly content: string;
 
-  @IsInt()
-  readonly author: number;
+  @IsString()
+  readonly author: string;
 
   @IsString({ each: true })
   @IsOptional()
