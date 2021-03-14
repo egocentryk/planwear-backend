@@ -23,16 +23,21 @@ export class UserService {
     private readonly jwtService: JwtService
   ) {}
 
-  findAll(paginationQuery: PaginationQueryDto) {
+  async findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset, order = 'DESC' } = paginationQuery;
 
-    return this.userRepository.find({
+    const users = await this.userRepository.find({
       skip: offset,
       take: limit,
       order: {
         id: order,
       }
     });
+
+    return {
+      users,
+      status: true,
+    };
   }
 
   async findOne(id: string) {
