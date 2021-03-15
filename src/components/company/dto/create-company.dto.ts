@@ -7,8 +7,8 @@ export class CreateCompanyDto {
   @IsString()
   readonly content: string;
 
-  @IsInt()
-  readonly ownerId: number;
+  @IsString()
+  readonly owner: string;
 
   @IsInt({ each: true })
   @IsOptional()
