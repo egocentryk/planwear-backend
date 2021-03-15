@@ -28,4 +28,9 @@ export class AppointmentController {
   async findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.appointmentService.findAll(paginationQuery);
   }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.appointmentService.findOne(id);
+  }
 }

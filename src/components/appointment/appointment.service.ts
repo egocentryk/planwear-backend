@@ -29,4 +29,14 @@ export class AppointmentService {
       }
     });
   }
+
+  async findOne(id: string) {
+    const appointment = await this.appointmentRepository.findOne(id);
+
+    if (!appointment) {
+      throw new NotFoundException(`Appointment #${id} not found`);
+    }
+
+    return appointment;
+  }
 }
