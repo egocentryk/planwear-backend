@@ -17,6 +17,7 @@ import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
 import { ApiTags } from '@nestjs/swagger'
 import { Public } from '../../common/decorators/public.decorator';
+import { ParseStringPipe } from '../../common/pipes/parse-string.pipe';
 
 @ApiTags('appointments')
 @Controller('appointments')
@@ -30,7 +31,7 @@ export class AppointmentController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseStringPipe) id: string) {
     return this.appointmentService.findOne(id);
   }
 }
