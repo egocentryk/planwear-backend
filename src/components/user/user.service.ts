@@ -13,7 +13,6 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
-import Understand from 'twilio/lib/rest/preview/Understand';
 
 export interface AuthResponse {
   id?: string;
