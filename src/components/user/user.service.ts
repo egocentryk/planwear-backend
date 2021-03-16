@@ -13,6 +13,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
+import Understand from 'twilio/lib/rest/preview/Understand';
 
 export interface AuthResponse {
   id?: string;
@@ -61,7 +62,15 @@ export class UserService {
     const user = await this.userRepository.findOne({ where: { username } });
     const payload = { username };
     const token = this.jwtService.sign(payload);
-    return { ...user, token };
+
+    const { id, email } = user;
+
+    return {
+      id,
+      email,
+      username,
+      token
+    };
   }
 
   async create(createUserDto: CreateUserDto) {
