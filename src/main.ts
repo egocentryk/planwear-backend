@@ -11,6 +11,8 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 
+import * as cookieParser from 'cookie-parser';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -36,6 +38,7 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
+  app.use(cookieParser());
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(
     new WrapResponseInterceptor(),

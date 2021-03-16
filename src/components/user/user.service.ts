@@ -56,7 +56,9 @@ export class UserService {
     await this.userRepository.save(user);
 
     const payload = {
-      username: user.username,
+      id: user.id,
+      email: user.email,
+      username: user.username
     };
 
     const token = this.jwtService.sign(payload);
@@ -86,9 +88,18 @@ export class UserService {
     }
 
     const payload = {
-      username: user.username,
+      id: user.id,
+      email: user.email,
+      username: user.username
     };
+
     const token = this.jwtService.sign(payload);
+
+    /*
+     * not used ATM
+    const decoded = this.jwtService.verify(token);
+    const userId = decoded.id;
+    */
 
     return {
       ...user,
