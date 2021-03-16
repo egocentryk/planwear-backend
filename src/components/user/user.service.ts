@@ -14,6 +14,13 @@ import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
+export interface AuthResponse {
+  id?: string;
+  email?: string;
+  token: string;
+  username: string;
+}
+
 @Injectable()
 export class UserService {
   constructor(
@@ -48,6 +55,13 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async findCurrentUser(username: string): Promise<AuthResponse> {
+    const user = await this.userRepository.findOne({ where: { username } });
+    const payload = { username };
+    const token = this.jwtService.sign(payload);
+    return { ...user, token };
   }
 
   async create(createUserDto: CreateUserDto) {

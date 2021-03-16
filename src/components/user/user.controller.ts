@@ -18,9 +18,12 @@ import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from '../../common/decorators/public.decorator';
+import { Profile } from '../../common/decorators/profile.decorator';
 import { ParseIntPipe } from '../../common/pipes/parse-int.pipe';
 import { LoginUserDto } from './dto/login-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+
+import { User } from '../../entities/user.entity';
 
 @ApiTags('users')
 @Controller('users')
@@ -31,6 +34,14 @@ export class UserController {
   @Get()
   async findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.userService.findAll(paginationQuery);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/profile')
+  async findCurrentUser(@Profile() { username }: User) {
+    const user = await this.userService.findCurrentUser(username);
+
+    return { user };
   }
 
   @UseGuards(AuthGuard('jwt'))
