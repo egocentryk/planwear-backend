@@ -36,7 +36,14 @@ export class AppointmentService {
   }
 
   async findOne(id: string) {
-    const appointment = await this.appointmentRepository.findOne(id);
+    const appointment = await this.appointmentRepository.findOne(id, {
+      relations: [
+        'company',
+        'employeeCreated',
+        'employee',
+        'client'
+      ]
+    });
 
     if (!appointment) {
       throw new NotFoundException(`Appointment #${id} not found`);
@@ -45,7 +52,7 @@ export class AppointmentService {
     return appointment;
   }
 
-  async create(createAppointmentDto: CreateAppointmentDto) {
+  create(createAppointmentDto: CreateAppointmentDto) {
     const appointment = this.appointmentRepository.create(createAppointmentDto);
 
     return this.appointmentRepository.save(appointment);
