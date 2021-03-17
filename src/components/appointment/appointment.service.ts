@@ -1,5 +1,4 @@
 import {
-  Inject,
   Injectable,
   NotFoundException
 } from '@nestjs/common';
@@ -22,6 +21,12 @@ export class AppointmentService {
     const { limit, offset, order = 'DESC' } = paginationQuery;
 
     return this.appointmentRepository.find({
+      relations: [
+        'company',
+        'employeeCreated',
+        'employee',
+        'client'
+      ],
       skip: offset,
       take: limit,
       order: {
@@ -38,5 +43,11 @@ export class AppointmentService {
     }
 
     return appointment;
+  }
+
+  async create(createAppointmentDto: CreateAppointmentDto) {
+    const appointment = this.appointmentRepository.create(createAppointmentDto);
+
+    return this.appointmentRepository.save(appointment);
   }
 }

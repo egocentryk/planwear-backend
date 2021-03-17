@@ -34,4 +34,9 @@ export class AppointmentController {
   findOne(@Param('id', ParseStringPipe) id: string) {
     return this.appointmentService.findOne(id);
   }
+
+  @Post()
+  create(@Body() createAppointmentDto: CreateAppointmentDto) {
+    return this.appointmentService.create(createAppointmentDto);
+  }
 }

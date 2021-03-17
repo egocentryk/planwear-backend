@@ -91,9 +91,13 @@ export class Appointment extends Abstract {
   })
   priceFinal: number;
 
-  @Column('bool')
+  @Column('bool', {
+    nullable: true
+  })
   canceled: boolean;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   cancelationReason: string;
 }
