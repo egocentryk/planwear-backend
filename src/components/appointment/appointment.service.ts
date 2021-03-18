@@ -57,4 +57,23 @@ export class AppointmentService {
 
     return this.appointmentRepository.save(appointment);
   }
+
+  async update(id: string, updateAppointmentDto: UpdateAppointmentDto) {
+    const appointment = await this.appointmentRepository.preload({
+      id: id,
+      ...updateAppointmentDto
+    });
+
+    if (!appointment) {
+      throw new NotFoundException(`Appointment #${id} not found`);
+    }
+
+    return this.appointmentRepository.save(appointment);
+  }
+
+  async remove(id: string) {
+    const appointment = await this.findOne(id);
+
+    return this.appointmentRepository.remove(appointment);
+  }
 }

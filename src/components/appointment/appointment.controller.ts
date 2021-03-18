@@ -39,4 +39,14 @@ export class AppointmentController {
   create(@Body() createAppointmentDto: CreateAppointmentDto) {
     return this.appointmentService.create(createAppointmentDto);
   }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body(ValidationPipe) updateAppointmentDto: UpdateAppointmentDto) {
+    return this.appointmentService.update(id, updateAppointmentDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.appointmentService.remove(id);
+  }
 }
