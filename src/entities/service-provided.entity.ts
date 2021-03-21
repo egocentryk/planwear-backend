@@ -8,9 +8,9 @@ import {
   classToPlain
 } from 'class-transformer';
 
-import { Abstract } from './abstract.entity';
-import { Appointment } from './appointment.entity';
-import { Service } from './service.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { Appointment } from '@entities/appointment.entity';
+import { Service } from '@entities/service.entity';
 
 @Entity('services_provided')
 export class ServiceProvided extends Abstract {

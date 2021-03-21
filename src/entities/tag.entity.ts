@@ -8,10 +8,10 @@ import {
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 
-import slugify from '../helpers/slugify';
+import slugify from '@helpers/slugify';
 
-import { Abstract } from '../entities/abstract.entity';
-import { Article } from '../entities/article.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { Article } from '@entities/article.entity';
 
 @Entity('tags')
 export class Tag extends Abstract {

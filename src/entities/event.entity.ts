@@ -3,7 +3,7 @@ import {
   Entity
 } from 'typeorm';
 
-import { Abstract } from '../entities/abstract.entity';
+import { Abstract } from '@entities/abstract.entity';
 
 @Entity('events')
 export class Event extends Abstract {

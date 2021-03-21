@@ -8,11 +8,11 @@ import {
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 
-import slugify from '../helpers/slugify';
+import slugify from '@helpers/slugify';
 
-import { Abstract } from './abstract.entity';
-import { User } from './user.entity';
-import { ProductCategory } from './product-category.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { User } from '@entities/user.entity';
+import { ProductCategory } from '@entities/product-category.entity';
 
 @Entity('products')
 export class Product extends Abstract {

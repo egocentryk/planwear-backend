@@ -5,12 +5,9 @@ import {
   ManyToOne
 } from 'typeorm';
 
-import { classToPlain } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
-
-import { Abstract } from './abstract.entity';
-import { Company } from './company.entity';
-import { User } from './user.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { Company } from '@entities/company.entity';
+import { User } from '@entities/user.entity';
 
 export enum AppointmentStatus {
   CANCELED = 'canceled',

@@ -7,9 +7,9 @@ import {
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 
-import { Abstract } from '../entities/abstract.entity';
-import { Article } from '../entities/article.entity';
-import { User } from '../entities/user.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { Article } from '@entities/article.entity';
+import { User } from '@entities/user.entity';
 
 @Entity('comments')
 export class Comment extends Abstract {

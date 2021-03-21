@@ -6,8 +6,8 @@ import {
 
 import { classToPlain } from 'class-transformer';
 
-import { Abstract } from './abstract.entity';
-import { User } from './user.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { User } from '@entities/user.entity';
 
 /*
   one of the most crucial table in our database,

@@ -4,8 +4,8 @@ import {
   ManyToOne
 } from 'typeorm';
 
-import { Abstract } from '../entities/abstract.entity';
-import { User } from '../entities/user.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { User } from '@entities/user.entity';
 
 export enum TokenType {
   EMAIL_VERIFICATION_REQUEST = 'emailVerificationToken',

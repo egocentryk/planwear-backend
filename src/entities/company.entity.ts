@@ -7,11 +7,12 @@ import {
   ManyToMany,
   ManyToOne,
 } from 'typeorm';
-import slugify from '../helpers/slugify';
 
-import { Abstract } from '../entities/abstract.entity';
-import { User } from '../entities/user.entity';
-import { ServiceCategory } from './service-category.entity';
+import slugify from '@helpers/slugify';
+
+import { Abstract } from '@entities/abstract.entity';
+import { User } from '@entities/user.entity';
+import { ServiceCategory } from '@entities/service-category.entity';
 
 @Entity('companies')
 export class Company extends Abstract {

@@ -7,9 +7,9 @@ import {
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 
-import { Abstract } from './abstract.entity';
+import slugify from '@helpers/slugify';
 
-import slugify from '../helpers/slugify';
+import { Abstract } from '@entities/abstract.entity';
 
 @Entity('product_categories')
 export class ProductCategory extends Abstract {

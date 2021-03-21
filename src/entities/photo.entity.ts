@@ -4,17 +4,12 @@ import {
   ManyToOne
 } from 'typeorm';
 
-import {
-  classToPlain
-} from 'class-transformer';
+import { classToPlain } from 'class-transformer';
+import { IsNotEmpty } from 'class-validator';
 
-import {
-  IsNotEmpty
-} from 'class-validator';
-
-import { Abstract } from './abstract.entity';
-import { Article } from './article.entity';
-import { User } from './user.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { Article } from '@entities/article.entity';
+import { User } from '@entities/user.entity';
 
 @Entity('photos')
 export class Photo extends Abstract {

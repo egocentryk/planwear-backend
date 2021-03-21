@@ -20,9 +20,9 @@ import {
 
 import * as bcrypt from 'bcrypt';
 
-import { Abstract } from '../entities/abstract.entity';
-import { Article } from '../entities/article.entity';
-import { Company } from '../entities/company.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { Article } from '@entities/article.entity';
+import { Company } from '@entities/company.entity';
 
 export enum UserRole {
   ADMIN = 'admin',

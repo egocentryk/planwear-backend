@@ -5,18 +5,13 @@ import {
   ManyToOne
 } from 'typeorm';
 
-import {
-  classToPlain
-} from 'class-transformer';
+import { classToPlain } from 'class-transformer';
+import { IsNotEmpty } from 'class-validator';
 
-import {
-  IsNotEmpty
-} from 'class-validator';
+import slugify from '@helpers/slugify';
 
-import { Abstract } from './abstract.entity';
-import { Company } from './company.entity';
-
-import slugify from '../helpers/slugify';
+import { Abstract } from '@entities/abstract.entity';
+import { Company } from '@entities/company.entity';
 
 @Entity('service_categories')
 export class ServiceCategory extends Abstract {

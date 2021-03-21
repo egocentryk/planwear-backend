@@ -11,13 +11,13 @@ import {
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 
-import slugify from '../helpers/slugify';
+import slugify from '@helpers/slugify';
 
-import { Abstract } from '../entities/abstract.entity';
-import { Comment } from '../entities/comment.entity';
-import { Photo } from './photo.entity';
-import { Tag } from '../entities/tag.entity';
-import { User } from '../entities/user.entity';
+import { Abstract } from '@entities/abstract.entity';
+import { Comment } from '@entities/comment.entity';
+import { Photo } from '@entities/photo.entity';
+import { Tag } from '@entities/tag.entity';
+import { User } from '@entities/user.entity';
 
 @Entity('articles')
 export class Article extends Abstract {
