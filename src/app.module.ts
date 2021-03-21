@@ -9,13 +9,13 @@ import { TwilioModule } from 'nestjs-twilio';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { AppointmentModule } from './components/appointment/appointment.module';
-import { ArticleModule } from './components/article/article.module';
-import { CommonModule } from './common/common.module';
-import { CompanyModule } from './components/company/company.module';
-import { UserModule } from './components/user/user.module';
+import { AppointmentModule } from '@components/appointment/appointment.module';
+import { ArticleModule } from '@components/article/article.module';
+import { CommonModule } from '@common/common.module';
+import { CompanyModule } from '@components/company/company.module';
+import { UserModule } from '@components/user/user.module';
 
-import appConfig from './config/app.config';
+import appConfig from '@config/app.config';
 
 import * as Joi from '@hapi/joi';
 

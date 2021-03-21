@@ -7,9 +7,9 @@ import {
   SwaggerModule
 } from '@nestjs/swagger';
 
-import { HttpExceptionFilter } from './common/filters/http-exception.filter';
-import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
-import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
+import { HttpExceptionFilter } from '@filters/http-exception.filter';
+import { WrapResponseInterceptor } from '@interceptors/wrap-response.interceptor';
+import { TimeoutInterceptor } from '@interceptors/timeout.interceptor';
 
 import * as cookieParser from 'cookie-parser';
 
