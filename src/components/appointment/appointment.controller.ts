@@ -13,11 +13,11 @@ import {
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
-import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
+import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 
 import { ApiTags } from '@nestjs/swagger'
-import { Public } from '../../common/decorators/public.decorator';
-import { ParseStringPipe } from '../../common/pipes/parse-string.pipe';
+import { Public } from '@common/decorators/public.decorator';
+import { ParseStringPipe } from '@common/pipes/parse-string.pipe';
 
 @ApiTags('appointments')
 @Controller('appointments')

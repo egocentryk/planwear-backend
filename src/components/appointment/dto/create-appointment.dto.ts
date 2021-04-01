@@ -1,6 +1,6 @@
 import { IsDate, IsInt, IsOptional, IsString } from 'class-validator';
 
-import { AppointmentStatus } from '../../../entities/appointment.entity';
+import { AppointmentStatus } from '@entities/appointment.entity';
 
 export class CreateAppointmentDto {
   @IsString()
