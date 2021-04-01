@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Article } from '../../entities/article.entity';
-import { Tag } from '../../entities/tag.entity';
+import { Article } from '@entities/article.entity';
+import { Tag } from '@entities/tag.entity';
 import { Connection, Repository } from 'typeorm';
 import { ArticleService } from './article.service';
 import { NotFoundException } from '@nestjs/common';

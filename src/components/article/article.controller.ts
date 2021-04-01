@@ -15,18 +15,18 @@ import {
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
+import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from '../../common/decorators/public.decorator';
-import { ParseIntPipe } from '../../common/pipes/parse-int.pipe';
+import { Public } from '@common/decorators/public.decorator';
+import { ParseIntPipe } from '@common/pipes/parse-int.pipe';
 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import {
   editFileName,
   imageFilter
-} from '../../utils/file-upload.utils';
+} from '@utils/file-upload.utils';
 import { UploadArticlePhotoDTO } from './dto/upload-article-photo.dto';
 
 @ApiTags('articles')
