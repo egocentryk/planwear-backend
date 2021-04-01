@@ -3,18 +3,21 @@ import {
   NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { Repository } from 'typeorm';
-import { Appointment } from '../../entities/appointment.entity';
+import { Appointment } from '@entities/appointment.entity';
 
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
+
+import { ScheduleService } from '@components/schedule/schedule.service';
 
 @Injectable()
 export class AppointmentService {
   constructor(
     @InjectRepository(Appointment)
-    private readonly appointmentRepository: Repository<Appointment>
+    private readonly appointmentRepository: Repository<Appointment>,
+    private readonly scheduleService: ScheduleService
   ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
@@ -55,7 +58,18 @@ export class AppointmentService {
   create(createAppointmentDto: CreateAppointmentDto) {
     const appointment = this.appointmentRepository.create(createAppointmentDto);
 
-    return this.appointmentRepository.save(appointment);
+    // update employee schedule
+    const schedule = {
+      employee: appointment.employee,
+      from: appointment.startTime,
+      to: appointment.endTimeExpected
+    };
+
+    const scheduled = this.scheduleService.create(schedule);
+
+    if (scheduled) {
+      return this.appointmentRepository.save(appointment);
+    }
   }
 
   async update(id: string, updateAppointmentDto: UpdateAppointmentDto) {

@@ -2,10 +2,10 @@ import { IsDate, IsString } from 'class-validator';
 
 export class CreateScheduleDto {
   @IsString()
-  readonly employee: string;
+  readonly employee: string | any;
 
   @IsDate()
-  readonly ftom: Date;
+  readonly from: Date;
 
   @IsDate()
   readonly to: Date;
