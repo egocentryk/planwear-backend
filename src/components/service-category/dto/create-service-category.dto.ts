@@ -5,5 +5,5 @@ export class CreateServiceCategoryDto {
   readonly title: string;
 
   @IsString()
-  readonly company: string;
+  readonly company: string | any;
 }

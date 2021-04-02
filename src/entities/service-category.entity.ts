@@ -1,5 +1,6 @@
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   ManyToOne
@@ -29,6 +30,7 @@ export class ServiceCategory extends Abstract {
   company: Company;
 
   @BeforeInsert()
+  @BeforeUpdate()
   convertSlug(): void {
     this.slug = slugify(this.title);
   }
