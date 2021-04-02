@@ -14,6 +14,7 @@ import { ArticleModule } from '@components/article/article.module';
 import { CommonModule } from '@common/common.module';
 import { CompanyModule } from '@components/company/company.module';
 import { UserModule } from '@components/user/user.module';
+import { ServiceCategoryModule } from '@components/service-category/service-category.module';
 
 import appConfig from '@config/app.config';
 
@@ -76,6 +77,7 @@ const sslOptions = {
       dest: './src/files',
     }),
     UserModule,
+    ServiceCategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
