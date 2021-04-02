@@ -7,12 +7,12 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
-import { User } from '../../entities/user.entity';
+import { User } from '@entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
+import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 
 export interface AuthResponse {
   id?: string;

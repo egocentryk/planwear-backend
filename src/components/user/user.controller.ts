@@ -10,20 +10,18 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
-
-import { ApiTags } from '@nestjs/swagger';
-import { Public } from '../../common/decorators/public.decorator';
-import { Profile } from '../../common/decorators/profile.decorator';
-import { ParseIntPipe } from '../../common/pipes/parse-int.pipe';
-import { LoginUserDto } from './dto/login-user.dto';
-import { AuthGuard } from '@nestjs/passport';
-
-import { User } from '../../entities/user.entity';
+import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
+import { Public } from '@common/decorators/public.decorator';
+import { Profile } from '@common/decorators/profile.decorator';
+import { ParseIntPipe } from '@common/pipes/parse-int.pipe';
+import { User } from '@entities/user.entity';
 
 @ApiTags('users')
 @Controller('users')
