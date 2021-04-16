@@ -15,7 +15,7 @@ import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { TokenService } from '@components/token/token.service';
 import { TokenType } from '@entities/token.entity';
 import { ApiHttpResponse } from '@enums/api-http-response.enum';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 export interface AuthResponse {
   id?: string;

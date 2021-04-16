@@ -18,7 +18,7 @@ import {
   Matches
 } from 'class-validator';
 
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 import { Abstract } from '@entities/abstract.entity';
 import { Article } from '@entities/article.entity';
