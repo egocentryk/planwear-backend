@@ -17,7 +17,7 @@ export enum TokenType {
 
 @Entity('tokens')
 export class Token extends Abstract {
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   user: User;
 
   @Column()

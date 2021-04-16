@@ -8,6 +8,7 @@ import { User } from '@entities/user.entity';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { JwtStrategy } from '@components/auth/jwt.strategy';
+import { TokenService } from '@components/token/token.service';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { JwtStrategy } from '@components/auth/jwt.strategy';
   ],
   providers: [
     JwtStrategy,
+    TokenService,
     UserService
   ],
 })

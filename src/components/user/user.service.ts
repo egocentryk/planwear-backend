@@ -3,7 +3,6 @@ import {
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common';
-
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
@@ -13,6 +12,10 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
+import { TokenService } from '@components/token/token.service';
+import { TokenType } from '@entities/token.entity';
+import { ApiHttpResponse } from '@enums/api-http-response.enum';
+import * as bcrypt from 'bcrypt';
 
 export interface AuthResponse {
   id?: string;
@@ -27,7 +30,8 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly connection: Connection,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly tokenService: TokenService
   ) {}
 
   async findAll(paginationQuery: PaginationQueryDto) {
@@ -73,9 +77,33 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto) {
+    const isEmailTaken = await this.userRepository.findOne({
+      where: {
+        email: createUserDto.email
+      }
+    });
+
+    if (isEmailTaken) {
+      return {
+        message: ApiHttpResponse.EMAIL_TAKEN
+      }
+    }
+
     const user = this.userRepository.create(createUserDto);
 
-    await this.userRepository.save(user);
+    const userInserted = await this.userRepository.save(user);
+
+    if (userInserted) {
+      // insert data to token table
+      const tokenInfo = {
+        user: user.id,
+        token: bcrypt.hashSync(user.email, 12),
+        type: TokenType.EMAIL_VERIFICATION_REQUEST,
+        validTo: new Date(new Date().getTime() + 60 * 60 * 24 * 1000)
+      };
+
+      this.tokenService.create(tokenInfo);
+    }
 
     const payload = {
       id: user.id,

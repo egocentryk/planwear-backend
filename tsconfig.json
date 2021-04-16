@@ -17,6 +17,7 @@
       "@config/*": ["src/config/*"],
       "@decorators/*": ["src/common/decorators/*"],
       "@entities/*": ["src/entities/*"],
+      "@enums/*": ["src/common/enums/*"],
       "@files/*": ["src/files/*"],
       "@filters/*": ["src/common/filters/*"],
       "@guards/*": ["src/common/guards/*"],

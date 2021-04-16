@@ -3,7 +3,7 @@ import { IsDate, IsString } from 'class-validator';
 
 export class CreateTokenDto {
   @IsString()
-  readonly user: string | any;
+  readonly user: string;
 
   @IsString()
   readonly token: string;
