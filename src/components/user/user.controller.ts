@@ -18,10 +18,11 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateRoleUserDto } from './dto/update-role-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
-import { Public } from '@common/decorators/public.decorator';
-import { Profile } from '@common/decorators/profile.decorator';
-import { ParseIntPipe } from '@common/pipes/parse-int.pipe';
+import { Public } from '@decorators/public.decorator';
+import { Profile } from '@decorators/profile.decorator';
+import { ParseIntPipe } from '@pipes/parse-int.pipe';
 import { User } from '@entities/user.entity';
+import { UpdateStatusUserDto } from './dto/update-status-user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -71,5 +72,10 @@ export class UserController {
   @Patch('/role/:id')
   changeRole(@Param('id') id: string, @Body(ValidationPipe) updateRoleUserDto: UpdateRoleUserDto) {
     return this.userService.changeRole(id, updateRoleUserDto);
+  }
+
+  @Patch('/status/:id')
+  changeStatus(@Param('id') id: string, @Body(ValidationPipe) updateStatusUserDto: UpdateStatusUserDto) {
+    return this.userService.changeStatus(id, updateStatusUserDto);
   }
 }

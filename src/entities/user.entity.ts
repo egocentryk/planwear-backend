@@ -35,8 +35,9 @@ export enum UserRole {
 
 export enum UserStatus {
   ACTIVE = 'active',
+  BANNED = 'banned',
+  DELETED = 'deleted',
   INACTIVE = 'inactive',
-  PENDING = 'pending'
 }
 
 @Entity('users')

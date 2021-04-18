@@ -10,6 +10,7 @@ import { User } from '@entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateRoleUserDto } from './dto/update-role-user.dto';
+import { UpdateStatusUserDto } from './dto/update-status-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { TokenService } from '@components/token/token.service';
@@ -185,6 +186,19 @@ export class UserService {
       const user = await this.userRepository.preload({
         id: id,
         ...updateRoleUserDto,
+      });
+
+      return this.userRepository.save(user);
+    } catch (error) {
+      throw new NotFoundException(`User #${id} ${ApiHttpResponse.NOT_FOUND}`);
+    }
+  }
+
+  async changeStatus(id: string, updateStatusUserDto: UpdateStatusUserDto) {
+    try {
+      const user = await this.userRepository.preload({
+        id: id,
+        ...updateStatusUserDto,
       });
 
       return this.userRepository.save(user);
