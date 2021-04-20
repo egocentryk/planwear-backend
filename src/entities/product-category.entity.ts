@@ -15,13 +15,13 @@ import { Abstract } from '@entities/abstract.entity';
 export class ProductCategory extends Abstract {
   @Column()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @Column({
     unique: true,
   })
   @IsNotEmpty()
-  slug: string;
+  slug!: string;
 
   @BeforeInsert()
   convertSlug(): void {

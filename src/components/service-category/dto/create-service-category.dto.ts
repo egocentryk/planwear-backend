@@ -2,8 +2,8 @@ import { IsString } from 'class-validator';
 
 export class CreateServiceCategoryDto {
   @IsString()
-  readonly title: string;
+  readonly title!: string;
 
   @IsString()
-  readonly company: string | any;
+  readonly company!: string | any;
 }

@@ -17,23 +17,23 @@ import { ServiceCategory } from '@entities/service-category.entity';
 @Entity('companies')
 export class Company extends Abstract {
   @Column()
-  title: string;
+  title!: string;
 
   @Column()
   slug!: string;
 
   @Column({ nullable: true })
-  content: string;
+  content?: string;
 
   @ManyToOne(() => User, (owner) => owner.companies)
-  owner: User;
+  owner!: User;
 
   @JoinTable()
   @ManyToMany((type) => User, (user) => user.companies)
-  employees: number[];
+  employees?: number[];
 
   @OneToMany(() => ServiceCategory, (servicecategory) => servicecategory.company)
-  servicecategories: ServiceCategory[];
+  servicecategories?: ServiceCategory[];
 
   @BeforeInsert()
   convertSlug(): void {

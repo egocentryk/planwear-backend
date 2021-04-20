@@ -6,5 +6,5 @@ enum UserStatus {
 }
 
 export class StatusUserDto {
-  readonly status: UserStatus;
+  readonly status!: UserStatus;
 }

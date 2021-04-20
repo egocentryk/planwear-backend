@@ -17,16 +17,16 @@ import { Article } from '@entities/article.entity';
 export class Tag extends Abstract {
   @Column()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @Column()
-  slug: string;
+  slug!: string;
 
   @ManyToMany(
     (type) => Article,
     article => article.tags,
   )
-  articles: Article[];
+  articles!: Article[];
 
   @BeforeInsert()
   convertSlug(): void {

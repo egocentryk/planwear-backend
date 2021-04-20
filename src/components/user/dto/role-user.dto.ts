@@ -8,5 +8,5 @@ enum UserRole {
 }
 
 export class RoleUserDto {
-  readonly role: UserRole;
+  readonly role!: UserRole;
 }

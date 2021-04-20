@@ -8,11 +8,11 @@ import { Abstract } from '@entities/abstract.entity';
 @Entity('events')
 export class Event extends Abstract {
   @Column()
-  type: string;
+  type!: string;
 
   @Column()
-  name: string
+  name!: string
 
   @Column('json')
-  payload: Record<string, any>;
+  payload?: Record<string, any>;
 }

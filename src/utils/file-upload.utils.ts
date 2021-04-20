@@ -1,7 +1,7 @@
 export const imageFilter = (
-  req,
-  file,
-  callback
+  req: any,
+  file: string | any,
+  callback: any
 ) => {
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
     return callback(new Error('Only image files are allowed'), false);
@@ -11,9 +11,9 @@ export const imageFilter = (
 }
 
 export const editFileName = (
-  req,
-  file,
-  callback
+  req: any,
+  file: string | any,
+  callback: any
 ) => {
   const name = file.originalname.split('.'); /* FIX THIS */
   const extenstion = name[1];

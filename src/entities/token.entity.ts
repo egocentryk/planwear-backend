@@ -18,18 +18,18 @@ export enum TokenType {
 @Entity('tokens')
 export class Token extends Abstract {
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  user: User;
+  user!: User;
 
   @Column()
-  token: string;
+  token!: string;
 
   @Column({
     enum: TokenType,
     nullable: true,
     type: 'enum'
   })
-  type: TokenType;
+  type!: TokenType;
 
   @Column()
-  validTo: Date;
+  validTo!: Date;
 }

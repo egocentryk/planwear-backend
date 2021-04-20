@@ -11,13 +11,13 @@ export enum Order {
 export class PaginationQueryDto {
   @IsOptional()
   @IsPositive()
-  limit: number;
+  limit?: number;
 
   @IsOptional()
   @IsPositive()
-  offset: number;
+  offset?: number;
 
   @IsEnum(Order)
   @IsOptional()
-  order: Order;
+  order?: Order;
 }

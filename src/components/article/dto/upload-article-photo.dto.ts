@@ -6,16 +6,16 @@ import {
 
 export class UploadArticlePhotoDTO {
   @IsString()
-  title: string;
+  title!: string;
 
   @IsString()
-  author: string;
+  author!: string;
 
   @IsNotEmpty()
   @IsNumber()
-  article: string | any;
+  article!: string | any;
 
   @IsNotEmpty()
   @IsString()
-  filename: string;
+  filename!: string;
 }

@@ -15,17 +15,17 @@ import { User } from '@entities/user.entity';
 export class Photo extends Abstract {
   @IsNotEmpty()
   @Column()
-  title: string;
+  title!: string;
 
   @IsNotEmpty()
   @Column()
-  filename: string;
+  filename!: string;
 
   @ManyToOne(() => User)
-  author: User;
+  author!: User;
 
   @ManyToOne(() => Article, (article) => article.photos)
-  article: Article;
+  article!: Article;
 
   toJSON() {
     return classToPlain(this);

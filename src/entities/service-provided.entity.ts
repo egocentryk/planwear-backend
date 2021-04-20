@@ -15,17 +15,17 @@ import { Service } from '@entities/service.entity';
 @Entity('services_provided')
 export class ServiceProvided extends Abstract {
   @ManyToOne(() => Appointment)
-  appointment: Appointment;
+  appointment!: Appointment;
 
   @ManyToOne(() => Service)
-  service: Service;
+  service!: Service;
 
   @Column('decimal', {
     precision: 5,
     scale: 2,
     default: 0
   })
-  price: number;
+  price!: number;
 
   toJson() {
     return classToPlain(this);

@@ -61,7 +61,7 @@ export class ArticleController {
   async uploadFile(
     @Body() uploadArticlePhotoDto: UploadArticlePhotoDTO,
     @Param('id') id: string,
-    @UploadedFile() file
+    @UploadedFile() file: string | any
   ) {
     const photo = uploadArticlePhotoDto;
 

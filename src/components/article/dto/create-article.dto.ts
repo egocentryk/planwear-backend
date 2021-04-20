@@ -2,15 +2,15 @@ import { IsOptional, IsString } from 'class-validator';
 
 export class CreateArticleDto {
   @IsString()
-  readonly title: string;
+  readonly title!: string;
 
   @IsString()
-  readonly content: string;
+  readonly content!: string;
 
   @IsString()
-  readonly author: string;
+  readonly author!: string;
 
   @IsString({ each: true })
   @IsOptional()
-  readonly tags: string[];
+  readonly tags?: string[] | any;
 }

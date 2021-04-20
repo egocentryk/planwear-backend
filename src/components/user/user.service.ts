@@ -19,8 +19,8 @@ import { ApiHttpResponse } from '@enums/api-http-response.enum';
 import * as bcrypt from 'bcryptjs';
 
 export interface AuthResponse {
-  id?: string;
-  email?: string;
+  id: string | any;
+  email: string;
   token: string;
   username: string;
 }
@@ -29,7 +29,7 @@ export interface AuthResponse {
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userRepository: Repository<User | any>,
     private readonly connection: Connection,
     private readonly jwtService: JwtService,
     private readonly tokenService: TokenService
@@ -129,6 +129,9 @@ export class UserService {
   async login({
     email,
     password
+  } : {
+    email: string,
+    password: string
   }): Promise<LoginUserDto> {
     const user = await this.userRepository.findOne({
       where: {

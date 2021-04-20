@@ -53,10 +53,10 @@ export class User extends Abstract {
   username!: string;
 
   @Column()
-  firstName: string;
+  firstName!: string;
 
   @Column()
-  lastName: string;
+  lastName!: string;
 
   @Column({
     unique: true,
@@ -66,36 +66,36 @@ export class User extends Abstract {
   @Matches(/^[^+]+@.*$/, {
     message: 'Cannot be an email alias',
   })
-  email: string;
+  email!: string;
 
   @Column()
   @Exclude()
-  password: string;
+  password!: string;
 
   @ManyToMany((type) => Company, (company) => company.employees)
-  companies: Company[];
+  companies?: Company[];
 
   @OneToMany(() => Article, (article) => article.user)
-  articles: Article[];
+  articles?: Article[];
 
   @Column({
     default: UserRole.USER,
     enum: UserRole,
     type: 'enum'
   })
-  role: UserRole;
+  role?: UserRole;
 
   @Column({
     default: false,
   })
-  isBlocked: boolean;
+  isBlocked?: boolean;
 
   @Column({
     default: UserStatus.INACTIVE,
     enum: UserStatus,
     type: 'enum'
   })
-  status: UserStatus;
+  status?: UserStatus;
 
   @BeforeInsert()
   toLowerCase(): void {

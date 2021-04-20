@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
     "declaration": true,
-    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "esnext",
-    "sourceMap": true,
-    "outDir": "./dist",
     "incremental": true,
-    "baseUrl": "./",
+    "module": "commonjs",
+    "outDir": "./dist",
     "paths": {
       "@common/*": ["src/common/*"],
       "@components/*": ["src/components/*"],
@@ -27,6 +24,10 @@
       "@migrations/*": ["src/migrations/*"],
       "@pipes/*": ["src/common/pipes/*"],
       "@utils/*": ["src/utils/*"],
-    }
+    },
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
   }
 }

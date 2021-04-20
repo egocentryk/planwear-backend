@@ -15,13 +15,13 @@ import { User } from '@entities/user.entity';
 export class Comment extends Abstract {
   @IsNotEmpty()
   @Column()
-  content: string;
+  content!: string;
 
   @ManyToOne(() => User)
-  author: User;
+  author!: User;
 
   @ManyToOne(() => Article, (article) => article.comments)
-  article: Article;
+  article!: Article;
 
   toJSON() {
     return classToPlain(this);

@@ -5,18 +5,18 @@ import {
 
 export class CreateUserDto {
   @IsString()
-  readonly username: string;
+  readonly username!: string;
 
   @IsString()
-  readonly firstName: string;
+  readonly firstName!: string;
 
   @IsString()
-  readonly lastName: string;
+  readonly lastName!: string;
 
   @IsEmail()
   @IsString()
-  readonly email: string;
+  readonly email!: string;
 
   @IsString()
-  readonly password: string;
+  readonly password!: string;
 }

@@ -19,7 +19,7 @@ export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: any) {
     // const { limit, offset } = paginationQuery;
 
     return this.companyService.findAll();

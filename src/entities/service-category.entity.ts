@@ -18,16 +18,16 @@ import { Company } from '@entities/company.entity';
 export class ServiceCategory extends Abstract {
   @Column()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @Column({
     unique: true,
   })
   @IsNotEmpty()
-  slug: string;
+  slug!: string;
 
   @ManyToOne(() => Company, (company) => company.servicecategories)
-  company: Company;
+  company?: Company;
 
   @BeforeInsert()
   @BeforeUpdate()

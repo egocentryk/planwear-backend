@@ -4,30 +4,30 @@ import { AppointmentStatus } from '@entities/appointment.entity';
 
 export class CreateAppointmentDto {
   @IsString()
-  readonly employeeCreated: string;
+  readonly employeeCreated!: string;
 
   @IsString()
-  readonly employee: string;
+  readonly employee!: string;
 
   @IsString()
-  readonly client: string;
+  readonly client!: string;
 
   @IsString()
-  readonly company: any | string;
+  readonly company!: any | string;
 
   @IsDate()
-  readonly startTime: Date;
+  readonly startTime!: Date;
 
   @IsDate()
-  readonly endTimeExpected: Date;
+  readonly endTimeExpected!: Date;
 
   @IsDate()
   @IsOptional()
-  readonly endTime: Date;
+  readonly endTime?: Date;
 
   @IsString()
-  readonly status: AppointmentStatus.PENDING
+  readonly status!: AppointmentStatus.PENDING
 
   @IsOptional()
-  readonly canceled: boolean;
+  readonly canceled?: boolean;
 }

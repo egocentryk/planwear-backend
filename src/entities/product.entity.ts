@@ -18,24 +18,24 @@ import { ProductCategory } from '@entities/product-category.entity';
 export class Product extends Abstract {
   @Column()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @Column({
     unique: true,
   })
   @IsNotEmpty()
-  slug: string;
+  slug!: string;
 
   @Column({
     nullable: true,
   })
-  content: string;
+  content?: string;
 
   @ManyToOne(() => ProductCategory)
-  category: ProductCategory;
+  category!: ProductCategory;
 
   @ManyToOne(() => User)
-  author: User;
+  author!: User;
 
   @BeforeInsert()
   convertSlug(): void {

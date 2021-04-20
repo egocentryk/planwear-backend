@@ -23,30 +23,30 @@ import { User } from '@entities/user.entity';
 export class Article extends Abstract {
   @Column()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @Column({
     unique: true,
   })
   @IsNotEmpty()
-  slug: string;
+  slug!: string;
 
   @Column({
     nullable: true
   })
-  content: string;
+  content!: string;
 
   @Column({ default: 0 })
-  recommendations: number;
+  recommendations?: number;
 
   @ManyToOne(() => User, (user) => user.articles)
-  user: User;
+  user!: User;
 
   @OneToMany(() => Comment, (comment) => comment.article)
-  comments: Comment[];
+  comments?: Comment[];
 
   @OneToMany(() => Photo, (photo) => photo.article)
-  photos: Photo[]
+  photos?: Photo[]
 
   @ManyToMany(
     (type) => Tag,
@@ -56,7 +56,7 @@ export class Article extends Abstract {
     }
   )
   @JoinTable()
-  tags: Tag[];
+  tags?: Tag[];
 
   @BeforeInsert()
   convertSlug(): void {

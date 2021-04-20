@@ -13,6 +13,7 @@ import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { InjectTwilio, TwilioClient } from 'nestjs-twilio';
 
 import articleConfig from './config/article.config';
+import { string } from '@hapi/joi';
 
 @Injectable()
 export class ArticleService {
@@ -36,8 +37,8 @@ export class ArticleService {
     try {
       return await this.twilioClient.messages.create({
         body: 'SMS Body',
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to: process.env.TARGET_PHONE_NUMBER,
+        from: <string>process.env.TWILIO_PHONE_NUMBER,
+        to: <string>process.env.TARGET_PHONE_NUMBER,
       });
     } catch (e) {
       return e;
@@ -70,8 +71,8 @@ export class ArticleService {
   }
 
   async create(createArticleDto: CreateArticleDto) {
-    const tags = await Promise.all(
-      createArticleDto.tags.map(title => this.preloadTagByName(title)),
+    const tags: any = await Promise.all(
+      createArticleDto.tags.map((title: string) => this.preloadTagByName(title)),
     );
 
     const article = this.articleRepository.create({
@@ -86,7 +87,7 @@ export class ArticleService {
     const tags =
       updateArticleDto.tags &&
       (await Promise.all(
-        updateArticleDto.tags.map(title => this.preloadTagByName(title)),
+        updateArticleDto.tags.map((title: string) => this.preloadTagByName(title)),
       ));
 
     const article = await this.articleRepository.preload({
@@ -108,7 +109,7 @@ export class ArticleService {
     return this.articleRepository.remove(article);
   }
 
-  async recommendArticle(article: Article) {
+  async recommendArticle(article: Article | any) {
     const queryRunner = this.connection.createQueryRunner();
 
     await queryRunner.connect();

@@ -18,7 +18,7 @@ export class ServiceCategoryController {
   constructor(private readonly serviceCategoryService: ServiceCategoryService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: any) {
     return this.serviceCategoryService.findAll();
   }
 

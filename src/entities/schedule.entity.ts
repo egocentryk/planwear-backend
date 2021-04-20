@@ -16,21 +16,21 @@ import { User } from '@entities/user.entity';
 @Entity('schedules')
 export class Schedule extends Abstract {
   @ManyToOne(() => User)
-  employee: User;
+  employee!: User;
 
   @Column({
     type: 'timestamp',
     precision: 6,
     nullable: true
   })
-  from: Date;
+  from!: Date;
 
   @Column({
     type: 'timestamp',
     precision: 6,
     nullable: true
   })
-  to: Date;
+  to!: Date;
 
   toJson() {
     return classToPlain(this);

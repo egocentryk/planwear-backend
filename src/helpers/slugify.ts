@@ -6,7 +6,7 @@ const slugify = (str: string) => {
   str = str.toLowerCase();
 
   // remove accents, swap ń for n, etc
-  const swaps = {
+  const swaps: any = {
     0: ['°', '₀', '۰', '０'],
     1: ['¹', '₁', '۱', '１'],
     2: ['²', '₂', '۲', '２'],
@@ -577,7 +577,7 @@ const slugify = (str: string) => {
   };
 
   Object.keys(swaps).forEach((swap) => {
-    swaps[swap].forEach((s) => {
+    swaps[swap].forEach((s: string) => {
       str = str.replace(new RegExp(s, 'g'), swap);
     });
   });
