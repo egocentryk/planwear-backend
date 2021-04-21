@@ -1,11 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-
-import {
-  DocumentBuilder,
-  SwaggerModule
-} from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { HttpExceptionFilter } from '@filters/http-exception.filter';
 import { WrapResponseInterceptor } from '@interceptors/wrap-response.interceptor';
@@ -42,7 +38,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(
     new WrapResponseInterceptor(),
-    new TimeoutInterceptor()
+    new TimeoutInterceptor(),
   );
 
   await app.listen(process.env.PORT || 3000);
