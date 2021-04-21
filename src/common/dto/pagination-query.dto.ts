@@ -1,8 +1,4 @@
-import {
-  IsEnum,
-  IsOptional,
-  IsPositive
-} from 'class-validator';
+import { IsEnum, IsOptional, IsPositive } from 'class-validator';
 
 export enum Order {
   ASC = 'ASC',

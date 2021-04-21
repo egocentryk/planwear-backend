@@ -3,7 +3,7 @@ import {
   ExecutionContext,
   HttpException,
   HttpStatus,
-  Injectable
+  Injectable,
 } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
@@ -24,7 +24,7 @@ export class jwtCustomGuard implements CanActivate {
 
       req['user'] = {
         id: verify.userId,
-      }
+      };
 
       return true;
     } else {
