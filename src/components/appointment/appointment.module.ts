@@ -7,16 +7,8 @@ import { Schedule } from '@entities/schedule.entity';
 import { ScheduleService } from '@components/schedule/schedule.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      Appointment,
-      Schedule
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([Appointment, Schedule])],
   controllers: [AppointmentController],
-  providers: [
-    AppointmentService,
-    ScheduleService
-  ]
+  providers: [AppointmentService, ScheduleService],
 })
 export class AppointmentModule {}

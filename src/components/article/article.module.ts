@@ -14,17 +14,10 @@ import articleConfig from './config/article.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      Article,
-      Comment,
-      Event, Photo,
-      Tag,
-      User
-    ]),
+    TypeOrmModule.forFeature([Article, Comment, Event, Photo, Tag, User]),
     ConfigModule.forFeature(articleConfig),
   ],
   controllers: [ArticleController],
   providers: [ArticleService],
 })
-
 export class ArticleModule {}

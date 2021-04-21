@@ -5,13 +5,8 @@ import { ServiceCategoryService } from './service-category.service';
 import { ServiceCategory } from '@entities/service-category.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      ServiceCategory
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([ServiceCategory])],
   controllers: [ServiceCategoryController],
-  providers: [ServiceCategoryService]
+  providers: [ServiceCategoryService],
 })
-
 export class ServiceCategoryModule {}

@@ -12,10 +12,7 @@ import { TokenService } from '@components/token/token.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      Token,
-      User
-    ]),
+    TypeOrmModule.forFeature([Token, User]),
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET_KEY'),
@@ -26,19 +23,11 @@ import { TokenService } from '@components/token/token.service';
       inject: [ConfigService],
     }),
     PassportModule.register({
-      defaultStrategy: 'jwt'
-    })
+      defaultStrategy: 'jwt',
+    }),
   ],
   controllers: [UserController],
-  exports: [
-    JwtStrategy,
-    UserService
-  ],
-  providers: [
-    JwtStrategy,
-    TokenService,
-    UserService
-  ],
+  exports: [JwtStrategy, UserService],
+  providers: [JwtStrategy, TokenService, UserService],
 })
-
 export class UserModule {}

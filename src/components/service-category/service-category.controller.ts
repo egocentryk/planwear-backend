@@ -15,9 +15,12 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('service-categories')
 @Controller('service-categories')
 export class ServiceCategoryController {
-  constructor(private readonly serviceCategoryService: ServiceCategoryService) {}
+  constructor(
+    private readonly serviceCategoryService: ServiceCategoryService,
+  ) {}
 
   @Get()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   findAll(@Query() paginationQuery: any) {
     return this.serviceCategoryService.findAll();
   }
@@ -33,12 +36,15 @@ export class ServiceCategoryController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServiceCategoryDto: UpdateServiceCategoryDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateServiceCategoryDto: UpdateServiceCategoryDto,
+  ) {
     return this.serviceCategoryService.update(id, updateServiceCategoryDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.serviceCategoryService.remove(id)
+    return this.serviceCategoryService.remove(id);
   }
 }

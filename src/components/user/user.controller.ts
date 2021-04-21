@@ -20,7 +20,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { Public } from '@decorators/public.decorator';
 import { Profile } from '@decorators/profile.decorator';
-import { ParseIntPipe } from '@pipes/parse-int.pipe';
 import { User } from '@entities/user.entity';
 import { UpdateStatusUserDto } from './dto/update-status-user.dto';
 
@@ -60,7 +59,10 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body(ValidationPipe) updateUserDto: UpdateUserDto) {
+  update(
+    @Param('id') id: string,
+    @Body(ValidationPipe) updateUserDto: UpdateUserDto,
+  ) {
     return this.userService.update(id, updateUserDto);
   }
 
@@ -70,12 +72,18 @@ export class UserController {
   }
 
   @Patch('/role/:id')
-  changeRole(@Param('id') id: string, @Body(ValidationPipe) updateRoleUserDto: UpdateRoleUserDto) {
+  changeRole(
+    @Param('id') id: string,
+    @Body(ValidationPipe) updateRoleUserDto: UpdateRoleUserDto,
+  ) {
     return this.userService.changeRole(id, updateRoleUserDto);
   }
 
   @Patch('/status/:id')
-  changeStatus(@Param('id') id: string, @Body(ValidationPipe) updateStatusUserDto: UpdateStatusUserDto) {
+  changeStatus(
+    @Param('id') id: string,
+    @Body(ValidationPipe) updateStatusUserDto: UpdateStatusUserDto,
+  ) {
     return this.userService.changeStatus(id, updateStatusUserDto);
   }
 }

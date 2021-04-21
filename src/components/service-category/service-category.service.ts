@@ -24,14 +24,18 @@ export class ServiceCategoryService {
     });
 
     if (!serviceCategory) {
-      throw new NotFoundException(`Service category #${id} not found in database`);
+      throw new NotFoundException(
+        `Service category #${id} not found in database`,
+      );
     }
 
     return serviceCategory;
   }
 
   create(createServiceCategoryDto: CreateServiceCategoryDto) {
-    const serviceCategory = this.serviceCategoryRepository.create(createServiceCategoryDto);
+    const serviceCategory = this.serviceCategoryRepository.create(
+      createServiceCategoryDto,
+    );
 
     return this.serviceCategoryRepository.save(serviceCategory);
   }
@@ -43,7 +47,9 @@ export class ServiceCategoryService {
     });
 
     if (!serviceCategory) {
-      throw new NotFoundException(`Service category #${id} not found in database`);
+      throw new NotFoundException(
+        `Service category #${id} not found in database`,
+      );
     }
 
     return this.serviceCategoryRepository.save(serviceCategory);

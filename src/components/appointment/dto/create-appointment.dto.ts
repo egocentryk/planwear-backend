@@ -1,4 +1,4 @@
-import { IsDate, IsInt, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsOptional, IsString } from 'class-validator';
 
 import { AppointmentStatus } from '@entities/appointment.entity';
 
@@ -26,7 +26,7 @@ export class CreateAppointmentDto {
   readonly endTime?: Date;
 
   @IsString()
-  readonly status!: AppointmentStatus.PENDING
+  readonly status!: AppointmentStatus.PENDING;
 
   @IsOptional()
   readonly canceled?: boolean;

@@ -1,7 +1,7 @@
 import {
   Injectable,
   NotFoundException,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,7 +32,7 @@ export class UserService {
     private readonly userRepository: Repository<User | any>,
     private readonly connection: Connection,
     private readonly jwtService: JwtService,
-    private readonly tokenService: TokenService
+    private readonly tokenService: TokenService,
   ) {}
 
   async findAll(paginationQuery: PaginationQueryDto) {
@@ -43,7 +43,7 @@ export class UserService {
       take: limit,
       order: {
         id: order,
-      }
+      },
     });
 
     return {
@@ -73,7 +73,7 @@ export class UserService {
       id,
       email,
       username,
-      token
+      token,
     };
   }
 
@@ -81,14 +81,14 @@ export class UserService {
     try {
       const isEmailTaken = await this.userRepository.findOne({
         where: {
-          email: createUserDto.email
-        }
+          email: createUserDto.email,
+        },
       });
 
       if (isEmailTaken) {
         return {
-          message: ApiHttpResponse.EMAIL_TAKEN
-        }
+          message: ApiHttpResponse.EMAIL_TAKEN,
+        };
       }
 
       const user = this.userRepository.create(createUserDto);
@@ -101,7 +101,7 @@ export class UserService {
           user: user.id,
           token: bcrypt.hashSync(user.email, 12),
           type: TokenType.EMAIL_VERIFICATION_REQUEST,
-          validTo: new Date(new Date().getTime() + 60 * 60 * 24 * 1000)
+          validTo: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
         };
 
         this.tokenService.create(tokenInfo);
@@ -110,7 +110,7 @@ export class UserService {
       const payload = {
         id: user.id,
         email: user.email,
-        username: user.username
+        username: user.username,
       };
 
       const token = this.jwtService.sign(payload);
@@ -118,9 +118,9 @@ export class UserService {
       return {
         user: {
           ...user.toJSON(),
-          token
-        }
-      }
+          token,
+        },
+      };
     } catch (error) {
       console.log(error);
     }
@@ -128,15 +128,15 @@ export class UserService {
 
   async login({
     email,
-    password
-  } : {
-    email: string,
-    password: string
+    password,
+  }: {
+    email: string;
+    password: string;
   }): Promise<LoginUserDto> {
     const user = await this.userRepository.findOne({
       where: {
         email,
-      }
+      },
     });
 
     const isValid = user.compare(password);
@@ -148,7 +148,7 @@ export class UserService {
     const payload = {
       id: user.id,
       email: user.email,
-      username: user.username
+      username: user.username,
     };
 
     const token = this.jwtService.sign(payload);
@@ -161,8 +161,8 @@ export class UserService {
 
     return {
       ...user,
-      token
-    }
+      token,
+    };
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

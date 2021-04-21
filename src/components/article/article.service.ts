@@ -13,7 +13,6 @@ import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { InjectTwilio, TwilioClient } from 'nestjs-twilio';
 
 import articleConfig from './config/article.config';
-import { string } from '@hapi/joi';
 
 @Injectable()
 export class ArticleService {
@@ -54,13 +53,13 @@ export class ArticleService {
       take: limit,
       order: {
         id: order,
-      }
+      },
     });
   }
 
   async findOne(id: string) {
     const article = await this.articleRepository.findOne(id, {
-      relations: ['tags', 'user']
+      relations: ['tags', 'user'],
     });
 
     if (!article) {
@@ -72,7 +71,9 @@ export class ArticleService {
 
   async create(createArticleDto: CreateArticleDto) {
     const tags: any = await Promise.all(
-      createArticleDto.tags.map((title: string) => this.preloadTagByName(title)),
+      createArticleDto.tags.map((title: string) =>
+        this.preloadTagByName(title),
+      ),
     );
 
     const article = this.articleRepository.create({
@@ -80,14 +81,16 @@ export class ArticleService {
       tags,
     });
 
-    return this.articleRepository.save(article)
+    return this.articleRepository.save(article);
   }
 
   async update(id: string, updateArticleDto: UpdateArticleDto) {
     const tags =
       updateArticleDto.tags &&
       (await Promise.all(
-        updateArticleDto.tags.map((title: string) => this.preloadTagByName(title)),
+        updateArticleDto.tags.map((title: string) =>
+          this.preloadTagByName(title),
+        ),
       ));
 
     const article = await this.articleRepository.preload({

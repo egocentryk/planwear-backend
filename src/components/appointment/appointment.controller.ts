@@ -15,7 +15,7 @@ import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 
-import { ApiTags } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger';
 import { Public } from '@common/decorators/public.decorator';
 import { ParseStringPipe } from '@common/pipes/parse-string.pipe';
 
@@ -41,7 +41,10 @@ export class AppointmentController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body(ValidationPipe) updateAppointmentDto: UpdateAppointmentDto) {
+  update(
+    @Param('id') id: string,
+    @Body(ValidationPipe) updateAppointmentDto: UpdateAppointmentDto,
+  ) {
     return this.appointmentService.update(id, updateAppointmentDto);
   }
 

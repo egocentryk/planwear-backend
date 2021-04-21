@@ -1,13 +1,7 @@
-import {
-  Injectable,
-  UnauthorizedException
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { PassportStrategy } from '@nestjs/passport';
-import {
-  ExtractJwt,
-  Strategy
-} from 'passport-jwt';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -31,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const { username } = payload;
 
     const user = await this.userRepository.find({
-      where: { username }
+      where: { username },
     });
 
     if (!user) {

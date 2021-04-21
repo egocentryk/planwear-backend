@@ -19,6 +19,7 @@ export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Get()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   findAll(@Query() paginationQuery: any) {
     // const { limit, offset } = paginationQuery;
 

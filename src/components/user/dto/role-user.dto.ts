@@ -4,7 +4,7 @@ enum UserRole {
   OWNER = 'owner',
   EMPLOYEE = 'employee',
   CLIENT = 'client',
-  USER = 'user'
+  USER = 'user',
 }
 
 export class RoleUserDto {
