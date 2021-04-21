@@ -5,7 +5,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany
+  OneToMany,
 } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
@@ -32,7 +32,7 @@ export class Article extends Abstract {
   slug!: string;
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   content!: string;
 
@@ -46,15 +46,12 @@ export class Article extends Abstract {
   comments?: Comment[];
 
   @OneToMany(() => Photo, (photo) => photo.article)
-  photos?: Photo[]
+  photos?: Photo[];
 
-  @ManyToMany(
-    (type) => Tag,
-    (tag) => tag.articles,
-    {
-      cascade: true,
-    }
-  )
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @ManyToMany((type) => Tag, (tag) => tag.articles, {
+    cascade: true,
+  })
   @JoinTable()
   tags?: Tag[];
 

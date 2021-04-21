@@ -1,9 +1,4 @@
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  ManyToOne
-} from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
@@ -33,7 +28,7 @@ export class Service extends Abstract {
   @Column('decimal', {
     precision: 5,
     scale: 2,
-    default: 0
+    default: 0,
   })
   price!: number;
 

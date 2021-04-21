@@ -29,10 +29,14 @@ export class Company extends Abstract {
   owner!: User;
 
   @JoinTable()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToMany((type) => User, (user) => user.companies)
   employees?: number[];
 
-  @OneToMany(() => ServiceCategory, (servicecategory) => servicecategory.company)
+  @OneToMany(
+    () => ServiceCategory,
+    (servicecategory) => servicecategory.company,
+  )
   servicecategories?: ServiceCategory[];
 
   @BeforeInsert()

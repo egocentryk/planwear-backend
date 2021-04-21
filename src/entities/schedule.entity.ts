@@ -1,8 +1,4 @@
-import {
-  Column,
-  Entity,
-  ManyToOne
-} from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
 
@@ -21,14 +17,14 @@ export class Schedule extends Abstract {
   @Column({
     type: 'timestamp',
     precision: 6,
-    nullable: true
+    nullable: true,
   })
   from!: Date;
 
   @Column({
     type: 'timestamp',
     precision: 6,
-    nullable: true
+    nullable: true,
   })
   to!: Date;
 

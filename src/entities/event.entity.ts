@@ -1,7 +1,4 @@
-import {
-  Column,
-  Entity
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 import { Abstract } from '@entities/abstract.entity';
 
@@ -11,7 +8,7 @@ export class Event extends Abstract {
   type!: string;
 
   @Column()
-  name!: string
+  name!: string;
 
   @Column('json')
   payload?: Record<string, any>;

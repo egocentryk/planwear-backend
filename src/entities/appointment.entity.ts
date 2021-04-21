@@ -1,9 +1,4 @@
-
-import {
-  Column,
-  Entity,
-  ManyToOne
-} from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { Abstract } from '@entities/abstract.entity';
 import { Company } from '@entities/company.entity';
@@ -12,7 +7,7 @@ import { User } from '@entities/user.entity';
 export enum AppointmentStatus {
   CANCELED = 'canceled',
   FINISHED = 'finished',
-  PENDING = 'pending'
+  PENDING = 'pending',
 }
 
 @Entity('appointments')
@@ -32,7 +27,7 @@ export class Appointment extends Abstract {
   @Column({
     default: AppointmentStatus.PENDING,
     enum: AppointmentStatus,
-    type: 'enum'
+    type: 'enum',
   })
   status?: AppointmentStatus;
 
@@ -42,14 +37,14 @@ export class Appointment extends Abstract {
   @Column({
     type: 'timestamp',
     precision: 6,
-    nullable: true
+    nullable: true,
   })
   endTimeExpected!: Date;
 
   @Column({
     type: 'timestamp',
     precision: 6,
-    nullable: true
+    nullable: true,
   })
   endTime?: Date;
 
@@ -57,7 +52,7 @@ export class Appointment extends Abstract {
   @Column('decimal', {
     precision: 5,
     scale: 2,
-    default: 0
+    default: 0,
   })
   priceExpected!: number;
 
@@ -70,31 +65,31 @@ export class Appointment extends Abstract {
   @Column('decimal', {
     precision: 5,
     scale: 2,
-    default: 0
+    default: 0,
   })
   priceFull?: number;
 
   @Column('decimal', {
     precision: 5,
     scale: 2,
-    default: 0
+    default: 0,
   })
   discount?: number;
 
   @Column('decimal', {
     precision: 5,
     scale: 2,
-    default: 0
+    default: 0,
   })
   priceFinal?: number;
 
   @Column('bool', {
-    nullable: true
+    nullable: true,
   })
   canceled?: boolean;
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   cancelationReason?: string;
 }

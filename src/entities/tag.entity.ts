@@ -1,9 +1,4 @@
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  ManyToMany
-} from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToMany } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
@@ -22,10 +17,8 @@ export class Tag extends Abstract {
   @Column()
   slug!: string;
 
-  @ManyToMany(
-    (type) => Article,
-    article => article.tags,
-  )
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @ManyToMany((type) => Article, (article) => article.tags)
   articles!: Article[];
 
   @BeforeInsert()

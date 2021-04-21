@@ -1,22 +1,6 @@
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  OneToMany,
-  ManyToMany
-} from 'typeorm';
-
-import {
-  classToPlain,
-  Exclude,
-} from 'class-transformer';
-
-import {
-  IsEmail,
-  IsNotEmpty,
-  Length,
-  Matches
-} from 'class-validator';
+import { BeforeInsert, Column, Entity, OneToMany, ManyToMany } from 'typeorm';
+import { classToPlain, Exclude } from 'class-transformer';
+import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
 
 import * as bcrypt from 'bcryptjs';
 
@@ -30,7 +14,7 @@ export enum UserRole {
   OWNER = 'owner',
   EMPLOYEE = 'employee',
   CLIENT = 'client',
-  USER = 'user'
+  USER = 'user',
 }
 
 export enum UserStatus {
@@ -72,6 +56,7 @@ export class User extends Abstract {
   @Exclude()
   password!: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToMany((type) => Company, (company) => company.employees)
   companies?: Company[];
 
@@ -81,7 +66,7 @@ export class User extends Abstract {
   @Column({
     default: UserRole.USER,
     enum: UserRole,
-    type: 'enum'
+    type: 'enum',
   })
   role?: UserRole;
 
@@ -93,7 +78,7 @@ export class User extends Abstract {
   @Column({
     default: UserStatus.INACTIVE,
     enum: UserStatus,
-    type: 'enum'
+    type: 'enum',
   })
   status?: UserStatus;
 

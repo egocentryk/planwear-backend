@@ -1,10 +1,4 @@
-import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  ManyToOne
-} from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne } from 'typeorm';
 
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';

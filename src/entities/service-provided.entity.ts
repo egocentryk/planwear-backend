@@ -1,12 +1,6 @@
-import {
-  Column,
-  Entity,
-  ManyToOne
-} from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
-import {
-  classToPlain
-} from 'class-transformer';
+import { classToPlain } from 'class-transformer';
 
 import { Abstract } from '@entities/abstract.entity';
 import { Appointment } from '@entities/appointment.entity';
@@ -23,7 +17,7 @@ export class ServiceProvided extends Abstract {
   @Column('decimal', {
     precision: 5,
     scale: 2,
-    default: 0
+    default: 0,
   })
   price!: number;
 

@@ -1,8 +1,4 @@
-import {
-  Column,
-  Entity,
-  ManyToOne
-} from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { Abstract } from '@entities/abstract.entity';
 import { User } from '@entities/user.entity';
@@ -12,7 +8,7 @@ export enum TokenType {
   EMAIL_CHANGE_REQUEST = 'emailChangeToken',
   PASSWORD_CHANGE_REQUEST = 'passwordChangeToken',
   PASSWORD_FORGOT_REQUEST = 'passwordForgotToken',
-  PASSWORD_RESET_REQUEST = 'passwordResetToken'
+  PASSWORD_RESET_REQUEST = 'passwordResetToken',
 }
 
 @Entity('tokens')
@@ -26,7 +22,7 @@ export class Token extends Abstract {
   @Column({
     enum: TokenType,
     nullable: true,
-    type: 'enum'
+    type: 'enum',
   })
   type!: TokenType;
 
