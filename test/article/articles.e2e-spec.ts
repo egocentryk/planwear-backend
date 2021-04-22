@@ -6,23 +6,19 @@ import * as request from 'supertest';
 import { CreateArticleDto } from '../../src/components/article/dto/create-article.dto';
 
 describe('[Feature] Articles - /articles', () => {
-
   // mock createArticleDTO
   const article = {
     title: 'Custom Example test module article title',
     content: 'Test Article content...',
     author: '1497d0ad-1940-4c3e-81aa-c94f07e3442d',
-    tags: ['nestjs', 'is', 'fucking', 'awesome']
+    tags: ['nestjs', 'is', 'fucking', 'awesome'],
   };
 
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        AppModule,
-        TypeOrmModule.forRoot({}),
-      ],
+      imports: [AppModule, TypeOrmModule.forRoot({})],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -42,18 +38,18 @@ describe('[Feature] Articles - /articles', () => {
   it('Create [POST /]', () => {
     return request(app.getHttpServer())
       .post('/articles')
-      .set('ApiGuard', process.env.API_KEY)
+      .set('ApiGuard', <string>process.env.API_KEY)
       .send(article as CreateArticleDto)
       .expect(HttpStatus.CREATED)
       .then(({ body }) => {
         const expectedArticle = jasmine.objectContaining({
           ...article,
           tags: jasmine.arrayContaining(
-            article.tags.map(title => jasmine.objectContaining({ title })),
+            article.tags.map((title) => jasmine.objectContaining({ title })),
           ),
         });
         expect(body).toEqual(expectedArticle);
-      })
+      });
   });
   it.todo('Get all [GET /]');
   it.todo('Get one [GET /:id]');

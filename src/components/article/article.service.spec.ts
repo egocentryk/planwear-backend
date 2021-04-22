@@ -21,7 +21,10 @@ describe('ArticleService', () => {
       providers: [
         ArticleService,
         { provide: Connection, useValue: {} },
-        { provide: getRepositoryToken(Article), useValue: createMockRepository() },
+        {
+          provide: getRepositoryToken(Article),
+          useValue: createMockRepository(),
+        },
         { provide: getRepositoryToken(Tag), useValue: createMockRepository() },
       ],
     }).compile();
@@ -40,7 +43,7 @@ describe('ArticleService', () => {
         const articleId = '1';
         const expectedArticle = {};
 
-        articleRepository.findOne.mockReturnValue(expectedArticle);
+        articleRepository?.findOne?.mockReturnValue(expectedArticle);
         const article = await service.findOne(articleId);
         expect(article).toEqual(expectedArticle);
       });
@@ -49,7 +52,7 @@ describe('ArticleService', () => {
     describe('otherwise', () => {
       it('should throw the "NotFoundException"', async () => {
         const articleId = '1';
-        articleRepository.findOne.mockReturnValue(undefined);
+        articleRepository?.findOne?.mockReturnValue(undefined);
 
         try {
           await service.findOne(articleId);

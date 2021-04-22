@@ -23,10 +23,7 @@ import { ParseIntPipe } from '@common/pipes/parse-int.pipe';
 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import {
-  editFileName,
-  imageFilter
-} from '@utils/file-upload.utils';
+import { editFileName, imageFilter } from '@utils/file-upload.utils';
 import { UploadArticlePhotoDTO } from './dto/upload-article-photo.dto';
 
 @ApiTags('articles')
@@ -51,17 +48,19 @@ export class ArticleController {
   }
 
   @Post('/upload/:id')
-  @UseInterceptors(FileInterceptor('image', {
-    fileFilter: imageFilter,
-    storage: diskStorage({
-      destination: './src/files',
-      filename: editFileName
+  @UseInterceptors(
+    FileInterceptor('image', {
+      fileFilter: imageFilter,
+      storage: diskStorage({
+        destination: './src/files',
+        filename: editFileName,
+      }),
     }),
-  }))
+  )
   async uploadFile(
     @Body() uploadArticlePhotoDto: UploadArticlePhotoDTO,
     @Param('id') id: string,
-    @UploadedFile() file: string | any
+    @UploadedFile() file: string | any,
   ) {
     const photo = uploadArticlePhotoDto;
 
@@ -72,7 +71,10 @@ export class ArticleController {
   }
 
   @Patch()
-  update(@Param('id') id: string, @Body(ValidationPipe) updateArticleDto: UpdateArticleDto) {
+  update(
+    @Param('id') id: string,
+    @Body(ValidationPipe) updateArticleDto: UpdateArticleDto,
+  ) {
     return this.articleService.update(id, updateArticleDto);
   }
 
