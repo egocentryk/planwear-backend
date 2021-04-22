@@ -16,6 +16,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"*/**/**/*.ts\" --fix",
+    "prepare": "husky install",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
