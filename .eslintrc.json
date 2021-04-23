@@ -19,7 +19,7 @@
         "ts-nocheck": true,
         "ts-check": false,
         "minimumDescriptionLength": 5
-      },
+      }
     ],
     "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
     "@typescript-eslint/explicit-function-return-type": "error",
@@ -74,7 +74,7 @@
       "error",
       {
         "allowWholeFile": true
-      },
+      }
     ],
     // disallow a eslint-enable comment for multiple eslint-disable comments
     "eslint-comments/no-aggregating-enable": "error",
@@ -94,9 +94,9 @@
           "eslint-disable",
           "eslint-disable-line",
           "eslint-disable-next-line",
-          "eslint-enable",
-        ],
-      },
+          "eslint-enable"
+        ]
+      }
     ],
 
     //
@@ -119,8 +119,8 @@
       {
         "devDependencies": true,
         "peerDependencies": true,
-        "optionalDependencies": false,
-      },
+        "optionalDependencies": false
+      }
     ],
     // Forbid mutable exports
     "import/no-mutable-exports": "error",
@@ -131,6 +131,6 @@
     // Forbid a module from importing itself
     "import/no-self-import": "error",
     // Require modules with a single export to use a default export
-    "import/prefer-default-export": "off", // we want everything to be named
-  },
+    "import/prefer-default-export": "off" // we want everything to be named
+  }
 }
