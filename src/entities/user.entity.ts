@@ -1,28 +1,12 @@
 import { BeforeInsert, Column, Entity, OneToMany, ManyToMany } from 'typeorm';
 import { classToPlain, Exclude } from 'class-transformer';
 import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
-
-import * as bcrypt from 'bcryptjs';
-
 import { Abstract } from '@entities/abstract.entity';
 import { Article } from '@entities/article.entity';
 import { Company } from '@entities/company.entity';
-
-export enum UserRole {
-  ADMIN = 'admin',
-  MODERATOR = 'moderator',
-  OWNER = 'owner',
-  EMPLOYEE = 'employee',
-  CLIENT = 'client',
-  USER = 'user',
-}
-
-export enum UserStatus {
-  ACTIVE = 'active',
-  BANNED = 'banned',
-  DELETED = 'deleted',
-  INACTIVE = 'inactive',
-}
+import { ApiHttpResponse } from '@common/enums/api-http-response.enum';
+import { UserRole, UserStatus } from '@enums/user.enum';
+import * as bcrypt from 'bcryptjs';
 
 @Entity('users')
 export class User extends Abstract {
@@ -30,7 +14,7 @@ export class User extends Abstract {
     unique: true,
   })
   @Matches(/^[a-zA-Z0-9.\-_]*$/, {
-    message: 'Only letters, numbers and special signs: .-_ are allowed',
+    message: ApiHttpResponse.ALLOWED_CHARACTERS,
   })
   @IsNotEmpty()
   @Length(1, 16)
@@ -48,7 +32,7 @@ export class User extends Abstract {
   @IsNotEmpty()
   @IsEmail()
   @Matches(/^[^+]+@.*$/, {
-    message: 'Cannot be an email alias',
+    message: ApiHttpResponse.EMAIL_ALIAS,
   })
   email!: string;
 

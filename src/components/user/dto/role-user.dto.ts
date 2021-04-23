@@ -1,11 +1,4 @@
-enum UserRole {
-  ADMIN = 'admin',
-  MODERATOR = 'moderator',
-  OWNER = 'owner',
-  EMPLOYEE = 'employee',
-  CLIENT = 'client',
-  USER = 'user',
-}
+import { UserRole } from '@enums/user.enum';
 
 export class RoleUserDto {
   readonly role!: UserRole;
