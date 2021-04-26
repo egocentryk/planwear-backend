@@ -44,24 +44,24 @@ Important: Twilio credentials, while not neccessary needed at the moment, **will
 ## Entities
 
 [x] Abstract (extends other entities with id [uuid], createdAt & updatedAt fields)  
-[x] Appointment
-[x] Article
-[x] BillingAddress
-[x] Comment
-[x] Company
-[x] Country
-[x] Event
+[x] Appointment  
+[x] Article  
+[x] BillingAddress  
+[x] Comment  
+[x] Company  
+[x] Country  
+[x] Event  
 [x] Photo  
 [x] ProductCategory  
 [x] Product  
 [x] Schedule  
 [x] ServiceCategory  
-[x] ServicesBooked
-[x] ServicesProvided
-[x] Service
-[x] Tag
-[x] Token
-[x] User
+[x] ServicesBooked  
+[x] ServicesProvided  
+[x] Service  
+[x] Tag  
+[x] Token  
+[x] User  
 
 ## Migrations
 
