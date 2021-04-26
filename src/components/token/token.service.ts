@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Token } from '@entities/token.entity';
 import { CreateTokenDto } from './dto/create-token.dto';
 import { UpdateTokenDto } from './dto/update-token.dto';
+import { ApiHttpResponse } from '@enums/api-http-response.enum';
 
 @Injectable()
 export class TokenService {
@@ -20,7 +21,7 @@ export class TokenService {
     const token = await this.tokenRepository.findOne(id);
 
     if (!token) {
-      throw new NotFoundException(`Token #${id} not found`);
+      throw new NotFoundException(`Token #${id} ${ApiHttpResponse.NOT_FOUND}`);
     }
 
     return token;
@@ -39,7 +40,7 @@ export class TokenService {
     });
 
     if (!token) {
-      throw new NotFoundException(`Token #${id} not found`);
+      throw new NotFoundException(`Token #${id} ${ApiHttpResponse.NOT_FOUND}`);
     }
 
     return this.tokenRepository.save(token);

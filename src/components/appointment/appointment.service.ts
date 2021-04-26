@@ -3,11 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { Repository } from 'typeorm';
 import { Appointment } from '@entities/appointment.entity';
-
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
-
 import { ScheduleService } from '@components/schedule/schedule.service';
+import { ApiHttpResponse } from '@enums/api-http-response.enum';
 
 @Injectable()
 export class AppointmentService {
@@ -36,7 +35,9 @@ export class AppointmentService {
     });
 
     if (!appointment) {
-      throw new NotFoundException(`Appointment #${id} not found`);
+      throw new NotFoundException(
+        `Appointment #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return appointment;
@@ -66,7 +67,9 @@ export class AppointmentService {
     });
 
     if (!appointment) {
-      throw new NotFoundException(`Appointment #${id} not found`);
+      throw new NotFoundException(
+        `Appointment #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return this.appointmentRepository.save(appointment);

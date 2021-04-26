@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ServiceCategory } from '@entities/service-category.entity';
 import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
 import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
+import { ApiHttpResponse } from '@enums/api-http-response.enum';
 
 @Injectable()
 export class ServiceCategoryService {
@@ -25,7 +26,7 @@ export class ServiceCategoryService {
 
     if (!serviceCategory) {
       throw new NotFoundException(
-        `Service category #${id} not found in database`,
+        `Service category #${id} ${ApiHttpResponse.NOT_FOUND}`,
       );
     }
 
@@ -48,7 +49,7 @@ export class ServiceCategoryService {
 
     if (!serviceCategory) {
       throw new NotFoundException(
-        `Service category #${id} not found in database`,
+        `Service category #${id} ${ApiHttpResponse.NOT_FOUND}`,
       );
     }
 

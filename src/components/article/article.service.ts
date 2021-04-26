@@ -6,6 +6,7 @@ import { Article } from '@entities/article.entity';
 import { Event } from '@entities/event.entity';
 import { Photo } from '@entities/photo.entity';
 import { Tag } from '@entities/tag.entity';
+import { ApiHttpResponse } from '@enums/api-http-response.enum';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { UploadArticlePhotoDTO } from './dto/upload-article-photo.dto';
@@ -63,7 +64,9 @@ export class ArticleService {
     });
 
     if (!article) {
-      throw new NotFoundException(`Article #${id} not found`);
+      throw new NotFoundException(
+        `Article #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return article;
@@ -100,7 +103,9 @@ export class ArticleService {
     });
 
     if (!article) {
-      throw new NotFoundException(`Article #${id} not found`);
+      throw new NotFoundException(
+        `Article #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return this.articleRepository.save(article);

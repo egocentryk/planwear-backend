@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Company } from '@entities/company.entity';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { ApiHttpResponse } from '@enums/api-http-response.enum';
 
 @Injectable()
 export class CompanyService {
@@ -24,7 +25,9 @@ export class CompanyService {
     });
 
     if (!company) {
-      throw new NotFoundException(`Company #${id} not found`);
+      throw new NotFoundException(
+        `Company #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return company;
@@ -43,7 +46,9 @@ export class CompanyService {
     });
 
     if (!company) {
-      throw new NotFoundException(`Company #${id} not found`);
+      throw new NotFoundException(
+        `Company #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return this.companyRepository.save(company);

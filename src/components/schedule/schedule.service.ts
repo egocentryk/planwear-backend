@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Schedule } from '@entities/schedule.entity';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { ApiHttpResponse } from '@enums/api-http-response.enum';
 
 @Injectable()
 export class ScheduleService {
@@ -20,7 +21,9 @@ export class ScheduleService {
     const schedule = await this.scheduleRepository.findOne(id);
 
     if (!schedule) {
-      throw new NotFoundException(`Schedule #${id} not found`);
+      throw new NotFoundException(
+        `Schedule #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return schedule;
@@ -39,7 +42,9 @@ export class ScheduleService {
     });
 
     if (!schedule) {
-      throw new NotFoundException(`Schedule #${id} not found`);
+      throw new NotFoundException(
+        `Schedule #${id} ${ApiHttpResponse.NOT_FOUND}`,
+      );
     }
 
     return this.scheduleRepository.save(schedule);
