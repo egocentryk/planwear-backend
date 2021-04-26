@@ -14,7 +14,7 @@ Rest API application for PlanWEAR (Manage appointments & organize schedules), bu
 
 **Work in progress** - nothing final yet, nightly tweaks are made!!! Diagram may not represent current entities model.
 
-![PostgreSQL Database Structure](https://restyled.pl/dev/db_diagram.png)
+![PostgreSQL Database Structure](https://restyled.pl/dev/planwear_db_diagram.png)
 
 ## Current status
 
@@ -44,21 +44,24 @@ Important: Twilio credentials, while not neccessary needed at the moment, **will
 ## Entities
 
 [x] Abstract (extends other entities with id [uuid], createdAt & updatedAt fields)  
-[x] Appointment  
-[x] Article  
-[x] Comment  
-[x] Company  
+[x] Appointment
+[x] Article
+[x] BillingAddress
+[x] Comment
+[x] Company
+[x] Country
+[x] Event
 [x] Photo  
 [x] ProductCategory  
 [x] Product  
 [x] Schedule  
 [x] ServiceCategory  
-[x] ServicesBooked  
-[x] ServicesProvided  
-[x] Service  
-[x] Tag  
-[x] Token  
-[x] User  
+[x] ServicesBooked
+[x] ServicesProvided
+[x] Service
+[x] Tag
+[x] Token
+[x] User
 
 ## Migrations
 
