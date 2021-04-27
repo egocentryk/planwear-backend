@@ -20,6 +20,7 @@
       "@guards/*": ["src/common/guards/*"],
       "@helpers/*": ["src/helpers/*"],
       "@interceptors/*": ["src/common/interceptors/*"],
+      "@interfaces/*": ["src/common/interfaces/*"],
       "@middleware/*": ["src/common/middleware/*"],
       "@migrations/*": ["src/migrations/*"],
       "@pipes/*": ["src/common/pipes/*"],
