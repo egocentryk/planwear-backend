@@ -1,7 +1,5 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-
 import { classToPlain } from 'class-transformer';
-
 import { Abstract } from '@entities/abstract.entity';
 import { Appointment } from '@entities/appointment.entity';
 import { Service } from '@entities/service.entity';

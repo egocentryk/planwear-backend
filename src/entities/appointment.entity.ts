@@ -1,14 +1,8 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-
 import { Abstract } from '@entities/abstract.entity';
 import { Company } from '@entities/company.entity';
 import { User } from '@entities/user.entity';
-
-export enum AppointmentStatus {
-  CANCELED = 'canceled',
-  FINISHED = 'finished',
-  PENDING = 'pending',
-}
+import { AppointmentStatus } from '@enums/appointment-status.enum';
 
 @Entity('appointments')
 export class Appointment extends Abstract {

@@ -1,12 +1,9 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne } from 'typeorm';
-
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-
-import slugify from '@helpers/slugify';
-
 import { Abstract } from '@entities/abstract.entity';
 import { Company } from '@entities/company.entity';
+import slugify from '@helpers/slugify';
 
 @Entity('service_categories')
 export class ServiceCategory extends Abstract {

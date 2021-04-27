@@ -7,12 +7,10 @@ import {
   ManyToMany,
   ManyToOne,
 } from 'typeorm';
-
-import slugify from '@helpers/slugify';
-
 import { Abstract } from '@entities/abstract.entity';
 import { User } from '@entities/user.entity';
 import { ServiceCategory } from '@entities/service-category.entity';
+import slugify from '@helpers/slugify';
 
 @Entity('companies')
 export class Company extends Abstract {
@@ -29,8 +27,7 @@ export class Company extends Abstract {
   owner!: User;
 
   @JoinTable()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @ManyToMany((type) => User, (user) => user.companies)
+  @ManyToMany(() => User, (user) => user.companies)
   employees?: number[];
 
   @OneToMany(

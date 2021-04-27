@@ -1,13 +1,10 @@
 import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
-
 import { classToPlain } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-
-import slugify from '@helpers/slugify';
-
 import { Abstract } from '@entities/abstract.entity';
 import { User } from '@entities/user.entity';
 import { ProductCategory } from '@entities/product-category.entity';
+import slugify from '@helpers/slugify';
 
 @Entity('products')
 export class Product extends Abstract {

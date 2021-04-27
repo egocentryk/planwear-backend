@@ -48,8 +48,7 @@ export class Article extends Abstract {
   @OneToMany(() => Photo, (photo) => photo.article)
   photos?: Photo[];
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @ManyToMany((type) => Tag, (tag) => tag.articles, {
+  @ManyToMany(() => Tag, (tag) => tag.articles, {
     cascade: true,
   })
   @JoinTable()

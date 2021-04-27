@@ -1,5 +1,4 @@
 import { Column, Entity } from 'typeorm';
-
 import { Abstract } from '@entities/abstract.entity';
 
 @Entity('events')
