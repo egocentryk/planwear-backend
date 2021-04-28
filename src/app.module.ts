@@ -12,6 +12,7 @@ import { CommonModule } from '@common/common.module';
 import { CompanyModule } from '@components/company/company.module';
 import { UserModule } from '@components/user/user.module';
 import { ServiceCategoryModule } from '@components/service-category/service-category.module';
+import { ServiceModule } from '@components/service/service.module';
 
 import appConfig from '@config/app.config';
 
@@ -79,6 +80,7 @@ const sslOptions: any = {
     }),
     UserModule,
     ServiceCategoryModule,
+    ServiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
