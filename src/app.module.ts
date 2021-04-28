@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
-import {
-  ConfigModule,
-  ConfigService
-} from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TwilioModule } from 'nestjs-twilio';
 import { AppController } from './app.controller';
@@ -20,19 +17,19 @@ import appConfig from '@config/app.config';
 
 import * as Joi from '@hapi/joi';
 
-const ssl:any = {
+const ssl: any = {
   development: false,
-  production: true
-}
+  production: true,
+};
 
-const sslOptions:any = {
+const sslOptions: any = {
   development: {},
   production: {
     ssl: {
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   },
-}
+};
 
 @Module({
   imports: [
@@ -53,7 +50,7 @@ const sslOptions:any = {
         password: configService.get('TYPEORM_PASSWORD'),
         database: configService.get('TYPEORM_DATABASEE'),
         autoLoadEntities: true,
-        synchronize: true, /* development mode ONLY!!! */
+        synchronize: true /* development mode ONLY!!! */,
         ssl: ssl[configService.get('NODE_ENV')],
         extra: sslOptions[configService.get('NODE_ENV')],
       }),
@@ -69,8 +66,12 @@ const sslOptions:any = {
       validationSchema: Joi.object({
         TYPEORM_HOST: Joi.required(),
         TYPEORM_PORT: Joi.number().default(5432),
-        NODE_ENV: Joi.string()
-          .valid('development', 'production', 'staging', 'test'),
+        NODE_ENV: Joi.string().valid(
+          'development',
+          'production',
+          'staging',
+          'test',
+        ),
       }),
     }),
     MulterModule.register({
@@ -82,5 +83,4 @@ const sslOptions:any = {
   controllers: [AppController],
   providers: [AppService],
 })
-
 export class AppModule {}

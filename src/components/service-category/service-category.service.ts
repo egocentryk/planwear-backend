@@ -33,7 +33,21 @@ export class ServiceCategoryService {
     return serviceCategory;
   }
 
-  create(createServiceCategoryDto: CreateServiceCategoryDto) {
+  async create(createServiceCategoryDto: CreateServiceCategoryDto) {
+    const isTitleTaken = await this.serviceCategoryRepository.findOne({
+      where: {
+        title: createServiceCategoryDto.title,
+        company: createServiceCategoryDto.company,
+      },
+    });
+
+    if (isTitleTaken) {
+      return {
+        error: true,
+        message: ApiHttpResponse.CATEGORY_IN_COMPANY_TAKEN,
+      };
+    }
+
     const serviceCategory = this.serviceCategoryRepository.create(
       createServiceCategoryDto,
     );
