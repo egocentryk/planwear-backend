@@ -1,5 +1,5 @@
-import { TokenType } from '@entities/token.entity';
 import { IsDate, IsString } from 'class-validator';
+import { TokenType } from '@enums/token-type.enum';
 
 export class CreateTokenDto {
   @IsString()

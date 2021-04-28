@@ -14,8 +14,8 @@ import { UpdateStatusUserDto } from './dto/update-status-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { TokenService } from '@components/token/token.service';
-import { TokenType } from '@entities/token.entity';
 import { ApiHttpResponse } from '@enums/api-http-response.enum';
+import { TokenType } from '@enums/token-type.enum';
 import { AuthResponse } from '@interfaces/auth-response.interface';
 import * as bcrypt from 'bcryptjs';
 
