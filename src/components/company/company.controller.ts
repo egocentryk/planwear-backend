@@ -10,9 +10,11 @@ import {
 } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
+import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
 import { ApiTags } from '@nestjs/swagger';
+
 @ApiTags('companies')
 @Controller('companies')
 export class CompanyController {
@@ -20,7 +22,7 @@ export class CompanyController {
 
   @Get()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  findAll(@Query() paginationQuery: any) {
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;
 
     return this.companyService.findAll();

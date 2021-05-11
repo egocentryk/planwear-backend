@@ -10,8 +10,10 @@ import {
 } from '@nestjs/common';
 import { ServiceCategoryService } from './service-category.service';
 import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
+import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
 import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
 import { ApiTags } from '@nestjs/swagger';
+
 @ApiTags('service-categories')
 @Controller('service-categories')
 export class ServiceCategoryController {
@@ -21,7 +23,7 @@ export class ServiceCategoryController {
 
   @Get()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  findAll(@Query() paginationQuery: any) {
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.serviceCategoryService.findAll();
   }
 
