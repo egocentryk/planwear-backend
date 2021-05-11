@@ -1,6 +1,7 @@
 import { IsDate, IsOptional, IsString } from 'class-validator';
 
 import { AppointmentStatus } from '@enums/appointment-status.enum';
+import { Company } from '@entities/company.entity';
 
 export class CreateAppointmentDto {
   @IsString()
@@ -13,7 +14,7 @@ export class CreateAppointmentDto {
   readonly client!: string;
 
   @IsString()
-  readonly company!: any | string;
+  readonly company!: Company;
 
   @IsDate()
   readonly startTime!: Date;
