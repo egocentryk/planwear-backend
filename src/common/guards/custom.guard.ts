@@ -16,7 +16,7 @@ export class jwtCustomGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const req: any = context.switchToHttp().getRequest();
+    const req = context.switchToHttp().getRequest();
 
     if (req.headers['Token']) {
       const token = req.headers['Token'];

@@ -8,8 +8,8 @@ import {
 @Injectable()
 export class ParseStringPipe implements PipeTransform {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  transform(value: any, metadata: ArgumentMetadata) {
-    const val: any = String(value);
+  transform(value: string, metadata: ArgumentMetadata) {
+    const val = value;
 
     if (Object.prototype.toString.call(val) !== '[object String]') {
       throw new BadRequestException(

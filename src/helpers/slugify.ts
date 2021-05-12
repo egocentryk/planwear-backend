@@ -1,4 +1,7 @@
 /* eslint-disable sort-keys */
+
+import { ObjectLiteral } from 'typeorm';
+
 /* eslint-disable no-param-reassign */
 const slugify = (str: string) => {
   str = String(str).toString();
@@ -6,7 +9,7 @@ const slugify = (str: string) => {
   str = str.toLowerCase();
 
   // remove accents, swap ń for n, etc
-  const swaps: any = {
+  const swaps: ObjectLiteral = {
     0: ['°', '₀', '۰', '０'],
     1: ['¹', '₁', '۱', '１'],
     2: ['²', '₂', '۲', '２'],

@@ -73,7 +73,7 @@ export class ArticleService {
   }
 
   async create(createArticleDto: CreateArticleDto) {
-    const tags: any = await Promise.all(
+    const tags: Tag[] = await Promise.all(
       createArticleDto.tags.map((title: string) =>
         this.preloadTagByName(title),
       ),

@@ -18,12 +18,16 @@ import appConfig from '@config/app.config';
 
 import * as Joi from '@hapi/joi';
 
-const ssl: any = {
+const ssl: {
+  [key: string]: boolean;
+} = {
   development: false,
   production: true,
 };
 
-const sslOptions: any = {
+const sslOptions: {
+  [key: string]: any;
+} = {
   development: {},
   production: {
     ssl: {
