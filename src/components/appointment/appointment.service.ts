@@ -43,7 +43,7 @@ export class AppointmentService {
     return appointment;
   }
 
-  create(createAppointmentDto: CreateAppointmentDto) {
+  async create(createAppointmentDto: CreateAppointmentDto) {
     const appointment = this.appointmentRepository.create(createAppointmentDto);
 
     // update employee schedule
@@ -53,7 +53,7 @@ export class AppointmentService {
       to: appointment.endTimeExpected,
     };
 
-    const scheduled = this.scheduleService.create(schedule);
+    const scheduled = await this.scheduleService.create(schedule);
 
     if (scheduled) {
       return this.appointmentRepository.save(appointment);
