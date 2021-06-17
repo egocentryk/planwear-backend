@@ -27,6 +27,7 @@
       "@utils/*": ["src/utils/*"],
     },
     "removeComments": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
