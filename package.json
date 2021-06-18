@@ -37,7 +37,7 @@
     "@nestjs/mapped-types": "^0.4.1",
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.18",
-    "@nestjs/swagger": "^4.8.0",
+    "@nestjs/swagger": "^4.8.1",
     "@nestjs/typeorm": "^7.1.5",
     "@types/passport-jwt": "^3.0.5",
     "@types/passport-local": "^1.0.33",
@@ -66,8 +66,8 @@
     "@types/express": "^4.17.12",
     "@types/hapi__joi": "^17.1.6",
     "@types/jest": "^26.0.23",
-    "@types/multer": "^1.4.5",
-    "@types/node": "^15.12.2",
+    "@types/multer": "^1.4.6",
+    "@types/node": "^15.12.3",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
@@ -83,7 +83,7 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.3.3"
+    "typescript": "^4.3.4"
   },
   "jest": {
     "moduleFileExtensions": [
