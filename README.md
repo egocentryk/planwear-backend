@@ -2,9 +2,9 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-## Warning
+## Current status
 
-### <p style="color:red">Migration from NestJS v7 to v11 in progress. App currently not working!!!</p>
+**Work in progress** - pre-alpha stage!!! Back on track after short break, moving from NestJS v7 to 11.x
 
 ## Description
 
@@ -14,11 +14,11 @@ Rest API application for PlanWEAR (Manage appointments & organize schedules), bu
 
 **Work in progress** - nothing final yet, nightly tweaks are made!!! Diagram may not represent current entities model.
 
-![PostgreSQL Database Structure](https://restyled.pl/dev/planwear_db_diagram.png)
+![PostgreSQL Database Structure](public/db-diagram.png)
 
-## Current status
+## Project Graph [Modules]
 
-**Work in progress** - pre-alpha stage!!!
+![Modules Graph](public/modules-graph.png)
 
 ## External services
 
@@ -70,7 +70,7 @@ Not set-up yet, work in progress. TypeORM synchronize option is set to true - de
 ## Installation
 
 ```bash
-$ npm install
+$ pnpm install
 ```
 
 ## Docker
@@ -79,32 +79,6 @@ $ npm install
 $ docker-compose up -d
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
 ## Stay in touch
 
-- Author - kontakt@egocentryk.pl
+Author - lukasz [dot] skowron [at] gmail.com

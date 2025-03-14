@@ -17,6 +17,7 @@ import { ServiceModule } from '@components/service/service.module';
 import appConfig from '@config/app.config';
 
 import * as Joi from 'joi';
+import { DevtoolsModule } from '@nestjs/devtools-integration'
 
 const ssl: {
   [key: string]: boolean;
@@ -38,6 +39,9 @@ const sslOptions: {
 
 @Module({
   imports: [
+    DevtoolsModule.register({
+      http: process.env.NODE_ENV !== 'production'
+    }),
     TwilioModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         accountSid: configService.get('TWILIO_ACCOUNT_SID'),
