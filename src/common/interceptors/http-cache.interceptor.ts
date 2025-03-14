@@ -1,6 +1,7 @@
-import { CacheInterceptor, ExecutionContext, Injectable } from '@nestjs/common';
+import { ExecutionContext, Injectable } from '@nestjs/common';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
-@Injectable()
+@Injectable() 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class HttpCacheInterceptor extends CacheInterceptor {
   trackBy(context: ExecutionContext): string | undefined {
