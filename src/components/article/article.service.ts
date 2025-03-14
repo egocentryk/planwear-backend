@@ -1,7 +1,7 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Optional } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Connection, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Article } from '@entities/article.entity';
 import { Event } from '@entities/event.entity';
 import { Photo } from '@entities/photo.entity';
@@ -24,15 +24,19 @@ export class ArticleService {
     private readonly photoRepository: Repository<Photo>,
     @InjectRepository(Tag)
     private readonly tagRepository: Repository<Tag>,
-    private readonly connection: Connection,
+    private readonly dataSource: DataSource,
     @Inject(articleConfig.KEY)
     private readonly articlesConfiguration: ConfigType<typeof articleConfig>,
-    private readonly twilioClient: TwilioClient,
+    @Optional() private readonly twilioClient?: TwilioClient,
   ) {
     console.log(articlesConfiguration.foo);
   }
 
   async sendSMS() {
+    if (!this.twilioClient) {
+      return { error: 'Twilio client not available' };
+    }
+
     try {
       return await this.twilioClient.messages.create({
         body: 'SMS Body',
@@ -118,7 +122,7 @@ export class ArticleService {
   }
 
   async recommendArticle(article: Article | any) {
-    const queryRunner = this.connection.createQueryRunner();
+    const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
     await queryRunner.startTransaction();

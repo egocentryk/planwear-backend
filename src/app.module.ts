@@ -16,7 +16,7 @@ import { ServiceModule } from '@components/service/service.module';
 
 import appConfig from '@config/app.config';
 
-import * as Joi from '@hapi/joi';
+import * as Joi from 'joi';
 
 const ssl: {
   [key: string]: boolean;
