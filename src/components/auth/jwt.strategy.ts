@@ -12,6 +12,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {
+    if (!process.env.JWT_SECRET_KEY) {
+      throw new Error('JWT_SECRET_KEY is not defined');
+    }
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Token'),
       secretOrKey: process.env.JWT_SECRET_KEY,
