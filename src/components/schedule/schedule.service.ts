@@ -18,7 +18,7 @@ export class ScheduleService {
   }
 
   async findOne(id: string) {
-    const schedule = await this.scheduleRepository.findOne(id);
+    const schedule = await this.scheduleRepository.findOne({ where: { id } });
 
     if (!schedule) {
       throw new NotFoundException(

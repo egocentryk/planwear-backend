@@ -30,7 +30,8 @@ export class AppointmentService {
   }
 
   async findOne(id: string) {
-    const appointment = await this.appointmentRepository.findOne(id, {
+    const appointment = await this.appointmentRepository.findOne({
+      where: { id },
       relations: ['company', 'employeeCreated', 'employee', 'client'],
     });
 

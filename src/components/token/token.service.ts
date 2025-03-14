@@ -18,7 +18,7 @@ export class TokenService {
   }
 
   async findOne(id: string) {
-    const token = await this.tokenRepository.findOne(id);
+    const token = await this.tokenRepository.findOne({ where: { id } });
 
     if (!token) {
       throw new NotFoundException(`Token #${id} ${ApiHttpResponse.NOT_FOUND}`);

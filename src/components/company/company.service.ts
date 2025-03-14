@@ -20,7 +20,8 @@ export class CompanyService {
   }
 
   async findOne(id: string) {
-    const company = await this.companyRepository.findOne(id, {
+    const company = await this.companyRepository.findOne({
+      where: { id },
       relations: ['employees'],
     });
 

@@ -48,7 +48,9 @@ export class UserService {
 
   async findOne(id: string) {
     try {
-      const user = await this.userRepository.findOne(id);
+      const user = await this.userRepository.findOne({
+        where: { id },
+      });
 
       return user;
     } catch (error) {

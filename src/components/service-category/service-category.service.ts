@@ -20,7 +20,8 @@ export class ServiceCategoryService {
   }
 
   async findOne(id: string) {
-    const serviceCategory = await this.serviceCategoryRepository.findOne(id, {
+    const serviceCategory = await this.serviceCategoryRepository.findOne({
+      where: { id },
       relations: ['company'],
     });
 

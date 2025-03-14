@@ -18,7 +18,7 @@ export class ServiceService {
   }
 
   async findOne(id: string) {
-    const service = await this.serviceRepository.findOne(id);
+    const service = await this.serviceRepository.findOne({ where: { id } });
 
     if (!service) {
       throw new NotFoundException(
