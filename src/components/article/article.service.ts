@@ -11,7 +11,7 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { UploadArticlePhotoDTO } from './dto/upload-article-photo.dto';
 import { PaginationQueryDto } from '@common/dto/pagination-query.dto';
-import { InjectTwilio, TwilioClient } from 'nestjs-twilio';
+import { TwilioClient } from 'nestjs-twilio';
 
 import articleConfig from './config/article.config';
 
@@ -27,7 +27,6 @@ export class ArticleService {
     private readonly connection: Connection,
     @Inject(articleConfig.KEY)
     private readonly articlesConfiguration: ConfigType<typeof articleConfig>,
-    @InjectTwilio()
     private readonly twilioClient: TwilioClient,
   ) {
     console.log(articlesConfiguration.foo);
@@ -59,7 +58,8 @@ export class ArticleService {
   }
 
   async findOne(id: string) {
-    const article = await this.articleRepository.findOne(id, {
+    const article = await this.articleRepository.findOne({
+      where: { id },
       relations: ['tags', 'user'],
     });
 
@@ -143,7 +143,7 @@ export class ArticleService {
   }
 
   private async preloadTagByName(title: string): Promise<Tag> {
-    const existingTag = await this.tagRepository.findOne({ title });
+    const existingTag = await this.tagRepository.findOne({ where: { title } });
 
     if (existingTag) {
       return existingTag;
