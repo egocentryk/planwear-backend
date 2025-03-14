@@ -2,12 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Article } from '@entities/article.entity';
 import { Tag } from '@entities/tag.entity';
-import { Connection, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { ArticleService } from './article.service';
 import { NotFoundException } from '@nestjs/common';
 
-type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
-const createMockRepository = <T = any>(): MockRepository<T> => ({
+import { ObjectLiteral } from 'typeorm';
+type MockRepository<T extends ObjectLiteral = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
+const createMockRepository = <T extends ObjectLiteral = any>(): MockRepository<T> => ({
   findOne: jest.fn(),
   create: jest.fn(),
 });
@@ -20,7 +21,7 @@ describe('ArticleService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ArticleService,
-        { provide: Connection, useValue: {} },
+        { provide: DataSource, useValue: {} },
         {
           provide: getRepositoryToken(Article),
           useValue: createMockRepository(),
@@ -58,7 +59,7 @@ describe('ArticleService', () => {
           await service.findOne(articleId);
         } catch (err) {
           expect(err).toBeInstanceOf(NotFoundException);
-          expect(err.message).toEqual(`Article #${articleId} not found`);
+          expect((err as NotFoundException).message).toEqual(`Article #${articleId} not found`);
         }
       });
     });
