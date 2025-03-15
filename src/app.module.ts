@@ -1,33 +1,33 @@
-import { Module } from '@nestjs/common';
-import { MulterModule } from '@nestjs/platform-express';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TwilioModule } from 'nestjs-twilio';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module } from '@nestjs/common'
+import { MulterModule } from '@nestjs/platform-express'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { TwilioModule } from 'nestjs-twilio'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
 
-import { AppointmentModule } from '@components/appointment/appointment.module';
-import { ArticleModule } from '@components/article/article.module';
-import { CommonModule } from '@common/common.module';
-import { CompanyModule } from '@components/company/company.module';
-import { UserModule } from '@components/user/user.module';
-import { ServiceCategoryModule } from '@components/service-category/service-category.module';
-import { ServiceModule } from '@components/service/service.module';
+import { AppointmentModule } from '@components/appointment/appointment.module'
+import { ArticleModule } from '@components/article/article.module'
+import { CommonModule } from '@common/common.module'
+import { CompanyModule } from '@components/company/company.module'
+import { UserModule } from '@components/user/user.module'
+import { ServiceCategoryModule } from '@components/service-category/service-category.module'
+import { ServiceModule } from '@components/service/service.module'
 
-import appConfig from '@config/app.config';
+import appConfig from '@config/app.config'
 
-import * as Joi from 'joi';
+import * as Joi from 'joi'
 import { DevtoolsModule } from '@nestjs/devtools-integration'
 
 const ssl: {
-  [key: string]: boolean;
+  [key: string]: boolean
 } = {
   development: false,
   production: true,
-};
+}
 
 const sslOptions: {
-  [key: string]: any;
+  [key: string]: any
 } = {
   development: {},
   production: {
@@ -35,12 +35,12 @@ const sslOptions: {
       rejectUnauthorized: false,
     },
   },
-};
+}
 
 @Module({
   imports: [
     DevtoolsModule.register({
-      http: process.env.NODE_ENV !== 'production'
+      http: process.env.NODE_ENV !== 'production',
     }),
     TwilioModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
