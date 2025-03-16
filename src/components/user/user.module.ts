@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { PassportModule } from '@nestjs/passport';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Token } from '@entities/token.entity';
-import { User } from '@entities/user.entity';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
-import { JwtStrategy } from '@components/auth/jwt.strategy';
-import { TokenService } from '@components/token/token.service';
+import { Module } from '@nestjs/common'
+import { JwtModule } from '@nestjs/jwt'
+import { ConfigService } from '@nestjs/config'
+import { PassportModule } from '@nestjs/passport'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Token } from '@entities/token.entity'
+import { User } from '@entities/user.entity'
+import { UserService } from './user.service'
+import { JwtStrategy } from '@components/auth/jwt.strategy'
+import { TokenService } from '@components/token/token.service'
+import { UserResolver } from './user.resolver'
 
 @Module({
   imports: [
@@ -26,8 +26,8 @@ import { TokenService } from '@components/token/token.service';
       defaultStrategy: 'jwt',
     }),
   ],
-  controllers: [UserController],
+  // controllers: [UserController],
   exports: [JwtStrategy, UserService],
-  providers: [JwtStrategy, TokenService, UserService],
+  providers: [JwtStrategy, TokenService, UserService, UserResolver],
 })
 export class UserModule {}

@@ -18,6 +18,9 @@ import appConfig from '@config/app.config'
 
 import * as Joi from 'joi'
 import { DevtoolsModule } from '@nestjs/devtools-integration'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { join } from 'path'
 
 const ssl: {
   [key: string]: boolean
@@ -42,6 +45,10 @@ const sslOptions: {
     DevtoolsModule.register({
       http: process.env.NODE_ENV !== 'production',
     }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
     TwilioModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         accountSid: configService.get('TWILIO_ACCOUNT_SID'),
@@ -65,10 +72,10 @@ const sslOptions: {
       }),
       inject: [ConfigService],
     }),
-    AppointmentModule,
-    ArticleModule,
-    CompanyModule,
-    CommonModule,
+    // AppointmentModule,
+    // ArticleModule,
+    // CompanyModule,
+    // CommonModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [appConfig],
@@ -87,8 +94,8 @@ const sslOptions: {
       dest: './src/files',
     }),
     UserModule,
-    ServiceCategoryModule,
-    ServiceModule,
+    // ServiceCategoryModule,
+    // ServiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
