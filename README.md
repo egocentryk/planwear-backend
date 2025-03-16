@@ -10,6 +10,10 @@
 
 Rest API application for PlanWEAR (Manage appointments & organize schedules), build in [Nest](https://github.com/nestjs/nest) framework.
 
+## Deployment
+
+Check out [Mau](https://mau.nestjs.com), official platform for deploying NestJS applications on AWS.
+
 ## Database Structure
 
 **Work in progress** - nothing final yet, nightly tweaks are made!!! Diagram may not represent current entities model.
@@ -43,25 +47,25 @@ Important: Twilio credentials, while not neccessary needed at the moment, **will
 
 ## Entities
 
-[x] Abstract (extends other entities with id [uuid], createdAt & updatedAt fields)  
-[x] Appointment  
-[x] Article  
-[x] BillingAddress  
-[x] Comment  
-[x] Company  
-[x] Country  
-[x] Event  
-[x] Photo  
-[x] ProductCategory  
-[x] Product  
-[x] Schedule  
-[x] ServiceCategory  
-[x] ServicesBooked  
-[x] ServicesProvided  
-[x] Service  
-[x] Tag  
-[x] Token  
-[x] User  
+- [x] Abstract (extends other entities with id [uuid], createdAt & updatedAt fields)
+- [x] Appointment
+- [x] Article
+- [x] BillingAddress
+- [x] Comment
+- [x] Company
+- [x] Country
+- [x] Event
+- [x] Photo
+- [x] ProductCategory
+- [x] Product
+- [x] Schedule
+- [x] ServiceCategory
+- [x] ServicesBooked
+- [x] ServicesProvided
+- [x] Service
+- [x] Tag
+- [x] Token
+- [x] User
 
 ## Migrations
 
