@@ -1,3 +1,5 @@
+import { registerEnumType } from '@nestjs/graphql'
+
 export enum TokenType {
   EMAIL_VERIFICATION_REQUEST = 'emailVerificationToken',
   EMAIL_CHANGE_REQUEST = 'emailChangeToken',
@@ -5,3 +7,7 @@ export enum TokenType {
   PASSWORD_FORGOT_REQUEST = 'passwordForgotToken',
   PASSWORD_RESET_REQUEST = 'passwordResetToken',
 }
+
+registerEnumType(TokenType, {
+  name: 'TokenType',
+})

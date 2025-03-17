@@ -1,14 +1,16 @@
-import { Column, Entity } from 'typeorm';
-import { Abstract } from '@entities/abstract.entity';
+import { Column, Entity } from 'typeorm'
+import { Abstract } from '@entities/abstract.entity'
+import { ObjectType } from '@nestjs/graphql'
 
 @Entity('events')
+@ObjectType()
 export class Event extends Abstract {
   @Column()
-  type!: string;
+  type!: string
 
   @Column()
-  name!: string;
+  name!: string
 
   @Column('json')
-  payload?: Record<string, any>;
+  payload?: Record<string, any>
 }

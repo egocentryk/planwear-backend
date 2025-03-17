@@ -1,46 +1,48 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { Abstract } from '@entities/abstract.entity';
-import { Company } from '@entities/company.entity';
-import { User } from '@entities/user.entity';
-import { AppointmentStatus } from '@enums/appointment-status.enum';
+import { Column, Entity, ManyToOne } from 'typeorm'
+import { Abstract } from '@entities/abstract.entity'
+import { Company } from '@entities/company.entity'
+import { User } from '@entities/user.entity'
+import { AppointmentStatus } from '@enums/appointment-status.enum'
+import { ObjectType } from '@nestjs/graphql'
 
 @Entity('appointments')
+@ObjectType()
 export class Appointment extends Abstract {
   @ManyToOne(() => User)
-  employeeCreated!: User;
+  employeeCreated!: User
 
   @ManyToOne(() => User)
-  employee!: User;
+  employee!: User
 
   @ManyToOne(() => User)
-  client!: User;
+  client!: User
 
   @ManyToOne(() => Company)
-  company!: Company;
+  company!: Company
 
   @Column({
     default: AppointmentStatus.PENDING,
     enum: AppointmentStatus,
     type: 'enum',
   })
-  status?: AppointmentStatus;
+  status?: AppointmentStatus
 
   @Column('timestamp')
-  startTime!: Date;
+  startTime!: Date
 
   @Column({
     type: 'timestamp',
     precision: 6,
     nullable: true,
   })
-  endTimeExpected!: Date;
+  endTimeExpected!: Date
 
   @Column({
     type: 'timestamp',
     precision: 6,
     nullable: true,
   })
-  endTime?: Date;
+  endTime?: Date
 
   // this is the sum off all the booked services prices
   @Column('decimal', {
@@ -48,7 +50,7 @@ export class Appointment extends Abstract {
     scale: 2,
     default: 0,
   })
-  priceExpected!: number;
+  priceExpected!: number
 
   /*
     sum of all provided services, it can differ from priceExpected.
@@ -61,29 +63,29 @@ export class Appointment extends Abstract {
     scale: 2,
     default: 0,
   })
-  priceFull?: number;
+  priceFull?: number
 
   @Column('decimal', {
     precision: 5,
     scale: 2,
     default: 0,
   })
-  discount?: number;
+  discount?: number
 
   @Column('decimal', {
     precision: 5,
     scale: 2,
     default: 0,
   })
-  priceFinal?: number;
+  priceFinal?: number
 
   @Column('bool', {
     nullable: true,
   })
-  canceled?: boolean;
+  canceled?: boolean
 
   @Column({
     nullable: true,
   })
-  cancelationReason?: string;
+  cancelationReason?: string
 }

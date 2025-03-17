@@ -10,6 +10,9 @@ type User {
   firstName: String!
   lastName: String!
   email: String!
+  role: String!
+  isBlocked: Boolean!
+  status: String!
 }
 
 """

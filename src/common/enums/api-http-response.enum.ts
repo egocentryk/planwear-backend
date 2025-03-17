@@ -1,3 +1,5 @@
+import { registerEnumType } from '@nestjs/graphql'
+
 export enum ApiHttpResponse {
   ALLOWED_CHARACTERS = 'only letters, numbers and special signs: .-_ are allowed',
   CATEGORY_IN_COMPANY_TAKEN = 'category name within current company already taken',
@@ -6,3 +8,7 @@ export enum ApiHttpResponse {
   INVALID_CREDENTIALS = 'invalid credentials',
   NOT_FOUND = 'not found in database',
 }
+
+registerEnumType(ApiHttpResponse, {
+  name: 'ApiHttpResponse',
+})

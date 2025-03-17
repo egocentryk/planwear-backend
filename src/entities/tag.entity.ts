@@ -1,32 +1,35 @@
-import { BeforeInsert, Column, Entity, ManyToMany } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToMany } from 'typeorm'
 
-import { classToPlain } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
+import { instanceToPlain } from 'class-transformer'
+import { IsNotEmpty } from 'class-validator'
 
-import slugify from '@helpers/slugify';
+import slugify from '@helpers/slugify'
 
-import { Abstract } from '@entities/abstract.entity';
-import { Article } from '@entities/article.entity';
+import { Abstract } from '@entities/abstract.entity'
+import { Article } from '@entities/article.entity'
+import { Field, ObjectType } from '@nestjs/graphql'
 
 @Entity('tags')
+@ObjectType()
 export class Tag extends Abstract {
+  @Field(() => String)
   @Column()
   @IsNotEmpty()
-  title!: string;
+  title: string
 
+  @Field(() => String)
   @Column()
-  slug!: string;
+  slug: string
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToMany((type) => Article, (article) => article.tags)
-  articles!: Article[];
+  articles!: Article[]
 
   @BeforeInsert()
   convertSlug(): void {
-    this.slug = slugify(this.title);
+    this.slug = slugify(this.title)
   }
 
   toJSON() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }
