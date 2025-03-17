@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm'
 
-import { classToPlain } from 'class-transformer'
+import { instanceToPlain } from 'class-transformer'
 import { IsNotEmpty } from 'class-validator'
 
 import slugify from '@helpers/slugify'
@@ -18,8 +18,10 @@ import { Comment } from '@entities/comment.entity'
 import { Photo } from '@entities/photo.entity'
 import { Tag } from '@entities/tag.entity'
 import { User } from '@entities/user.entity'
+import { ObjectType } from '@nestjs/graphql'
 
 @Entity('articles')
+@ObjectType()
 export class Article extends Abstract {
   @Column()
   @IsNotEmpty()
@@ -39,8 +41,8 @@ export class Article extends Abstract {
   @Column({ default: 0 })
   recommendations?: number
 
-  // @ManyToOne(() => User, (user) => user.articles)
-  // user!: User;
+  @ManyToOne(() => User, (user) => user.articles)
+  user!: User
 
   @OneToMany(() => Comment, (comment) => comment.article)
   comments?: Comment[]
@@ -60,6 +62,6 @@ export class Article extends Abstract {
   }
 
   toJSON() {
-    return classToPlain(this)
+    return instanceToPlain(this)
   }
 }

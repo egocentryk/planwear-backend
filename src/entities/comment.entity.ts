@@ -1,23 +1,25 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { classToPlain } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
-import { Abstract } from '@entities/abstract.entity';
-import { Article } from '@entities/article.entity';
-import { User } from '@entities/user.entity';
+import { Column, Entity, ManyToOne } from 'typeorm'
+import { instanceToPlain } from 'class-transformer'
+import { IsNotEmpty } from 'class-validator'
+import { Abstract } from '@entities/abstract.entity'
+import { Article } from '@entities/article.entity'
+import { User } from '@entities/user.entity'
+import { ObjectType } from '@nestjs/graphql'
 
 @Entity('comments')
+@ObjectType()
 export class Comment extends Abstract {
   @IsNotEmpty()
   @Column()
-  content!: string;
+  content!: string
 
   @ManyToOne(() => User)
-  author!: User;
+  author!: User
 
   @ManyToOne(() => Article, (article) => article.comments)
-  article!: Article;
+  article!: Article
 
   toJSON() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }

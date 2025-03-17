@@ -1,43 +1,45 @@
-import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
-import { classToPlain } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
-import { Abstract } from '@entities/abstract.entity';
-import { Company } from '@entities/company.entity';
-import { ServiceCategory } from '@entities/service-category.entity';
-import slugify from '@helpers/slugify';
+import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm'
+import { instanceToPlain } from 'class-transformer'
+import { IsNotEmpty } from 'class-validator'
+import { Abstract } from '@entities/abstract.entity'
+import { Company } from '@entities/company.entity'
+import { ServiceCategory } from '@entities/service-category.entity'
+import slugify from '@helpers/slugify'
+import { ObjectType } from '@nestjs/graphql'
 
 @Entity('services')
+@ObjectType()
 export class Service extends Abstract {
   @IsNotEmpty()
   @Column()
-  title!: string;
+  title!: string
 
   @Column()
   @IsNotEmpty()
-  slug?: string;
+  slug?: string
 
   @ManyToOne(() => Company)
-  company!: Company;
+  company!: Company
 
   @ManyToOne(() => ServiceCategory)
-  category!: ServiceCategory;
+  category!: ServiceCategory
 
   @Column('decimal', {
     precision: 5,
     scale: 2,
     default: 0,
   })
-  price!: number;
+  price!: number
 
   @Column()
-  duration!: number;
+  duration!: number
 
   @BeforeInsert()
   convertSlug(): void {
-    this.slug = slugify(this.title);
+    this.slug = slugify(this.title)
   }
 
   toJson() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }

@@ -1,40 +1,42 @@
-import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
-import { classToPlain } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
-import { Abstract } from '@entities/abstract.entity';
-import { User } from '@entities/user.entity';
-import { ProductCategory } from '@entities/product-category.entity';
-import slugify from '@helpers/slugify';
+import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm'
+import { instanceToPlain } from 'class-transformer'
+import { IsNotEmpty } from 'class-validator'
+import { Abstract } from '@entities/abstract.entity'
+import { User } from '@entities/user.entity'
+import { ProductCategory } from '@entities/product-category.entity'
+import slugify from '@helpers/slugify'
+import { ObjectType } from '@nestjs/graphql'
 
 @Entity('products')
+@ObjectType()
 export class Product extends Abstract {
   @Column()
   @IsNotEmpty()
-  title!: string;
+  title!: string
 
   @Column({
     unique: true,
   })
   @IsNotEmpty()
-  slug!: string;
+  slug!: string
 
   @Column({
     nullable: true,
   })
-  content?: string;
+  content?: string
 
   @ManyToOne(() => ProductCategory)
-  category!: ProductCategory;
+  category!: ProductCategory
 
   @ManyToOne(() => User)
-  author!: User;
+  author!: User
 
   @BeforeInsert()
   convertSlug(): void {
-    this.slug = slugify(this.title);
+    this.slug = slugify(this.title)
   }
 
   toJson() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }

@@ -8,7 +8,7 @@ import { AppService } from './app.service'
 
 import { AppointmentModule } from '@components/appointment/appointment.module'
 import { ArticleModule } from '@components/article/article.module'
-import { CommonModule } from '@common/common.module'
+// import { CommonModule } from '@common/common.module'
 import { CompanyModule } from '@components/company/company.module'
 import { UserModule } from '@components/user/user.module'
 import { ServiceCategoryModule } from '@components/service-category/service-category.module'
@@ -91,9 +91,9 @@ interface OriginalError {
       }),
       inject: [ConfigService],
     }),
-    // AppointmentModule,
-    // ArticleModule,
-    // CompanyModule,
+    AppointmentModule,
+    ArticleModule,
+    CompanyModule,
     // CommonModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -113,8 +113,8 @@ interface OriginalError {
       dest: './src/files',
     }),
     UserModule,
-    // ServiceCategoryModule,
-    // ServiceModule,
+    ServiceCategoryModule,
+    ServiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
