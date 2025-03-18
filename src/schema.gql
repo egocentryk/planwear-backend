@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Token {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User
+  token: String!
+  type: String
+  validTo: DateTime!
+  userId: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type User {
   id: String!
   createdAt: DateTime!
@@ -15,11 +31,30 @@ type User {
   status: String!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Query {
   users: [User!]!
+  tokens: [Token!]!
+  token(id: String!): Token!
+}
+
+type Mutation {
+  createToken(createTokenInput: CreateTokenInput!): Token!
+  updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
+  removeToken(id: String!): Token!
+}
+
+input CreateTokenInput {
+  """A user ID in uuid format"""
+  user: String!
+  token: String
+  type: String
+  validTo: DateTime
+}
+
+input UpdateTokenInput {
+  """A user ID in uuid format"""
+  user: String
+  token: String
+  type: String
+  validTo: DateTime
 }

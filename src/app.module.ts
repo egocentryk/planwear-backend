@@ -21,6 +21,9 @@ import { DevtoolsModule } from '@nestjs/devtools-integration'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
+import { TokenModule } from './components/token/token.module'
+import { User } from '@entities/user.entity'
+import { Token } from '@entities/token.entity'
 
 const ssl: {
   [key: string]: boolean
@@ -52,6 +55,9 @@ interface OriginalError {
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      buildSchemaOptions: {
+        orphanedTypes: [User, Token], // Include all related types
+      },
       formatError: (error) => {
         const originalError = error.extensions?.originalError as OriginalError
 
@@ -115,6 +121,7 @@ interface OriginalError {
     UserModule,
     ServiceCategoryModule,
     ServiceModule,
+    TokenModule,
   ],
   controllers: [AppController],
   providers: [AppService],
