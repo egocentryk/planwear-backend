@@ -8,6 +8,7 @@ import * as bcrypt from 'bcryptjs'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Company } from './company.entity'
 import { Article } from './article.entity'
+import { Token } from './token.entity'
 
 @Entity('users')
 @ObjectType()
@@ -49,6 +50,9 @@ export class User extends Abstract {
 
   @OneToMany(() => Article, (article) => article.user)
   articles?: Article[]
+
+  @OneToMany(() => Token, (token) => token.user)
+  tokens?: Token[]
 
   @Field()
   @Column({
