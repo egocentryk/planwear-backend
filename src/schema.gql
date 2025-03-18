@@ -36,3 +36,15 @@ type Query {
   tokens: [Token!]!
   token(id: String!): Token!
 }
+
+type Mutation {
+  createToken(createTokenInput: CreateTokenInput!): Token!
+}
+
+input CreateTokenInput {
+  """A user ID in uuid format"""
+  user: String!
+  token: String
+  type: String
+  validTo: DateTime
+}

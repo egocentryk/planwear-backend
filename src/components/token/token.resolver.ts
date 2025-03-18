@@ -1,6 +1,7 @@
 import {
   Args,
   ID,
+  Mutation,
   Parent,
   Query,
   ResolveField,
@@ -8,7 +9,7 @@ import {
 } from '@nestjs/graphql'
 import { TokenService } from './token.service'
 import { Token } from '@entities/token.entity'
-import { ParseIntPipe } from '@nestjs/common'
+import { CreateTokenInput } from './dto/create-token.input'
 
 @Resolver(() => Token)
 export class TokenResolver {
@@ -27,5 +28,10 @@ export class TokenResolver {
   @Query(() => Token, { name: 'token' })
   async findOne(@Args('id', { type: () => String }) id: string) {
     return this.tokenService.findOne(id)
+  }
+
+  @Mutation(() => Token, { name: 'createToken' })
+  async create(@Args('createTokenInput') createTokenInput: CreateTokenInput) {
+    return this.tokenService.create(createTokenInput)
   }
 }
