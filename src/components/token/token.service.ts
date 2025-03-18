@@ -2,9 +2,9 @@ import { NotFoundException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Token } from '@entities/token.entity'
-import { UpdateTokenDto } from './dto/update-token.dto'
 import { ApiHttpResponse } from '@enums/api-http-response.enum'
 import { CreateTokenInput } from './dto/create-token.input'
+import { UpdateTokenInput } from './dto/update-token.input'
 
 @Injectable()
 export class TokenService {
@@ -33,10 +33,10 @@ export class TokenService {
     return await this.tokenRepository.save(token)
   }
 
-  async update(id: string, updateTokenDto: UpdateTokenDto) {
+  async update(id: string, UpdateTokenInput: UpdateTokenInput) {
     const token = await this.tokenRepository.preload({
       id: id,
-      ...updateTokenDto,
+      ...UpdateTokenInput,
     })
 
     if (!token) {

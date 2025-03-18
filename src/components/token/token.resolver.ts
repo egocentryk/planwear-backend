@@ -10,6 +10,7 @@ import {
 import { TokenService } from './token.service'
 import { Token } from '@entities/token.entity'
 import { CreateTokenInput } from './dto/create-token.input'
+import { UpdateTokenInput } from './dto/update-token.input'
 
 @Resolver(() => Token)
 export class TokenResolver {
@@ -33,5 +34,18 @@ export class TokenResolver {
   @Mutation(() => Token, { name: 'createToken' })
   async create(@Args('createTokenInput') createTokenInput: CreateTokenInput) {
     return this.tokenService.create(createTokenInput)
+  }
+
+  @Mutation(() => Token, { name: 'updateToken' })
+  async update(
+    @Args('id') id: string,
+    @Args('updateTokenInput') updateTokenInput: UpdateTokenInput,
+  ) {
+    return this.tokenService.update(id, updateTokenInput)
+  }
+
+  @Mutation(() => Token, { name: 'removeToken' })
+  async remove(@Args('id') id: string) {
+    return this.tokenService.remove(id)
   }
 }
