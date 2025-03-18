@@ -6,7 +6,10 @@ type Token {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User
   token: String!
+  type: String
+  validTo: DateTime!
   userId: String
 }
 
@@ -31,4 +34,5 @@ type User {
 type Query {
   users: [User!]!
   tokens: [Token!]!
+  token(id: String!): Token!
 }
