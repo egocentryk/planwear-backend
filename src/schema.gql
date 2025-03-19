@@ -32,9 +32,14 @@ type User {
 }
 
 type Query {
-  users: [User!]!
+  users(paginationQueryInput: PaginationQueryInput!): [User!]!
   tokens: [Token!]!
   token(id: String!): Token!
+}
+
+input PaginationQueryInput {
+  """Number of items per page"""
+  limit: Float!
 }
 
 type Mutation {
