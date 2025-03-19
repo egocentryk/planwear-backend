@@ -76,6 +76,9 @@ export class User extends Abstract {
   })
   status?: UserStatus
 
+  @Field(() => String, { nullable: true })
+  token?: string // This field won't be stored in the database, just for GraphQL
+
   @BeforeInsert()
   toLowerCase(): void {
     this.email = this.email.toLowerCase()
