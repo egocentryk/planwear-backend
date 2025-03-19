@@ -17,7 +17,10 @@ import { UserResolver } from './user.resolver'
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET_KEY'),
         signOptions: {
-          expiresIn: `${configService.get('JWT_EXPIRATION_TIME')}s`,
+          expiresIn: configService.get('JWT_EXPIRATION_TIME'),
+        },
+        verifyOptions: {
+          ignoreExpiration: false,
         },
       }),
       inject: [ConfigService],

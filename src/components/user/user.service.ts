@@ -9,7 +9,6 @@ import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DataSource, Repository } from 'typeorm'
 import { User } from '@entities/user.entity'
-import { LoginUserDto } from './dto/login-user.dto'
 import { UpdateRoleUserDto } from './dto/update-role-user.dto'
 import { UpdateStatusUserDto } from './dto/update-status-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -21,6 +20,7 @@ import * as bcrypt from 'bcryptjs'
 import { PaginationQueryInput } from '@common/dto/pagination-query.input'
 import { CreateUserInput } from './dto/create-user.input'
 import { ConfigService } from '@nestjs/config'
+import { LoginUserInput } from './dto/login-user.input'
 
 @Injectable()
 export class UserService {
@@ -133,7 +133,7 @@ export class UserService {
   }: {
     email: string
     password: string
-  }): Promise<LoginUserDto> {
+  }): Promise<LoginUserInput> {
     const user = await this.userRepository.findOne({
       where: {
         email,
@@ -152,7 +152,9 @@ export class UserService {
       username: user.username,
     }
 
-    const token = this.jwtService.sign(payload)
+    const token = this.jwtService.sign(payload, {
+      expiresIn: this.configService.get('JWT_EXPIRATION_TIME') || '1d',
+    })
 
     /*
      * not used ATM
@@ -160,10 +162,12 @@ export class UserService {
     const userId = decoded.id;
     */
 
-    return {
+    const userWithToken = {
       ...user,
       token,
     }
+
+    return userWithToken as User
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

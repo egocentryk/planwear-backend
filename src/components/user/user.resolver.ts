@@ -3,6 +3,7 @@ import { Query, Resolver, Args, Mutation } from '@nestjs/graphql'
 import { UserService } from './user.service'
 import { PaginationQueryInput } from '@common/dto/pagination-query.input'
 import { CreateUserInput } from './dto/create-user.input'
+import { LoginUserInput } from './dto/login-user.input'
 
 @Resolver()
 export class UserResolver {
@@ -23,5 +24,10 @@ export class UserResolver {
   @Mutation(() => User, { name: 'createUser' })
   async create(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.userService.create(createUserInput)
+  }
+
+  @Mutation(() => User, { name: 'loginUser' })
+  async login(@Args('loginUserInput') loginUserInput: LoginUserInput) {
+    return this.userService.login(loginUserInput)
   }
 }
