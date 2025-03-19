@@ -29,7 +29,6 @@ import { UserResolver } from './user.resolver'
       defaultStrategy: 'jwt',
     }),
   ],
-  // controllers: [UserController],
   exports: [JwtStrategy, UserService],
   providers: [JwtStrategy, TokenService, UserService, UserResolver],
 })

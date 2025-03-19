@@ -41,7 +41,9 @@ type Query {
 }
 
 input PaginationQueryInput {
-  """Number of items per page"""
+  """
+  Number of items per page
+  """
   limit: Float!
 }
 
@@ -49,6 +51,10 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   loginUser(loginUserInput: LoginUserInput!): User!
   changeUserRole(id: String!, updateRoleUserInput: UpdateRoleUserInput!): User!
+  changeUserStatus(
+    id: String!
+    updateStatusUserInput: UpdateStatusUserInput!
+  ): User!
   removeUser(id: String!): User!
   createToken(createTokenInput: CreateTokenInput!): Token!
   updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
@@ -82,8 +88,21 @@ enum UserRole {
   USER
 }
 
+input UpdateStatusUserInput {
+  status: UserStatus
+}
+
+enum UserStatus {
+  ACTIVE
+  BANNED
+  DELETED
+  INACTIVE
+}
+
 input CreateTokenInput {
-  """A user ID in uuid format"""
+  """
+  A user ID in uuid format
+  """
   user: String!
   token: String
   type: String
@@ -91,7 +110,9 @@ input CreateTokenInput {
 }
 
 input UpdateTokenInput {
-  """A user ID in uuid format"""
+  """
+  A user ID in uuid format
+  """
   user: String
   token: String
   type: String
