@@ -29,6 +29,7 @@ type User {
   role: String!
   isBlocked: Boolean!
   status: String!
+  token: String
 }
 
 type Query {
@@ -44,9 +45,18 @@ input PaginationQueryInput {
 }
 
 type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
   createToken(createTokenInput: CreateTokenInput!): Token!
   updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
   removeToken(id: String!): Token!
+}
+
+input CreateUserInput {
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
 }
 
 input CreateTokenInput {

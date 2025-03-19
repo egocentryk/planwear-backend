@@ -1,5 +1,7 @@
 import {
+  ConflictException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common'
@@ -7,7 +9,6 @@ import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DataSource, Repository } from 'typeorm'
 import { User } from '@entities/user.entity'
-import { CreateUserDto } from './dto/create-user.dto'
 import { LoginUserDto } from './dto/login-user.dto'
 import { UpdateRoleUserDto } from './dto/update-role-user.dto'
 import { UpdateStatusUserDto } from './dto/update-status-user.dto'
@@ -18,6 +19,8 @@ import { TokenType } from '@enums/token-type.enum'
 import { AuthResponse } from '@interfaces/auth-response.interface'
 import * as bcrypt from 'bcryptjs'
 import { PaginationQueryInput } from '@common/dto/pagination-query.input'
+import { CreateUserInput } from './dto/create-user.input'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class UserService {
@@ -27,6 +30,7 @@ export class UserService {
     private readonly dataSource: DataSource,
     private readonly jwtService: JwtService,
     private readonly tokenService: TokenService,
+    private readonly configService: ConfigService,
   ) {}
 
   async findAll(paginationQueryInput: PaginationQueryInput) {
@@ -70,21 +74,19 @@ export class UserService {
     }
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserInput: CreateUserInput) {
     try {
       const isEmailTaken = await this.userRepository.findOne({
         where: {
-          email: createUserDto.email,
+          email: createUserInput.email,
         },
       })
 
       if (isEmailTaken) {
-        return {
-          message: ApiHttpResponse.EMAIL_TAKEN,
-        }
+        throw new ConflictException(ApiHttpResponse.EMAIL_TAKEN)
       }
 
-      const user = this.userRepository.create(createUserDto)
+      const user = this.userRepository.create(createUserInput)
 
       const userInserted = await this.userRepository.save(user)
 
@@ -106,16 +108,22 @@ export class UserService {
         username: user.username,
       }
 
-      const token = this.jwtService.sign(payload)
+      const token = this.jwtService.sign(payload, {
+        expiresIn: this.configService.get('JWT_EXPIRATION_TIME') || '1d',
+      })
 
-      return {
-        user: {
-          ...user.toJSON(),
-          token,
-        },
+      const userWithToken = {
+        ...user,
+        token,
       }
+
+      return userWithToken as User
     } catch (error) {
-      console.log(error)
+      if (error instanceof ConflictException) {
+        throw error
+      }
+      console.error('Error creating user:', error)
+      throw new InternalServerErrorException('Failed to create user')
     }
   }
 
