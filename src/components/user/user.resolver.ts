@@ -6,6 +6,7 @@ import { CreateUserInput } from './dto/create-user.input'
 import { LoginUserInput } from './dto/login-user.input'
 import { UpdateRoleUserInput } from './dto/update-role-user.input'
 import { UpdateStatusUserInput } from './dto/update-status-user.input'
+import { UpdateUserInput } from './dto/update-user.input'
 
 @Resolver()
 export class UserResolver {
@@ -33,6 +34,14 @@ export class UserResolver {
   @Mutation(() => User, { name: 'createUser' })
   async create(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.userService.create(createUserInput)
+  }
+
+  @Mutation(() => User, { name: 'updateUser' })
+  async update(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+  ) {
+    return this.userService.update(id, updateUserInput)
   }
 
   @Mutation(() => User, { name: 'loginUser' })

@@ -9,7 +9,6 @@ import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DataSource, Repository } from 'typeorm'
 import { User } from '@entities/user.entity'
-import { UpdateUserDto } from './dto/update-user.dto'
 import { TokenService } from '@components/token/token.service'
 import { ApiHttpResponse } from '@enums/api-http-response.enum'
 import { TokenType } from '@enums/token-type.enum'
@@ -21,6 +20,7 @@ import { ConfigService } from '@nestjs/config'
 import { LoginUserInput } from './dto/login-user.input'
 import { UpdateRoleUserInput } from './dto/update-role-user.input'
 import { UpdateStatusUserInput } from './dto/update-status-user.input'
+import { UpdateUserInput } from './dto/update-user.input'
 
 @Injectable()
 export class UserService {
@@ -172,11 +172,11 @@ export class UserService {
     return userWithToken as User
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserInput: UpdateUserInput) {
     try {
       const user = await this.userRepository.preload({
         id: id,
-        ...updateUserDto,
+        ...updateUserInput,
       })
 
       return this.userRepository.save(user)
