@@ -30,4 +30,9 @@ export class UserResolver {
   async login(@Args('loginUserInput') loginUserInput: LoginUserInput) {
     return this.userService.login(loginUserInput)
   }
+
+  @Mutation(() => User, { name: 'removeUser' })
+  async remove(@Args('id') id: string) {
+    return this.userService.remove(id)
+  }
 }
