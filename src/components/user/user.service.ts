@@ -44,15 +44,15 @@ export class UserService {
   }
 
   async findOne(id: string) {
-    try {
-      const user = await this.userRepository.findOne({
-        where: { id },
-      })
+    const user = await this.userRepository.findOne({
+      where: { id },
+    })
 
-      return user
-    } catch (error) {
+    if (!user) {
       throw new NotFoundException(`User #${id} ${ApiHttpResponse.NOT_FOUND}`)
     }
+
+    return user
   }
 
   async findCurrentUser(username: string): Promise<AuthResponse> {

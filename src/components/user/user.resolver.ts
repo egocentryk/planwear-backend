@@ -13,4 +13,9 @@ export class UserResolver {
   ) {
     return this.userService.findAll(paginationQueryInput)
   }
+
+  @Query(() => User, { name: 'user' })
+  async findOne(@Args('id', { type: () => String }) id: string) {
+    return this.userService.findOne(id)
+  }
 }

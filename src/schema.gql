@@ -33,6 +33,7 @@ type User {
 
 type Query {
   users(paginationQueryInput: PaginationQueryInput!): [User!]!
+  user(id: String!): User!
   tokens: [Token!]!
   token(id: String!): Token!
 }
