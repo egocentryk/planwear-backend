@@ -21,6 +21,13 @@ export class UserResolver {
     return this.userService.findOne(id)
   }
 
+  @Query(() => User, { name: 'currentUser' })
+  async findCurrentUser(
+    @Args('username', { type: () => String }) username: string,
+  ) {
+    return this.userService.findCurrentUser(username)
+  }
+
   @Mutation(() => User, { name: 'createUser' })
   async create(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.userService.create(createUserInput)

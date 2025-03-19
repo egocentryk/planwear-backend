@@ -66,12 +66,14 @@ export class UserService {
 
     const { id, email } = user
 
-    return {
+    const userData = {
       id,
       email,
       username,
       token,
     }
+
+    return userData as AuthResponse
   }
 
   async create(createUserInput: CreateUserInput) {
