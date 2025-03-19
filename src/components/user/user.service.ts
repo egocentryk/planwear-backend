@@ -9,7 +9,6 @@ import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DataSource, Repository } from 'typeorm'
 import { User } from '@entities/user.entity'
-import { UpdateRoleUserDto } from './dto/update-role-user.dto'
 import { UpdateStatusUserDto } from './dto/update-status-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { TokenService } from '@components/token/token.service'
@@ -21,6 +20,7 @@ import { PaginationQueryInput } from '@common/dto/pagination-query.input'
 import { CreateUserInput } from './dto/create-user.input'
 import { ConfigService } from '@nestjs/config'
 import { LoginUserInput } from './dto/login-user.input'
+import { UpdateRoleUserInput } from './dto/update-role-user.input'
 
 @Injectable()
 export class UserService {
@@ -191,11 +191,11 @@ export class UserService {
     return this.userRepository.remove(user)
   }
 
-  async changeRole(id: string, updateRoleUserDto: UpdateRoleUserDto) {
+  async changeRole(id: string, updateRoleUserInput: UpdateRoleUserInput) {
     try {
       const user = await this.userRepository.preload({
         id: id,
-        ...updateRoleUserDto,
+        ...updateRoleUserInput,
       })
 
       return this.userRepository.save(user)

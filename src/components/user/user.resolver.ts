@@ -4,6 +4,7 @@ import { UserService } from './user.service'
 import { PaginationQueryInput } from '@common/dto/pagination-query.input'
 import { CreateUserInput } from './dto/create-user.input'
 import { LoginUserInput } from './dto/login-user.input'
+import { UpdateRoleUserInput } from './dto/update-role-user.input'
 
 @Resolver()
 export class UserResolver {
@@ -36,6 +37,14 @@ export class UserResolver {
   @Mutation(() => User, { name: 'loginUser' })
   async login(@Args('loginUserInput') loginUserInput: LoginUserInput) {
     return this.userService.login(loginUserInput)
+  }
+
+  @Mutation(() => User, { name: 'changeUserRole' })
+  async changeRole(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateRoleUserInput') updateRoleUserInput: UpdateRoleUserInput,
+  ) {
+    return this.userService.changeRole(id, updateRoleUserInput)
   }
 
   @Mutation(() => User, { name: 'removeUser' })

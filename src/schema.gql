@@ -48,6 +48,7 @@ input PaginationQueryInput {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   loginUser(loginUserInput: LoginUserInput!): User!
+  changeUserRole(id: String!, updateRoleUserInput: UpdateRoleUserInput!): User!
   removeUser(id: String!): User!
   createToken(createTokenInput: CreateTokenInput!): Token!
   updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
@@ -66,6 +67,19 @@ input LoginUserInput {
   email: String!
   password: String!
   token: String
+}
+
+input UpdateRoleUserInput {
+  role: UserRole
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  OWNER
+  EMPLOYEE
+  CLIENT
+  USER
 }
 
 input CreateTokenInput {
