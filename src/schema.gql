@@ -32,7 +32,41 @@ type User {
   token: String
 }
 
+type Company {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Appointment {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  employeeCreated: User!
+  employee: User!
+  client: User!
+  company: Company!
+  status: AppointmentStatus!
+  startTime: DateTime!
+  endTimeExpected: DateTime!
+  endTime: DateTime!
+  priceExpected: Float
+  priceFull: Float
+  discount: Float
+  priceFinal: Float
+  canceled: Boolean
+  cancelationReason: String
+}
+
+enum AppointmentStatus {
+  CANCELED
+  FINISHED
+  PENDING
+}
+
 type Query {
+  appointments(paginationQueryInput: PaginationQueryInput!): [Appointment!]!
+  appointment(id: String!): Appointment!
   users(paginationQueryInput: PaginationQueryInput!): [User!]!
   user(id: String!): User!
   currentUser(username: String!): User!
@@ -46,6 +80,9 @@ input PaginationQueryInput {
 }
 
 type Mutation {
+  createAppointment(createAppointmentInput: CreateAppointmentInput!): Appointment!
+  updateAppointment(id: String!, updateAppointmentInput: UpdateAppointmentInput!): Appointment!
+  removeAppointment(id: String!): Appointment!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
   loginUser(loginUserInput: LoginUserInput!): User!
@@ -55,6 +92,30 @@ type Mutation {
   createToken(createTokenInput: CreateTokenInput!): Token!
   updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
   removeToken(id: String!): Token!
+}
+
+input CreateAppointmentInput {
+  employeeCreated: String!
+  employee: String!
+  client: String!
+  company: String
+  startTime: DateTime
+  endTimeExpected: DateTime!
+  endTime: DateTime
+  status: AppointmentStatus!
+  canceled: Boolean
+}
+
+input UpdateAppointmentInput {
+  employeeCreated: String
+  employee: String
+  client: String
+  company: String
+  startTime: DateTime
+  endTimeExpected: DateTime
+  endTime: DateTime
+  status: AppointmentStatus
+  canceled: Boolean
 }
 
 input CreateUserInput {
