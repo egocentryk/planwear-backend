@@ -36,6 +36,8 @@ type Company {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  title: String!
+  employees: [User!]
 }
 
 type Appointment {
@@ -67,6 +69,8 @@ enum AppointmentStatus {
 type Query {
   appointments(paginationQueryInput: PaginationQueryInput!): [Appointment!]!
   appointment(id: String!): Appointment!
+  companies(paginationQueryInput: PaginationQueryInput!): [Company!]!
+  company(id: String!): Company!
   users(paginationQueryInput: PaginationQueryInput!): [User!]!
   user(id: String!): User!
   currentUser(username: String!): User!
@@ -83,6 +87,9 @@ type Mutation {
   createAppointment(createAppointmentInput: CreateAppointmentInput!): Appointment!
   updateAppointment(id: String!, updateAppointmentInput: UpdateAppointmentInput!): Appointment!
   removeAppointment(id: String!): Appointment!
+  createCompany(createCompanyInput: CreateCompanyInput!): Company!
+  updateCompany(id: String!, updateCompanyInput: UpdateCompanyInput!): Company!
+  removeCompany(id: String!): Boolean!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
   loginUser(loginUserInput: LoginUserInput!): User!
@@ -116,6 +123,20 @@ input UpdateAppointmentInput {
   endTime: DateTime
   status: AppointmentStatus
   canceled: Boolean
+}
+
+input CreateCompanyInput {
+  title: String!
+  content: String!
+  owner: String!
+  employeeIds: [String!]
+}
+
+input UpdateCompanyInput {
+  title: String
+  content: String
+  owner: String
+  employeeIds: [String!]
 }
 
 input CreateUserInput {
