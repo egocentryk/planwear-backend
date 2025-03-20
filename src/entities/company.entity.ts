@@ -11,26 +11,28 @@ import { Abstract } from '@entities/abstract.entity'
 import { User } from '@entities/user.entity'
 import { ServiceCategory } from '@entities/service-category.entity'
 import slugify from '@helpers/slugify'
-import { ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 
 @Entity('companies')
 @ObjectType()
 export class Company extends Abstract {
+  @Field(() => String)
   @Column()
-  title!: string
+  title: string
 
   @Column()
   slug!: string
 
   @Column({ nullable: true })
-  content?: string
+  content: string
 
   @ManyToOne(() => User, (owner) => owner.companies)
   owner!: User
 
+  @Field(() => [User], { nullable: true })
+  @ManyToMany(() => User, (user) => user.companies, { onDelete: 'CASCADE' })
   @JoinTable()
-  @ManyToMany(() => User, (user) => user.companies)
-  employees?: number[]
+  employees?: User[]
 
   @OneToMany(
     () => ServiceCategory,

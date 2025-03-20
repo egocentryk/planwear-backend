@@ -45,6 +45,7 @@ export class User extends Abstract {
   @Exclude()
   password: string
 
+  @Field(() => [Company], { nullable: true })
   @ManyToMany((type) => Company, (company) => company.employees)
   companies?: Company[]
 
