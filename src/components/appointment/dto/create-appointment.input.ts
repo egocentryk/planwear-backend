@@ -1,9 +1,8 @@
-import { IsDate, IsOptional, IsString } from 'class-validator'
-
 import { AppointmentStatus } from '@enums/appointment-status.enum'
-import { Company } from '@entities/company.entity'
-import { Field } from '@nestjs/graphql'
+import { Field, InputType } from '@nestjs/graphql'
+import { Type } from 'class-transformer'
 
+@InputType()
 export class CreateAppointmentInput {
   @Field(() => String)
   readonly employeeCreated: string
@@ -14,16 +13,19 @@ export class CreateAppointmentInput {
   @Field(() => String)
   readonly client: string
 
-  @Field(() => Company)
-  readonly company: Company
+  @Field(() => String, { nullable: true })
+  readonly company: string
+
+  @Field(() => Date, { nullable: true })
+  @Type(() => Date)
+  readonly startTime: Date
 
   @Field(() => Date)
-  readonly startTime!: Date
-
-  @Field(() => Date)
+  @Type(() => Date)
   readonly endTimeExpected: Date
 
   @Field(() => Date, { nullable: true })
+  @Type(() => Date)
   readonly endTime: Date
 
   @Field(() => AppointmentStatus)
