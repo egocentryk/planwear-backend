@@ -6,60 +6,62 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-} from 'typeorm';
+} from 'typeorm'
 
-import { classToPlain } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
+import { instanceToPlain } from 'class-transformer'
+import { IsNotEmpty } from 'class-validator'
 
-import slugify from '@helpers/slugify';
+import slugify from '@helpers/slugify'
 
-import { Abstract } from '@entities/abstract.entity';
-import { Comment } from '@entities/comment.entity';
-import { Photo } from '@entities/photo.entity';
-import { Tag } from '@entities/tag.entity';
-import { User } from '@entities/user.entity';
+import { Abstract } from '@entities/abstract.entity'
+import { Comment } from '@entities/comment.entity'
+import { Photo } from '@entities/photo.entity'
+import { Tag } from '@entities/tag.entity'
+import { User } from '@entities/user.entity'
+import { ObjectType } from '@nestjs/graphql'
 
 @Entity('articles')
+@ObjectType()
 export class Article extends Abstract {
   @Column()
   @IsNotEmpty()
-  title!: string;
+  title!: string
 
   @Column({
     unique: true,
   })
   @IsNotEmpty()
-  slug!: string;
+  slug!: string
 
   @Column({
     nullable: true,
   })
-  content!: string;
+  content!: string
 
   @Column({ default: 0 })
-  recommendations?: number;
+  recommendations?: number
 
   @ManyToOne(() => User, (user) => user.articles)
-  user!: User;
+  user!: User
 
   @OneToMany(() => Comment, (comment) => comment.article)
-  comments?: Comment[];
+  comments?: Comment[]
 
   @OneToMany(() => Photo, (photo) => photo.article)
-  photos?: Photo[];
+  photos?: Photo[]
 
   @ManyToMany(() => Tag, (tag) => tag.articles, {
     cascade: true,
   })
   @JoinTable()
-  tags?: Tag[];
+  tags?: Tag[]
 
   @BeforeInsert()
   convertSlug(): void {
-    this.slug = slugify(this.title);
+    this.slug = slugify(this.title)
   }
 
   toJSON() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }

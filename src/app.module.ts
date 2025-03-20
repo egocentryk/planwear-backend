@@ -8,7 +8,7 @@ import { AppService } from './app.service'
 
 import { AppointmentModule } from '@components/appointment/appointment.module'
 import { ArticleModule } from '@components/article/article.module'
-import { CommonModule } from '@common/common.module'
+// import { CommonModule } from '@common/common.module'
 import { CompanyModule } from '@components/company/company.module'
 import { UserModule } from '@components/user/user.module'
 import { ServiceCategoryModule } from '@components/service-category/service-category.module'
@@ -18,6 +18,12 @@ import appConfig from '@config/app.config'
 
 import * as Joi from 'joi'
 import { DevtoolsModule } from '@nestjs/devtools-integration'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { join } from 'path'
+import { TokenModule } from './components/token/token.module'
+import { User } from '@entities/user.entity'
+import { Token } from '@entities/token.entity'
 
 const ssl: {
   [key: string]: boolean
@@ -37,10 +43,36 @@ const sslOptions: {
   },
 }
 
+interface OriginalError {
+  message: string
+}
+
 @Module({
   imports: [
     DevtoolsModule.register({
       http: process.env.NODE_ENV !== 'production',
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      buildSchemaOptions: {
+        orphanedTypes: [User, Token], // Include all related types
+      },
+      formatError: (error) => {
+        const originalError = error.extensions?.originalError as OriginalError
+
+        if (!originalError) {
+          return {
+            message: error.message,
+            code: error.extensions?.code,
+          }
+        }
+
+        return {
+          message: originalError.message,
+          code: error.extensions?.message,
+        }
+      },
     }),
     TwilioModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
@@ -68,7 +100,7 @@ const sslOptions: {
     AppointmentModule,
     ArticleModule,
     CompanyModule,
-    CommonModule,
+    // CommonModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [appConfig],
@@ -89,6 +121,7 @@ const sslOptions: {
     UserModule,
     ServiceCategoryModule,
     ServiceModule,
+    TokenModule,
   ],
   controllers: [AppController],
   providers: [AppService],

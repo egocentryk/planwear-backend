@@ -1,40 +1,42 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { classToPlain } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
-import { Abstract } from '@entities/abstract.entity';
-import { Country } from '@entities/country.entity';
-import { User } from '@entities/user.entity';
+import { Column, Entity, ManyToOne } from 'typeorm'
+import { classToPlain, instanceToPlain } from 'class-transformer'
+import { IsNotEmpty } from 'class-validator'
+import { Abstract } from '@entities/abstract.entity'
+import { Country } from '@entities/country.entity'
+import { User } from '@entities/user.entity'
+import { ObjectType } from '@nestjs/graphql'
 
-@Entity('billing-addresses')
+@Entity('billing_addresses')
+@ObjectType()
 export class BillingAddress extends Abstract {
   @ManyToOne(() => Country)
-  country!: Country;
+  country!: Country
 
   @ManyToOne(() => User)
-  user!: User;
+  user!: User
 
   @Column()
   @IsNotEmpty()
-  city!: string;
+  city!: string
 
   @Column()
-  postal!: string;
+  postal!: string
 
   @Column()
-  region?: string;
+  region?: string
 
   @Column()
-  state?: string;
+  state?: string
 
   @Column()
-  street!: Date;
+  street!: Date
 
   @Column({
     default: false,
   })
-  isMainAddress?: boolean;
+  isMainAddress?: boolean
 
   toJson() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }

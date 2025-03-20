@@ -1,31 +1,36 @@
-import { BeforeInsert, Column, Entity, OneToMany, ManyToMany } from 'typeorm';
-import { classToPlain, Exclude } from 'class-transformer';
-import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
-import { Abstract } from '@entities/abstract.entity';
-import { Article } from '@entities/article.entity';
-import { Company } from '@entities/company.entity';
-import { ApiHttpResponse } from '@common/enums/api-http-response.enum';
-import { UserRole, UserStatus } from '@enums/user.enum';
-import * as bcrypt from 'bcryptjs';
+import { BeforeInsert, Column, Entity, ManyToMany, OneToMany } from 'typeorm'
+import { Exclude, instanceToPlain } from 'class-transformer'
+import { IsEmail, IsNotEmpty, Matches } from 'class-validator'
+import { Abstract } from '@entities/abstract.entity'
+import { ApiHttpResponse } from '@common/enums/api-http-response.enum'
+import { UserRole, UserStatus } from '@enums/user.enum'
+import * as bcrypt from 'bcryptjs'
+import { Field, ObjectType } from '@nestjs/graphql'
+import { Company } from './company.entity'
+import { Article } from './article.entity'
+import { Token } from './token.entity'
 
 @Entity('users')
+@ObjectType()
 export class User extends Abstract {
+  @Field(() => String)
   @Column({
     unique: true,
   })
   @Matches(/^[a-zA-Z0-9.\-_]*$/, {
     message: ApiHttpResponse.ALLOWED_CHARACTERS,
   })
-  @IsNotEmpty()
-  @Length(1, 16)
-  username!: string;
+  username: string
 
+  @Field(() => String)
   @Column()
-  firstName!: string;
+  firstName: string
 
+  @Field(() => String)
   @Column()
-  lastName!: string;
+  lastName: string
 
+  @Field(() => String)
   @Column({
     unique: true,
   })
@@ -34,53 +39,62 @@ export class User extends Abstract {
   @Matches(/^[^+]+@.*$/, {
     message: ApiHttpResponse.EMAIL_ALIAS,
   })
-  email!: string;
+  email: string
 
   @Column()
   @Exclude()
-  password!: string;
+  password: string
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @Field(() => [Company], { nullable: true })
   @ManyToMany((type) => Company, (company) => company.employees)
-  companies?: Company[];
+  companies?: Company[]
 
   @OneToMany(() => Article, (article) => article.user)
-  articles?: Article[];
+  articles?: Article[]
 
+  @OneToMany(() => Token, (token) => token.user)
+  tokens?: Token[]
+
+  @Field()
   @Column({
     default: UserRole.USER,
     enum: UserRole,
     type: 'enum',
   })
-  role?: UserRole;
+  role?: UserRole
 
+  @Field()
   @Column({
     default: false,
   })
-  isBlocked?: boolean;
+  isBlocked?: boolean
 
+  @Field()
   @Column({
     default: UserStatus.INACTIVE,
     enum: UserStatus,
     type: 'enum',
   })
-  status?: UserStatus;
+  status?: UserStatus
+
+  @Field(() => String, { nullable: true })
+  token?: string // This field won't be stored in the database, just for GraphQL
 
   @BeforeInsert()
   toLowerCase(): void {
-    this.email = this.email.toLowerCase();
+    this.email = this.email.toLowerCase()
   }
 
   @BeforeInsert()
   hash(): void {
-    this.password = bcrypt.hashSync(this.password, 12);
+    this.password = bcrypt.hashSync(this.password, 12)
   }
 
   compare(unencryptedPassword: string): boolean {
-    return bcrypt.compareSync(unencryptedPassword, this.password);
+    return bcrypt.compareSync(unencryptedPassword, this.password)
   }
 
   toJSON() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }

@@ -7,27 +7,16 @@ export enum Order {
 }
 
 @InputType()
-export class PaginationQueryDto {
-  @Field(() => Number, {
-    description: 'Number of items per page',
-    nullable: true,
-  })
+export class PaginationQueryInput {
+  @Field(() => Number, { description: 'Number of items per page' })
   @IsOptional()
   @IsPositive()
   limit?: number
 
-  @Field(() => Number, {
-    description: 'Number of offset items',
-    nullable: true,
-  })
   @IsOptional()
   @IsPositive()
   offset?: number
 
-  @Field(() => Order, {
-    description: 'Items order',
-    nullable: true,
-  })
   @IsEnum(Order)
   @IsOptional()
   order?: Order

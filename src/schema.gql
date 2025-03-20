@@ -1,0 +1,202 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Token {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User
+  token: String!
+  type: String
+  validTo: DateTime!
+  userId: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  role: String!
+  isBlocked: Boolean!
+  status: String!
+  token: String
+}
+
+type Company {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  employees: [User!]
+}
+
+type Appointment {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  employeeCreated: User!
+  employee: User!
+  client: User!
+  company: Company!
+  status: AppointmentStatus!
+  startTime: DateTime!
+  endTimeExpected: DateTime!
+  endTime: DateTime!
+  priceExpected: Float
+  priceFull: Float
+  discount: Float
+  priceFinal: Float
+  canceled: Boolean
+  cancelationReason: String
+}
+
+enum AppointmentStatus {
+  CANCELED
+  FINISHED
+  PENDING
+}
+
+type Query {
+  appointments(paginationQueryInput: PaginationQueryInput!): [Appointment!]!
+  appointment(id: String!): Appointment!
+  companies(paginationQueryInput: PaginationQueryInput!): [Company!]!
+  company(id: String!): Company!
+  users(paginationQueryInput: PaginationQueryInput!): [User!]!
+  user(id: String!): User!
+  currentUser(username: String!): User!
+  tokens: [Token!]!
+  token(id: String!): Token!
+}
+
+input PaginationQueryInput {
+  """Number of items per page"""
+  limit: Float!
+}
+
+type Mutation {
+  createAppointment(createAppointmentInput: CreateAppointmentInput!): Appointment!
+  updateAppointment(id: String!, updateAppointmentInput: UpdateAppointmentInput!): Appointment!
+  removeAppointment(id: String!): Appointment!
+  createCompany(createCompanyInput: CreateCompanyInput!): Company!
+  updateCompany(id: String!, updateCompanyInput: UpdateCompanyInput!): Company!
+  removeCompany(id: String!): Boolean!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
+  loginUser(loginUserInput: LoginUserInput!): User!
+  changeUserRole(id: String!, updateRoleUserInput: UpdateRoleUserInput!): User!
+  changeUserStatus(id: String!, updateStatusUserInput: UpdateStatusUserInput!): User!
+  removeUser(id: String!): User!
+  createToken(createTokenInput: CreateTokenInput!): Token!
+  updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
+  removeToken(id: String!): Token!
+}
+
+input CreateAppointmentInput {
+  employeeCreated: String!
+  employee: String!
+  client: String!
+  company: String
+  startTime: DateTime
+  endTimeExpected: DateTime!
+  endTime: DateTime
+  status: AppointmentStatus!
+  canceled: Boolean
+}
+
+input UpdateAppointmentInput {
+  employeeCreated: String
+  employee: String
+  client: String
+  company: String
+  startTime: DateTime
+  endTimeExpected: DateTime
+  endTime: DateTime
+  status: AppointmentStatus
+  canceled: Boolean
+}
+
+input CreateCompanyInput {
+  title: String!
+  content: String!
+  owner: String!
+  employeeIds: [String!]
+}
+
+input UpdateCompanyInput {
+  title: String
+  content: String
+  owner: String
+  employeeIds: [String!]
+}
+
+input CreateUserInput {
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  username: String
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+  token: String
+}
+
+input UpdateRoleUserInput {
+  role: UserRole
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  OWNER
+  EMPLOYEE
+  CLIENT
+  USER
+}
+
+input UpdateStatusUserInput {
+  status: UserStatus
+}
+
+enum UserStatus {
+  ACTIVE
+  BANNED
+  DELETED
+  INACTIVE
+}
+
+input CreateTokenInput {
+  """A user ID in uuid format"""
+  user: String!
+  token: String
+  type: String
+  validTo: DateTime
+}
+
+input UpdateTokenInput {
+  """A user ID in uuid format"""
+  user: String
+  token: String
+  type: String
+  validTo: DateTime
+}

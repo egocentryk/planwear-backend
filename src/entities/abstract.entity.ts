@@ -1,17 +1,22 @@
+import { Field, ObjectType } from '@nestjs/graphql'
 import {
   BaseEntity,
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'
 
+@ObjectType()
 export abstract class Abstract extends BaseEntity {
+  @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  id: string
 
+  @Field(() => Date)
   @CreateDateColumn()
-  createdAt?: Date;
+  createdAt: Date
 
+  @Field(() => Date)
   @UpdateDateColumn()
-  updatedAt?: Date;
+  updatedAt: Date
 }

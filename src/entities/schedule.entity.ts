@@ -1,32 +1,34 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { classToPlain } from 'class-transformer';
-import { Abstract } from '@entities/abstract.entity';
-import { User } from '@entities/user.entity';
+import { Column, Entity, ManyToOne } from 'typeorm'
+import { instanceToPlain } from 'class-transformer'
+import { Abstract } from '@entities/abstract.entity'
+import { User } from '@entities/user.entity'
+import { ObjectType } from '@nestjs/graphql'
 
 /*
   one of the most crucial table in our database,
   we must know exactly when each employee is available
 */
 @Entity('schedules')
+@ObjectType()
 export class Schedule extends Abstract {
   @ManyToOne(() => User)
-  employee!: User;
+  employee!: User
 
   @Column({
     type: 'timestamp',
     precision: 6,
     nullable: true,
   })
-  from!: Date;
+  from!: Date
 
   @Column({
     type: 'timestamp',
     precision: 6,
     nullable: true,
   })
-  to!: Date;
+  to!: Date
 
   toJson() {
-    return classToPlain(this);
+    return instanceToPlain(this)
   }
 }
