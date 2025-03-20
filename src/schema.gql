@@ -26,6 +26,7 @@ type User {
   firstName: String!
   lastName: String!
   email: String!
+  companies: [Company!]
   role: String!
   isBlocked: Boolean!
   status: String!
