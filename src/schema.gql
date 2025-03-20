@@ -32,6 +32,12 @@ type User {
   token: String
 }
 
+type Company {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   users(paginationQueryInput: PaginationQueryInput!): [User!]!
   user(id: String!): User!
