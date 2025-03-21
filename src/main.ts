@@ -1,7 +1,6 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 import { HttpExceptionFilter } from '@filters/http-exception.filter'
 import { WrapResponseInterceptor } from '@interceptors/wrap-response.interceptor'
@@ -25,16 +24,6 @@ async function bootstrap() {
     }),
   )
   app.setGlobalPrefix('api/v1')
-
-  const options = new DocumentBuilder()
-    .setTitle('PlanWEAR')
-    .setDescription('PlanWEAR application')
-    .setVersion('1.0')
-    .build()
-
-  const document = SwaggerModule.createDocument(app, options)
-
-  SwaggerModule.setup('api', app, document)
 
   app.use(cookieParser())
   // app.useGlobalFilters(new HttpExceptionFilter())
