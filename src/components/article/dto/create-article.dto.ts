@@ -1,16 +1,18 @@
-import { IsOptional, IsString } from 'class-validator';
+import { InputType } from '@nestjs/graphql'
+import { IsOptional, IsString } from 'class-validator'
 
+@InputType()
 export class CreateArticleDto {
   @IsString()
-  readonly title!: string;
+  readonly title!: string
 
   @IsString()
-  readonly content!: string;
+  readonly content!: string
 
   @IsString()
-  readonly author!: string;
+  readonly author!: string
 
   @IsString({ each: true })
   @IsOptional()
-  readonly tags?: string[] | any;
+  readonly tags?: string[] | any
 }
