@@ -2,6 +2,47 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Comment {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  author: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Photo {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Tag {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  slug: String!
+}
+
+type Article {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  slug: String!
+  content: String
+  recommendations: Float!
+  author: User!
+  comments: Comment
+  photos: [Photo!]
+  tags: [Tag!]!
+}
+
 type Token {
   id: String!
   createdAt: DateTime!
@@ -12,11 +53,6 @@ type Token {
   validTo: DateTime!
   userId: String
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type User {
   id: String!
@@ -70,6 +106,8 @@ enum AppointmentStatus {
 type Query {
   appointments(paginationQueryInput: PaginationQueryInput!): [Appointment!]!
   appointment(id: String!): Appointment!
+  articles(paginationQueryInput: PaginationQueryInput!): [Article!]!
+  article(id: String!): Article!
   companies(paginationQueryInput: PaginationQueryInput!): [Company!]!
   company(id: String!): Company!
   users(paginationQueryInput: PaginationQueryInput!): [User!]!
@@ -88,6 +126,10 @@ type Mutation {
   createAppointment(createAppointmentInput: CreateAppointmentInput!): Appointment!
   updateAppointment(id: String!, updateAppointmentInput: UpdateAppointmentInput!): Appointment!
   removeAppointment(id: String!): Appointment!
+  createArticle(createArticleInput: CreateArticleInput!): Article!
+  updateArticle(id: String!, updateArticleInput: UpdateArticleInput!): Article!
+  removeArticle(id: String!): Boolean!
+  uploadArticlePhoto(id: String!, uploadArticlePhotoInput: UploadArticlePhotoInput!): Boolean!
   createCompany(createCompanyInput: CreateCompanyInput!): Company!
   updateCompany(id: String!, updateCompanyInput: UpdateCompanyInput!): Company!
   removeCompany(id: String!): Boolean!
@@ -124,6 +166,27 @@ input UpdateAppointmentInput {
   endTime: DateTime
   status: AppointmentStatus
   canceled: Boolean
+}
+
+input CreateArticleInput {
+  title: String!
+  content: String!
+  author: String!
+  tags: [String!]
+}
+
+input UpdateArticleInput {
+  title: String
+  content: String
+  author: String
+  tags: [String!]
+}
+
+input UploadArticlePhotoInput {
+  title: String!
+  author: String!
+  article: String!
+  filename: String!
 }
 
 input CreateCompanyInput {

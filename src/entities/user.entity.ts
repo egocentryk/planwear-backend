@@ -49,7 +49,7 @@ export class User extends Abstract {
   @ManyToMany((type) => Company, (company) => company.employees)
   companies?: Company[]
 
-  @OneToMany(() => Article, (article) => article.user)
+  @OneToMany(() => Article, (article) => article.author)
   articles?: Article[]
 
   @OneToMany(() => Token, (token) => token.user)
