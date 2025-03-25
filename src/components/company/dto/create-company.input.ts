@@ -5,7 +5,7 @@ import { IsArray, IsOptional, IsString, IsUUID } from 'class-validator'
 export class CreateCompanyInput {
   @Field(() => String)
   @IsString()
-  readonly title: string
+  readonly title!: string
 
   @Field(() => String)
   @IsString()

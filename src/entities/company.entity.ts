@@ -6,6 +6,7 @@ import {
   OneToMany,
   ManyToMany,
   ManyToOne,
+  BeforeUpdate,
 } from 'typeorm'
 import { Abstract } from '@entities/abstract.entity'
 import { User } from '@entities/user.entity'
@@ -20,6 +21,7 @@ export class Company extends Abstract {
   @Column()
   title: string
 
+  @Field(() => String)
   @Column()
   slug!: string
 
@@ -41,6 +43,7 @@ export class Company extends Abstract {
   servicecategories?: ServiceCategory[]
 
   @BeforeInsert()
+  @BeforeUpdate()
   convertSlug(): void {
     this.slug = slugify(this.title)
   }

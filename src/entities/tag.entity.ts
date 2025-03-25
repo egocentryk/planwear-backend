@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, ManyToMany } from 'typeorm'
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToMany } from 'typeorm'
 
 import { instanceToPlain } from 'class-transformer'
 import { IsNotEmpty } from 'class-validator'
@@ -25,6 +25,7 @@ export class Tag extends Abstract {
   articles!: Article[]
 
   @BeforeInsert()
+  @BeforeUpdate()
   convertSlug(): void {
     this.slug = slugify(this.title)
   }
