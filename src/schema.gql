@@ -69,11 +69,21 @@ type User {
   token: String
 }
 
+type ServiceCategory {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  slug: String!
+  company: Company!
+}
+
 type Company {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
+  slug: String!
   employees: [User!]
 }
 
@@ -113,6 +123,8 @@ type Query {
   users(paginationQueryInput: PaginationQueryInput!): [User!]!
   user(id: String!): User!
   currentUser(username: String!): User!
+  serviceCategories(paginationQueryInput: PaginationQueryInput!): [ServiceCategory!]!
+  serviceCategory(id: String!): ServiceCategory!
   tokens: [Token!]!
   token(id: String!): Token!
 }
@@ -139,6 +151,9 @@ type Mutation {
   changeUserRole(id: String!, updateRoleUserInput: UpdateRoleUserInput!): User!
   changeUserStatus(id: String!, updateStatusUserInput: UpdateStatusUserInput!): User!
   removeUser(id: String!): User!
+  createServiceCategory(createServiceCategoryInput: CreateServiceCategoryInput!): ServiceCategory!
+  updateServiceCategory(id: String!, updateServiceCategoryInput: UpdateServiceCategoryInput!): ServiceCategory!
+  removeServiceCategory(id: String!): Boolean!
   createToken(createTokenInput: CreateTokenInput!): Token!
   updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
   removeToken(id: String!): Token!
@@ -247,6 +262,16 @@ enum UserStatus {
   BANNED
   DELETED
   INACTIVE
+}
+
+input CreateServiceCategoryInput {
+  title: String!
+  company: String!
+}
+
+input UpdateServiceCategoryInput {
+  title: String
+  company: String
 }
 
 input CreateTokenInput {
