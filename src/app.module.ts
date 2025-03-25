@@ -24,6 +24,7 @@ import { join } from 'path'
 import { TokenModule } from './components/token/token.module'
 import { User } from '@entities/user.entity'
 import { Token } from '@entities/token.entity'
+import { IamModule } from './components/iam/iam.module';
 
 const ssl: {
   [key: string]: boolean
@@ -122,6 +123,7 @@ interface OriginalError {
     ServiceCategoryModule,
     ServiceModule,
     TokenModule,
+    IamModule,
   ],
   controllers: [AppController],
   providers: [AppService],
