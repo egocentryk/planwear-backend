@@ -113,6 +113,10 @@ enum AppointmentStatus {
   PENDING
 }
 
+type AuthResponse {
+  accessToken: String!
+}
+
 type Query {
   appointments(paginationQueryInput: PaginationQueryInput!): [Appointment!]!
   appointment(id: String!): Appointment!
@@ -158,7 +162,7 @@ type Mutation {
   updateToken(id: String!, updateTokenInput: UpdateTokenInput!): Token!
   removeToken(id: String!): Token!
   singUp(signUpInput: SignUpInput!): User!
-  signIn(signInInput: SignInInput!): User!
+  signIn(signInInput: SignInInput!): AuthResponse!
 }
 
 input CreateAppointmentInput {

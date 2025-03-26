@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { IsEmail, MinLength } from 'class-validator'
+import { IsEmail, IsString } from 'class-validator'
 
 @InputType()
 export class SignInInput {
@@ -8,6 +8,6 @@ export class SignInInput {
   email: string
 
   @Field(() => String)
-  @MinLength(10)
-  password: string
+  @IsString()
+  readonly password!: string
 }

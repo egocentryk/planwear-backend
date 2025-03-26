@@ -1,8 +1,10 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql'
 import { AuthenticationService } from './authentication.service'
 import { User } from '@entities/user.entity'
 import { SignUpInput } from './dto/sign-up.input'
 import { SignInInput } from './dto/sign-in.input'
+import { AuthResponse } from './dto/auth-response'
+import { Response } from 'express'
 
 @Resolver()
 export class AuthenticationResolver {
@@ -13,8 +15,19 @@ export class AuthenticationResolver {
     return this.authenticationService.signUp(signUpInput)
   }
 
-  @Mutation(() => User, { name: 'signIn' })
-  async signIn(@Args('signInInput') signInInput: SignInInput) {
-    return this.authenticationService.signIn(signInInput)
+  @Mutation(() => AuthResponse, { name: 'signIn' })
+  async signIn(
+    @Context() context: { res: Response },
+    @Args('signInInput') signInInput: SignInInput,
+  ): Promise<AuthResponse> {
+    const authResponse = await this.authenticationService.signIn(signInInput)
+
+    context.res.cookie('accessToken', authResponse.accessToken, {
+      secure: true,
+      httpOnly: true,
+      sameSite: true,
+    })
+
+    return authResponse
   }
 }
