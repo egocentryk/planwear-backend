@@ -115,6 +115,7 @@ enum AppointmentStatus {
 
 type AuthResponse {
   accessToken: String!
+  refreshToken: String!
 }
 
 type Query {
@@ -163,6 +164,7 @@ type Mutation {
   removeToken(id: String!): Token!
   singUp(signUpInput: SignUpInput!): User!
   signIn(signInInput: SignInInput!): AuthResponse!
+  refreshToken(refreshTokenInput: RefreshTokenInput!): AuthResponse!
 }
 
 input CreateAppointmentInput {
@@ -307,4 +309,8 @@ input SignUpInput {
 input SignInInput {
   email: String!
   password: String!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
 }
