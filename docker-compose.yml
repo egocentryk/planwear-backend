@@ -1,12 +1,17 @@
 services:
   db:
-    platform: linux/amd64
+    platform: linux/arm64
     image: postgres
     restart: always
     ports:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: pass123
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: always
   # test-db:
   #   image: postgres
   #   restart: always
