@@ -7,6 +7,7 @@ import { AuthResponse } from './dto/auth-response'
 import { Response } from 'express'
 import { Auth } from './decorators/auth.decorator'
 import { AuthType } from './enums/auth-type.enum'
+import { RefreshTokenInput } from './dto/refresh-token.input'
 
 @Auth(AuthType.None)
 @Resolver()
@@ -32,5 +33,12 @@ export class AuthenticationResolver {
     })
 
     return authResponse
+  }
+
+  @Mutation(() => AuthResponse, { name: 'refreshToken' })
+  async refreshToken(
+    @Args('refreshTokenInput') refreshTokenInput: RefreshTokenInput,
+  ) {
+    return this.authenticationService.refreshTokens(refreshTokenInput)
   }
 }
