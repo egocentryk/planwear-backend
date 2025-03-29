@@ -24,6 +24,7 @@ import { join } from 'path'
 import { TokenModule } from './components/token/token.module'
 import { User } from '@entities/user.entity'
 import { Token } from '@entities/token.entity'
+import { IamModule } from './components/iam/iam.module'
 
 const ssl: {
   [key: string]: boolean
@@ -58,6 +59,7 @@ interface OriginalError {
       buildSchemaOptions: {
         orphanedTypes: [User, Token], // Include all related types
       },
+      context: ({ req, res }) => ({ req, res }),
       formatError: (error) => {
         const originalError = error.extensions?.originalError as OriginalError
 
@@ -122,6 +124,7 @@ interface OriginalError {
     ServiceCategoryModule,
     ServiceModule,
     TokenModule,
+    IamModule,
   ],
   controllers: [AppController],
   providers: [AppService],

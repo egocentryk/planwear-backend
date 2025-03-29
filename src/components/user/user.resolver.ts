@@ -7,15 +7,22 @@ import { LoginUserInput } from './dto/login-user.input'
 import { UpdateRoleUserInput } from './dto/update-role-user.input'
 import { UpdateStatusUserInput } from './dto/update-status-user.input'
 import { UpdateUserInput } from './dto/update-user.input'
+import { ActiveUser } from '@components/iam/decorators/active-user.decorator'
+import { ActiveUserData } from '@components/iam/interfaces/active-user-data.interface'
+import { Roles } from '@components/iam/authorization/decorators/roles.decorator'
+import { UserRole } from './enums/role.enum'
 
 @Resolver()
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
+  @Roles(UserRole.ADMIN)
   @Query(() => [User], { name: 'users' })
   async findAll(
+    @ActiveUser() user: ActiveUserData,
     @Args('paginationQueryInput') paginationQueryInput: PaginationQueryInput,
   ) {
+    console.log(user)
     return this.userService.findAll(paginationQueryInput)
   }
 

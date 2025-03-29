@@ -3,12 +3,13 @@ import { Exclude, instanceToPlain } from 'class-transformer'
 import { IsEmail, IsNotEmpty, Matches } from 'class-validator'
 import { Abstract } from '@entities/abstract.entity'
 import { ApiHttpResponse } from '@common/enums/api-http-response.enum'
-import { UserRole, UserStatus } from '@enums/user.enum'
 import * as bcrypt from 'bcryptjs'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Company } from './company.entity'
 import { Article } from './article.entity'
 import { Token } from './token.entity'
+import { UserRole } from '@components/user/enums/role.enum'
+import { UserStatus } from '@components/user/enums/status.enum'
 
 @Entity('users')
 @ObjectType()
