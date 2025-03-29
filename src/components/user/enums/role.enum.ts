@@ -12,14 +12,3 @@ export enum UserRole {
 registerEnumType(UserRole, {
   name: 'UserRole',
 })
-
-export enum UserStatus {
-  ACTIVE = 'active',
-  BANNED = 'banned',
-  DELETED = 'deleted',
-  INACTIVE = 'inactive',
-}
-
-registerEnumType(UserStatus, {
-  name: 'UserStatus',
-})
