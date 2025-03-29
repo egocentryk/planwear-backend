@@ -4,7 +4,30 @@
 
 ## Current status
 
-**Work in progress** - pre-alpha stage!!! Back on track after short break, moving from NestJS v7 to 11.x
+**Work in progress** - pre-alpha stage!!! Last days was very effective, let's dive in:
+
+- [x] Identity and Access Management
+
+Enterprise-grade IAM module was created. Build up entirely using JWT identity & access management module offers guards for protecting routes, user and roles decorators, refresh tokens, invalidating tokens using REDIS, nad Role-Based Access Control. Future DLC will include:
+
+- [ ] Policy-Based Authorization, which will replace RBAC
+- [ ] API Keys for additional features
+- [ ] 2FA
+- [ ] Sessions with Passport, and again using REDIS
+
+Additional work done in march:
+
+- [x] GraphQL implementation (almost everywhere, but not final yet)
+
+Instead of classic REST API, were was problems like under & over-fetching. GraphQL also is strongly typed, so this is an another win for application.
+
+- [x] Swagger was removed
+
+It's not needed with GraphQL.
+
+- [x] Transition from NestJS version 7.x to 11.x
+
+Smooth AF.
 
 ## Description
 
