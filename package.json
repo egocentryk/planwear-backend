@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@apollo/server": "^4.11.3",
+    "@apollo/server": "^4.12.0",
     "@nestjs/apollo": "^13.0.4",
     "@nestjs/cache-manager": "^3.0.1",
     "@nestjs/common": "^11.0.13",
@@ -50,14 +50,14 @@
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
     "rxjs": "^7.8.2",
-    "twilio": "^5.5.1",
+    "twilio": "^5.5.2",
     "typeorm": "^0.3.22"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.23.0",
-    "@nestjs/cli": "^11.0.5",
-    "@nestjs/schematics": "^11.0.2",
+    "@eslint/js": "^9.24.0",
+    "@nestjs/cli": "^11.0.6",
+    "@nestjs/schematics": "^11.0.4",
     "@nestjs/testing": "^11.0.13",
     "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.1",
@@ -66,9 +66,9 @@
     "@types/multer": "^1.4.12",
     "@types/node": "^22.14.0",
     "@types/supertest": "^6.0.3",
-    "@typescript-eslint/eslint-plugin": "^8.29.0",
-    "@typescript-eslint/parser": "^8.29.0",
-    "eslint": "^9.23.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.1",
+    "@typescript-eslint/parser": "^8.29.1",
+    "eslint": "^9.24.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
     "globals": "^16.0.0",
@@ -81,8 +81,8 @@
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.29.0"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.1"
   },
   "jest": {
     "moduleFileExtensions": [
